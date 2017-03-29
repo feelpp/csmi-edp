@@ -1,0 +1,50 @@
+= TP1: Le laplacien
+
+
+L'objectif est de vérifier que les différentes formulations du Laplacien en
+fonction des conditions aux limites
+
+* Dirichlet non homogène
+* Neumann non homogene
+* Fourier (ou encore appelée Robin)
+
+satisfont les résultats d'estimation d'erreur a posteriori du link:http://book.feelpp.org/math/#thr:17[théorème d'approximation conforme du cours].
+
+Afin de vérifier ces résultats, nous allons considérer le problème suivant:
+
+On suppose 4 cas:
+
+. soit stem:[\Omega] le cercle unité tel que stem:[\partial \Omega = \Gamma_D] cas Dirichlet 
+. soit stem:[\Omega] le cercle unité tel que stem:[\partial \Omega = \Gamma_N] cas Neumann
+. soit stem:[\Omega] le cercle unité tel que stem:[\partial \Omega = \Gamma_R] cas Robin
+. soit stem:[\Omega] le cercle unité tel que stem:[\partial \Omega = \Gamma_D \cup \Gamma_N \cup \Gamma_R] cas mixte avec
+* stem:[\Gamma_D = \{\mathbf{x} = (\cos\theta,\sin\theta),\ \theta \in (0,\pi/2) \}]
+* stem:[\Gamma_N = \{\mathbf{x} = (\cos\theta,\sin\theta),\ \theta \in (\pi/2,\pi) \}]
+* stem:[\Gamma_F = \{\mathbf{x} = (\cos\theta,\sin\theta),\ \theta \in (\pi,2\pi) \}]
+
+
+[[eq:lap]]
+[stem]
+++++
+  \begin{split}
+    -\Delta u &= f\\
+    u &= g\ \mbox{ sur }\ \Gamma_D\\
+    \frac{\partial u}{\partial n} &= m\ \mbox{ sur }\ \Gamma_N\\
+    u + \frac{\partial u}{\partial n} &= l\ \mbox{ sur }\ \Gamma_F\\
+  \end{split}
+++++
+
+Pour les 4 cas:
+
+. écrire la formulation faible
+. vérifier la convergence en norme stem:[L^2] dans les 2 cas suivants pour un ordre polynomial stem:[k=2]:
+.. cas stem:[u] fonction constante
+.. cas stem:[u=\sin(\pi x) \cos(\pi y)]
+
+on donnera à chaque fois
+
+* la configuration adaptée en {feelpp}: maillage et fichier de configuration
+* on affichera la solution
+* on présentera une table et une figure de convergence
+
+

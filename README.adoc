@@ -1,0 +1,8 @@
+=  TP
+
+== configuration
+
+----
+mkdir build
+CXX=clang++-3.9 CC=clang-3.9  sh ../configure -r
+----
