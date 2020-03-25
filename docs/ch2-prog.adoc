@@ -273,25 +273,31 @@ puis stem:[\nabla \psi_{r}\left(T_{K}(y)\right)=\nabla \hat{\psi}_{r}(y) \nabla 
 
 Definition::
 Soit stem:[K] polygone et stem:[n \in \mathbb{N}^{*} .] 
-On considère stem:[a]
+On considère 
 [stem]
 ++++
 Q(\phi)=\sum_{i=1}^{n} \omega_{i} \phi\left(\xi_{i}\right) \quad \approx \int_{K} \phi(x) d x
 ++++
-stem:[\left(\xi_{i}\right) \in K^{n}:] points de quadrature
-stem:[\left(\omega_{i}\right) \in \mathbb{R}^{n}:] poids de quadrature 
+
+* stem:[\left(\xi_{i}\right) \in K^{n}:] points de quadrature
+* stem:[\left(\omega_{i}\right) \in \mathbb{R}^{n}:] poids de quadrature 
 
 === Ordre de quadrature
-le plus grand entier stem:[m \in \mathbb{N}] tel que stem:[p] soit exacte sur stem:[\mathbb{P}_{m}] Estimation d'erreur : stem:[\exists c>0] telle que stem:[\forall \phi \in C^{m+1}(K)]
+
+le plus grand entier stem:[m \in \mathbb{N}] tel que stem:[p] soit exacte sur stem:[\mathbb{P}_{m}] 
+
+Estimation d'erreur:: stem:[\exists c>0] telle que stem:[\forall \phi \in C^{m+1}(K)]
 [stem]
 ++++
 \left|\sum_{i=1}^{n} \omega_{i} \phi\left(\xi_{i}\right)-\int_{K} \phi(x) d x\right| \leqslant c \operatorname{mes}(K) h_{K}^{m+1}\|\phi\|_{C^{m+1}(K)}
 ++++
+
 stem:[\operatorname{mes}(K):=] volume de stem:[K]
 
 === Formule de quadrature
 
 Cas du simplexe dans stem:[\mathbb{R}^{2}: \hat{K}=\left\{x, y \in \mathbb{R}_{+}^{2}, \quad x+y \leqslant 1\right\}]
+
 Coordonnées barycentriques: stem:[A_{1}=(0,0), A_{2}=(1,0), A_{3}=(0,1)]
 [.x-small]
 [stem]
@@ -363,9 +369,10 @@ En pratique, pour ne pas modifier la taille de la matrice en fonction des condit
 [.left]
 --
 on modifie les lignes associés aux noeuds du bord. On met les lignes à 0 sauf 1 sur la diagonale et la valeur de la condition au second membre. 
+On écrit simplement ce que valent les degré de liberté aux bords Dirichlet.
 --
 
-NOTE: Afin d'avoir une matrice symétrique on peut aussi modifier les colonnes correspondantes et le second membre maios 
+NOTE: Afin d'avoir une matrice symétrique on peut aussi modifier les colonnes correspondantes et le second membre. Cependant ce n'est pas nécessaire de le faire, le gradient conjugué, par exemple, n'est pas impacté par cette modification(on peut le montrer).
 
 
 === Méthode de pénalisation
