@@ -164,14 +164,15 @@ Point (2)={L,0,0,h};
 Point (3)={L,L,0,h};
 Point (4)={0,L,0,h};
 // Definition des lignes
-Line (1)=\{1,2\};
-Line (2)=\{2,3\};
-Line (3)=\{3,4\};
-Line (4)=\{4,1\};
+Line (1)={1,2};
+Line (2)={2,3};
+Line (3)={3,4};
+Line (4)={4,1};
 // Definition de la surface
-Line Loop (1)=(1,2,3,4} ;
-Plane surface (1)=(1);
-Physical surface (1)={1};</code></pre></div></div></div></section><section id="_exemple_2"><h2>Exemple</h2><div class="slide-content"><div class="listingblock"><div class="title">commande pour générer le fichier .geo</div>
+Line Loop (5)={1,2,3,4} ;
+Plane Surface (10)={5};
+Physical Line ("Dirichlet")={1,2,3,4};
+Physical Surface ("Omega")={10};</code></pre></div></div></div></section><section id="_exemple_2"><h2>Exemple</h2><div class="slide-content"><div class="listingblock"><div class="title">commande pour générer le fichier .geo</div>
 <div class="content"><pre class="highlightjs highlight"><code data-lang="sh" class="language-sh hljs" data-noescape="true">gmsh carre.geo</code></pre></div></div>
 <div class="openblock small"><div class="content"><div class="ulist"><ul><li><p>Pour générer le maillage : <code>Mesh / 2D</code></p></li><li><p>Pour générer le fichier gmsh : <code>File / Save mesh</code></p></li><li><p>Pour changer la couleur: <code>Tools / General / Color / Predefined color scheme / Dark</code></p></li><li><p>Pour afficher le numéro des noeuds: <code>Tools / Mesh / Visibility / Node Iabels</code></p></li><li><p>Pour afficher le numéro des éléments \(2 \mathrm{D}\) : <code>Tools / Mesh / Visibility / 2D element Iabels</code></p></li><li><p>Création d&#8217;un fichier msh en ligne de commande:</p></li></ul></div></div></div>
 <div class="listingblock"><div class="content"><pre class="highlightjs highlight"><code data-lang="sh" class="language-sh hljs" data-noescape="true">gmsh -2 -order 1 carre.geo -o carre.msh</code></pre></div></div></div></section><section id="_fichier_msh"><h2>Fichier .msh</h2><div class="slide-content"><div class="listingblock"><div class="content"><pre class="highlightjs highlight"><code data-lang="text" class="language-text hljs" data-noescape="true" data-line-numbers="">$MeshFormat
