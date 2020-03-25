@@ -1,0 +1,470 @@
+= Méthodes numériques pour les EDP
+:stem: latexmath
+// 16:9
+:revealjs_width: 1280
+:revealjs_height: 720
+// shorthands
+:topic: .topic,background-color="#da291c"
+:key: .topic,background-color="black"
+:revealjs_slidenumber: true
+:customcss: slides.css
+:author: Christophe Prud'homme <christophe.prudhomme@cemosis.fr>
+:date: 2020-04-24
+:icons: font
+// we want local served fonts. Therefore patched sky.css
+//:revealjs_theme: sky
+:revealjs_customtheme: css/sky.css
+:revealjs_autoSlide: 5000
+:revealjs_history: true
+:revealjs_fragmentInURL: true
+:revealjs_viewDistance: 5
+:revealjs_width: 1408
+:revealjs_height: 792
+:revealjs_controls: true
+:revealjs_controlsLayout: edges
+:revealjs_controlsTutorial: true
+:revealjs_slideNumber: c/t
+:revealjs_showSlideNumber: speaker
+:revealjs_autoPlayMedia: true
+:revealjs_defaultTiming: 42
+//:revealjs_transitionSpeed: fast
+:revealjs_parallaxBackgroundImage: images/background-landscape-light-orange.jpg
+:revealjs_parallaxBackgroundSize: 4936px 2092px
+:customcss: css/slides.css
+:imagesdir: images
+:source-highlighter: highlightjs
+:highlightjs-theme: css/atom-one-light.css
+// we want local served font-awesome fonts
+:iconfont-remote!:
+:iconfont-name: fonts/fontawesome/css/all
+
+[.lightbg,background-opacity="1"] 
+== Rappels de calcul différentiel et intégral
+
+=== Champs scalaire
+
+stem:[u: x \in \mathbb{R}^{d} \mapsto u(x) \in \mathbb{R}]
+
+gradient:: stem:[\nabla u=\left(\partial_{x_{1}} u, \ldots, \partial_{x_{d}} u\right)^{T} \in \mathbb{R}^{d}]
+
+
+=== champs de vecteur
+
+stem:[U: x \in \mathbb{R}^{d} \mapsto\left(U_{1}(x), \ldots, U_{d}(x)\right) \in \mathbb{R}^{d}]
+
+divergence:: 
+stem:[\nabla \cdot U=\partial_{x_{1}} U_{1}+\ldots+\partial_{x_{d}} U_{d}]
+
+gradient:: 
+[stem]
+++++
+\nabla U=\left(\partial_{x_{j}} U_{i}\right)=\left[\begin{array}{c}\nabla U_{1}^{T} \\ \vdots \\ \nabla U_{d}^{T}\end{array}\right]
+++++
+
+=== Laplacien 
+
+champs scalaire::
+stem:[\Delta u=\nabla \cdot \nabla u=\partial_{x_{1}^{2}} u+\ldots+\partial_{x_{d}^{2}} u]
+
+champs de vecteur::
+stem:[\Delta U=\nabla \cdot \nabla U=(\partial_{x_{1}^{2}} U_1+\ldots+\partial_{x_{d}^{2}} U_1,\ldots,\partial_{x_{1}^{2}} U_d+\ldots+\partial_{x_{d}^{2}} U_d)]
+
+=== Visualisation
+
+Logiciels:: Paraview, Visit, Mayavi, Gmsh, ...
+
+==== champs scalaire
+* ensemble de niveau stem:[c] stem:[\{x \in \mathbb{R}^d, u(x) = c\}, \min u \leq c \max u]
+* graphe stem:[\{x \in \mathbb{R}^d, \alpha*u(x)\} \subset \mathbb{R}^{d+1}] où stem:[\alpha] est un facteur d'échelle (scaling factor sous paraview)
+
+=== champs de vecteurs
+
+* ensemble de niveau par composante ou sur la magnitude stem:[x \mapsto |u(x)|]
+* lignes de courant stem:[t \mapsto X(t)] telles que stem:[X'(t)=U \circ X(t), \quad X(0) = x_0]
+* flèches  stem:[x \mapsto (U_1(x),\ldots,U_d(x))]
+
+=== Formules de Green
+
+[.x-small,.col2]
+--
+Proposition stem:[\Omega] ouvert régulier (Lipshitz), stem:[u \in C^{1}(\bar{\Omega})]
+
+[stem]
+++++
+\int_{\Omega} \partial_{x_{i}} u(x) d x=\int_{\partial \Omega} u(x) n_{i}(x) d \sigma
+++++
+--
+
+[.x-small,.col2]
+--
+lntégration par partie
+Proposition stem:[\Omega] ouvert régulier (Lipshitz)
+stem:[u, v \in C^{1}(\bar{\Omega})]
+
+[stem]
+++++
+\int_{\Omega} \partial_{x_{i}} u v d x=-\int_{\Omega} u \partial_{x_{i}} v d x+\int_{\partial \Omega}\left(u n_{i}\right) v d \sigma
+++++
+--
+
+[.x-small,.col2]
+--
+stem:[u \in C^{2}(\bar{\Omega}), v \in C^{1}(\bar{\Omega})]
+
+[stem]
+++++
+\int_{\Omega} \Delta u v d x=-\int_{\Omega} \nabla u \cdot \nabla v d x+\int_{\partial \Omega}(n \cdot \nabla u) v d \sigma
+++++
+--
+
+=== Formule de Gauss
+stem:[U \in C^{1}\left(\bar{\Omega}, \mathbb{R}^{d}\right)]
+
+[stem]
+++++
+\int_{\Omega} \nabla \cdot U d x=\int_{\partial \Omega}(n \cdot U) d \sigma
+++++
+
+=== Intégration sur une courbe
+
+Intégrale sur une courbe stem:[\Sigma \subset \mathbb{R}^{2}] paramétrée par 
+
+[stem]
+++++
+x: t \in[a, b] \mapsto x(t) \in \mathbb{R}^{2}
+++++
+
+[stem]
+++++
+\int_{\Sigma} f(x) d \sigma(x)=\int_{[a, b]} f(x(t))\left\|x^{\prime}(t)\right\| d t
+++++
+
+=== Intégrale sur une surface
+stem:[\Sigma \subset \mathbb{R}^{3}] paramétrée par 
+[stem]
+++++
+x:(t, s) \in[a, b] \times[c, d] \mapsto x(t, s) \in \mathbb{R}^{3} \mbox{ et } n=\partial_{t} x \times \partial_{s} x
+++++
+
+[stem]
+++++
+\int_{\Sigma} f(x) d \sigma(x)=\int_{[a, b] \times[c, d]} f(x(t, s))\left\|\partial_{t} x \times \partial_{s} x\right\| d t d s
+++++
+
+=== intégrale d'un champ de vecteur sur une surface
+
+[stem]
+++++
+\int_{\Sigma} U \cdot d \sigma=\int_{\Sigma}(U \cdot n) d \sigma
+++++
+
+[.lightbg,background-opacity=".7"] 
+== Problème de Poisson
+
+Problème:: trouver stem:[u: \Omega \rightarrow \mathbb{R}^{d}] tel que
+[stem]
+++++
+\begin{split}
+-\Delta u(x)&=f(x) \mbox{ sur } \Omega\\
+u(x)&=0 \mbox{ sur } \partial \Omega\\
+\end{split}
+++++
+[.left]
+--
+avec stem:[\Omega \subset \mathbb{R}^{d}] ouvert borné Lipshitzien. 
+On applique des conditions de type Dirichlet homogène.
+--
+
+=== Modèle physique associé 
+
+* stem:[u] déformation d'une membrane élastique
+* stem:[u=n] densité de molécule chimique qui diffuse
+* stem:[u=T] température
+* stem:[u=\phi] potentiel électrique
+
+stem:[\rightarrow] Modèles stationnaires, à l'équilibre (pas de dépendance temporelle)
+
+=== Interprétation
+
+Equilibre::
+[stem]
+++++
+\begin{aligned}
+-\Delta u=f & \Longleftrightarrow \mbox{écrire les étapes ici } \\
+& \Longleftrightarrow \\
+& \Longleftrightarrow \quad \forall \omega \subset \Omega, \quad-\int_{\partial \omega}(n \cdot \nabla u) d \sigma=\int_{\omega} f
+\end{aligned}
+++++
+[.small]
+--
+bilan de force:: force surfacique et force volumique à l'équilibre
+bilan de matière:: flux surfacique et terme source volumique
+--
+
+
+[.lightbg]                      
+== Etapes de la Méthodes des éléménts finis
+
+=== 1) Problème variationnel 
+
+[.left]
+--
+stem:[\Omega] ouvert régulier (Lipshitz)
+
+*Espaces de Sobolev:*
+--
+[stem]
+++++
+\begin{aligned}
+H^{1}(\Omega) &=\left\{u \in L^{2}(\Omega), \quad \partial_{x_{i}} u \in L^{2}(\Omega)\right\} \\
+&=\left\{u \in L^{2}(\Omega), \quad \nabla u \in\left(L^{2}(\Omega)\right)^{d}\right\}=\overline{C_{c}^{\infty}(\bar{\Omega})} \\
+H_{0}^{1}(\Omega) &=\left\{u \in H^{1}(\Omega), \quad u_{| \partial \Omega}=0\right\}=\overline{C_{c}^{\infty}(\Omega)}
+\end{aligned}
+++++
+
+[%notitle]
+=== Propositionx
+*Formule d'intégration par partie*: stem:[u, v \in H^{1}(\Omega)]
+[stem]
+++++
+\int_{\Omega} \partial_{x_{i}} u v d x=-\int_{\Omega} u \partial_{x_{i}} v d x+\int_{\partial \Omega}\left(u n_{i}\right) v d \sigma
+++++
+*Formule de Green*: stem:[u \in H^{2}(\Omega), v \in H^{1}(\Omega)]
+[stem]
+++++
+\int_{\Omega} \Delta u v d x=-\int_{\Omega} \nabla u \cdot \nabla v d x+\int_{\partial \Omega}(n \cdot \nabla u) v d \sigma
+++++
+*Poisson, Dirichlet homogène*:
+[stem]
+++++
+\text { Trouver } u \in H_{0}^{1}(\Omega), \quad \int_{\Omega} \nabla u \cdot \nabla v=\int_{\Omega} f v, \quad \forall v \in H_{0}^{1}(\Omega)
+++++
+
+
+=== 2) Résolution et régularité 
+
+[.small]
+--
+Definition Problème variationnel:: Soit stem:[V] un espace de Hilbert
++
+[stem]
+++++
+\text {Trouver } u \in V, \quad a(u, v)=\ell(v), \quad \forall v \in V
+++++
+avec stem:[a: V \times V \rightarrow \mathbb{R}] and stem:[\ell: V \rightarrow \mathbb{R}]
+
+Proposition (Lax-Milgram):: soit stem:[V] espace de Hilbert.
++
+* a: forme bilinéaire, continue, coercive sur stem:[V]
+* stem:[\ell:] forme linéaire continue sur stem:[V] 
+Alors, le problème variationnel admet une unique solution stem:[u \in V]
+De plus, si la forme bilinéaire est symmétrique, la solution est le minimum de la fonctionnelle
+[stem]
+++++
+J(u)=\frac{1}{2} a(u, u)-\ell(u)
+++++
+--
+
+=== Application:
+
+[.left]
+--
+Soit stem:[f \in L^{2}(\Omega)]. 
+
+Le problème de Poisson (avec condition de Dirichlet) admet une unique solution faible ]u \in H_{0}^{1}(\Omega)$ 
+--
+Régularité:: Si de plus stem:[\left.\Omega \text { est de classe } C^{2} \text { (ou polyédrique convexe en } 2 \mathrm{d}\right),] alors stem:[u \in H^{2}(\Omega)]
+
+
+=== Méthode de Galerkin
+
+[.left]
+--
+*Definition*:
+Soit stem:[V_{h}] sous espace vectoriel de stem:[V] de dimension finie stem:[N_{h} .] La famille stem:[\left(V_{h}\right)_{h}] est une approximation interne de stem:[V] si pour tout stem:[u \in V,] il existe stem:[\left(u_{h}\right)_{h}] tel que stem:[\left\|u-u_{h}\right\|_{V} \rightarrow 0]
+
+*Problème variationnel approché*: Soit stem:[V] un espace de Hilbert, trouver: 
+--
+[stem]
+++++
+u_{h} \in V_{h}, \quad a\left(u_{h}, v_{h}\right)=\ell\left(v_{h}\right), \quad \forall v_{h} \in V_{h}
+++++
+avec stem:[a: V \times V \rightarrow \mathbb{R}] and stem:[\ell: V \rightarrow \mathbb{R}]
+
+Soit stem:[\left(\varphi_{i}\right)] base de stem:[V_{h}]
+[stem]
+++++
+u_{h}(x)=\sum_{j=1}^{N_{h}} u_{j} \varphi_{j}(x)
+++++
+
+=== Méthode de Galerkin
+[.x-small,.left]
+--
+[stem]
+++++
+\begin{aligned}
+a\left(u_{h}, v_{h}\right)=\ell\left(v_{h}\right), \quad \forall v_{h} \in V_{h} & \Longleftrightarrow \sum_{j=1}^{N_{h}} u_{j} a\left(\varphi_{j}, v_{h}\right)=\ell\left(v_{h}\right), \quad \forall v_{h} \in V_{h} \\
+& \Longleftrightarrow \sum_{j=1}^{N_{h}} u_{j} a\left(\varphi_{j}, \varphi_{i}\right)=\ell\left(\varphi_{i}\right), \quad \forall i \in \mathbb{I}, N_{h} \mathbb{I} \\
+& \Longleftrightarrow A u_{h}=b \\
+\operatorname{avec} A=\left(a\left(\varphi_{i}, \varphi_{j}\right)\right)_{i, j} \text { et } b=\left(\ell\left(\varphi_{i}\right)\right)
+\end{aligned}
+++++
+*Question:* définir les espaces stem:[V_{h}] et les bases stem:[\left(\varphi_{i}\right)]
+--
+
+=== Maillage
+
+[.small,.left]
+--
+*Definition (Maillage) Maillage*: partition du domaine en stem:[N_{\mathrm{el}}] sous-ensembles disjoints (compact, connexe, à frontière Lipshitz et d'intérieur non vide)
+--
+[stem]
+++++
+\bar{\Omega}=\bigcup_{i=1}^{N_{\mathrm{e} 1}} K_{i} \quad \mbox{ avec } \dot{K}_{i} \cap \stackrel{\circ}{K}_{j}=\emptyset
+++++
+[.small]
+--
+stem:[\mathcal{T}_{h}=\left\{K_{i}, i = 1, N_{\mathrm{el}} \right\}]
+
+* diamètre d'un élément: stem:[h_{K}=\operatorname{diam}(K)=\max _{x, y \in K}\|x-y\|]
+* plus grand diamètre: stem:[h=\max _{K \in \mathcal{T}_{h}} h_{K}]
+
+*Definition*: Maillage *conforme* si l'intersection de deux éléments est soit vide, soit un sommet soit une arête soit une face.
+--
+
+=== Transformation géométrique
+
+[.left]
+--
+Génération de maillage à partir d'un élément de référence stem:[\hat{K}]
+stem:[\rightarrow K_{i}=T_{K_{i}}(\hat{K})] où stem:[T_{K_{i}}] est une transformation géométrique.
+
+stem:[\rightarrow T_{K_{i}}] est un stem:[C^{1}] diffeomorphisme (bijective, stem:[C^{1}] et d'inverse stem:[C^{1}] )
+
+NOTE: Maillage affine lorsque toutes les transformations sont affines.
+--
+
+[.small]
+--
+* maillage polyèdrique si stem:[\hat{K}] est un polyèdre 
+* stem:[\hat{K}] cuboid (carré en stem:[2 \mathrm{D}], cube en stem:[3 \mathrm{D}] ) : maille parallelogramme ( stem:[2 \mathrm{D}] ), maille parrallélipédique (3D) 
+* stem:[\hat{K}] simplexe (triangle en 2 D, tétraèdre en stem:[3 \mathrm{D}] ): maille triangulaire stem:[(2 \mathrm{D})] maille trétraédrique ( stem:[3 \mathrm{D}] )
+--
+NOTE: possibilité de maillages mixtes
+
+
+
+=== Approximation par éléments finis de Lagrange
+
+[.left.x-small]
+--
+*3) Choix du maillage stem:[\mathcal{T}_{h}=\left\{K_{i}\right\}] maillage*
+
+*4) Choix de l'espace stem:[V_{h}]*
+
+Proposition:: Soit stem:[u \in C(\Omega)] telle que stem:[u_{| K} \in H^{1}(K)] pour tout stem:[K \in \mathcal{T}_{h} .] Alors stem:[u \in H^{1}(\Omega)]
+
+stem:[P_{ch}^{k}=\left\{v_{h} \in C(\bar{\Omega}), \quad \forall K \in \mathcal{T}_{h}, v_{h | K} \in \mathbb{P}_{k}\right\} \subset H^{1}(\Omega)]
+fonctions continues affines par morceaux
+
+stem:[P_{c,h,0}^{k}=\left\{v_{h} \in P_{h}^{k}, \quad v_{h | \partial \Omega}=0\right\} \subset H_{0}^{1}(\Omega)]
+fonctions continues affines par morceaux nulles au bord
+
+5) Construction d'une base l'espace stem:[V_{h}]::
+Définir une base de stem:[P_{c,h}^{1}] ? Comment la décrire?
+--
+
+=== Exemple: Degré de libertés sur un simplexe  
+
+[.left.x-small]
+--
+*Simplexe*: stem:[K=\left\{x \in \mathbb{R}_{+}^{d}, x_{1}+\ldots+x_{d} \leqslant 1\right\}] de sommets stem:[a_{1}, \ldots, a_{d+1}]
+
+[.x-small]
+Proposition:: Tout polynôme stem:[p \in \mathbb{P}_{1}] se met sous la forme: stem:[p(x)=\sum_{j=1}^{d+1} p\left(a_{j}\right) \lambda_{j}(x)] ou les stem:[\left(\lambda_{j}(x)\right)] sont les coordonnées barycentriques de stem:[x\left(\lambda_{j} \text { fonction affine valant } 1\right.] en stem:[a_{j}] et 0 en stem:[a_{i}] pour stem:[i \neq j] ).
+
+* stem:[\rightarrow] Les valeurs aux points stem:[a_{j}] déterminent stem:[p \in \mathbb{P}_{1}] de manière unique
+* stem:[\rightarrow] si stem:[\mathbb{P}_{k}] est de dimension stem:[n_{k},] il faut les valeurs en stem:[n_{k}] points (de stem:[K] ) pour déterminer un polynôme stem:[p \in \mathbb{P}_{1}] de manière unique.
+
+*Eléments finis de Lagrange*: Elément fini de Lagrange stem:[(K, P, \Sigma): K] partie de stem:[\mathbb{R}^{d}, P] e.v. de fonctions polynomiales définie sur stem:[K, \Sigma=\left\{a_{1}, \ldots, a_{n}\right\}]
+
+*Definition*: stem:[\Sigma] est stem:[P] -unisolvant si pour tout réels stem:[\left(b_{i}\right), \exists ! p \in P] tel que stem:[p\left(a_{i}\right)=b_{i}]
+
+*Notation*: fonction de base stem:[\left(\psi_{i}\right): \psi_{i}\left(a_{j}\right)=\delta_{i, j}]
+--
+
+=== Eléments finis sur le maillage 
+
+[.left.x-small]
+--
+stem:[\mathcal{T}_{h}] maillage construit à partir de stem:[\hat{K}]. On note stem:[\mathcal{T}_{h}] stem:[(\hat{K}, \hat{P}, \hat{\Sigma})] l'élément fini de référence. A tout stem:[K \in \mathcal{T}_{h}], on associe le triplet stem:[(K, P, \Sigma)] avec 
+
+* stem:[P_{K}=\left\{\hat{p} \circ T_{K}^{-1}, \hat{p} \in \hat{P}\right\}]
+* stem:[\cdot \Sigma=\left\{a_{K, i}=T_{K}\left(\hat{a}_{i}\right)\right\}]
+Fonction de forme : stem:[\psi_{K, i}=\hat{\psi}_{i} \circ T_{K}^{-1}]
+
+*Construction de la base*:
+stem:[\left(\varphi_{i}\right)] stem:[\left\{a_{1}, \ldots, a_{N}\right\}=\cup_{K \in \mathcal{T}_{h}}\left\{a_{K, 1}, \ldots, a_{K, n}\right\}:] points de tous les éléments finis du maillage (sans répétition)
+
+A chaque stem:[a_{j}] correspond une fonction de base stem:[\varphi_{j}]
+
+[stem]
+++++
+\forall K \supset a_{j}, \quad \varphi_{j | K}=\psi_{K, r_{K, j}}
+++++
+
+avec stem:[\psi_{K, r_{K, j}}\left(a_{j}\right)=1]. *stem:[\varphi_{i} \in P_{c,h}^{k}] et stem:[\left\{\varphi_{1}, \ldots, \varphi_{N}\right\}] forment une base de stem:[P_{c, h}^{k}]*
+
+
+*Base de stem:[P_{c,h,0}^{k}]:* on retire les fonctions associées aux points du bord.
+--
+
+== Résolution
+
+stem:[\forall i 1,\ldots, N_{h} \mathbb{l}, \quad \sum_{j=1}^{N} u_{j} \int_{\Omega} \nabla \varphi_{j} \cdot \nabla \varphi_{i}=\int_{\Omega} f \varphi_{i}]
+equivalent à
+[stem]
+++++
+A 
+\begin{pmatrix}
+    u_{1}\\
+    \vdots \\
+    u_{N}
+\end{pmatrix}=b
+++++ 
+avec stem:[A=\left(\int_{\Omega} \nabla \varphi_{i} \cdot \nabla \varphi_{j}\right)_{i, j} \in M_{N}(\mathbb{R})]
+stem:[b=\left(\int_{\Omega} f \varphi_{i}\right)_{i} \in \mathbb{R}^{N}]
+
+* stem:[\rightarrow] Matrice symétrique définie positive
+* stem:[\rightarrow] Matrice creuse
+* stem:[\rightarrow] Méthode Cholesky, Gradient Conjugué, Multigrille
+
+== Convergence
+
+[.left.x-small]
+--
+*Définition*:  stem:[\Omega] polyédrique. 
+stem:[\left(\mathcal{T}_{h}\right)_{h}] est une suite régulière de triangulation si stem:[h \rightarrow 0] et il existe stem:[C>0]
+[.x-small]
+[stem]
+++++
+\forall h, \quad \sup _{K}\left(\frac{h_{K}}{\rho_{K}}\right) \leqslant C
+++++
+où stem:[\rho_{K}] est le rayon du cercle inscrit du triangle stem:[K]
+
+[.x-small]
+Proposition:: stem:[\Omega] polyédrique et stem:[\left(\mathcal{T}_{h}\right)] une famille régulière de triangulations. Soit stem:[f \in L^{2}(\Omega)]
+et stem:[u \in H_{0}^{1}(\Omega)] la solution du problème. Soit stem:[u_{h} \in P_{c,h,0}^{1}] la solution du problème de Poisson approché. Alors
+[.x-small]
+[stem]
+++++
+\left\|u-u_{h}\right\|_{H^{1}} \rightarrow 0
+++++
+Si de plus stem:[u \in H^{2}(\Omega),] alors
+[.x-small]
+[stem]
+++++
+\left\|u-u_{h}\right\|_{H^{1}} \leqslant C h\|f\|_{L^{2}} \quad
+\left\|u-u_{h}\right\|_{L^{2}} \leqslant C h^{2}\|f\|_{L^{2}}
+++++
+--

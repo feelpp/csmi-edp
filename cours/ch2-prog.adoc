@@ -1,0 +1,372 @@
+= Programmation de la méthode
+:stem: latexmath
+// 16:9
+:revealjs_width: 1280
+:revealjs_height: 720
+// shorthands
+:topic: .topic,background-color="#da291c"
+:key: .topic,background-color="black"
+:revealjs_slidenumber: true
+:customcss: slides.css
+:author: Christophe Prud'homme <christophe.prudhomme@cemosis.fr>
+:date: 2020-04-24
+:icons: font
+// we want local served fonts. Therefore patched sky.css
+//:revealjs_theme: sky
+:revealjs_customtheme: css/sky.css
+:revealjs_autoSlide: 5000
+:revealjs_history: true
+:revealjs_fragmentInURL: true
+:revealjs_viewDistance: 5
+:revealjs_width: 1408
+:revealjs_height: 792
+:revealjs_controls: true
+:revealjs_controlsLayout: edges
+:revealjs_controlsTutorial: true
+:revealjs_slideNumber: c/t
+:revealjs_showSlideNumber: speaker
+:revealjs_autoPlayMedia: true
+:revealjs_defaultTiming: 42
+//:revealjs_transitionSpeed: fast
+:revealjs_parallaxBackgroundImage: images/background-landscape-light-orange.jpg
+:revealjs_parallaxBackgroundSize: 4936px 2092px
+:customcss: css/slides.css
+:imagesdir: images
+:source-highlighter: highlightjs
+:highlightjs-theme: css/atom-one-light.css
+// we want local served font-awesome fonts
+:iconfont-remote!:
+:iconfont-name: fonts/fontawesome/css/all
+
+
+== Gmsh
+
+Gmsh (logiciel libre): https://gmsh.info 
+
+* Création de maillage élément finis stem:[2 \mathrm{D} / 3 \mathrm{D}]
+* Interface graphique
+
+WARNING: différentes versions (version 2 / version 4 )
+
+=== Exemple
+Créer un fichier carre. geo
+
+[.source.small,cpp]
+----
+// parametres
+h =0.2;
+L =1;
+// Definition des points: stem:[(x, y, z)] et taille de l'element /
+Point (1)={0,0,0,h};
+Point (2)={L,0,0,h};
+Point (3)={L,L,0,h};
+Point (4)={0,L,0,h};
+// Definition des lignes
+Line (1)=\{1,2\};
+Line (2)=\{2,3\};
+Line (3)=\{3,4\};
+Line (4)=\{4,1\};
+// Definition de la surface
+Line Loop (1)=(1,2,3,4} ;
+Plane surface (1)=(1);
+Physical surface (1)={1};
+----
+
+=== Exemple
+
+[source,sh]
+.commande pour générer le fichier .geo
+----
+gmsh carre.geo
+----
+
+[.small]
+--
+* Pour générer le maillage : `Mesh / 2D`
+* Pour générer le fichier gmsh : `File / Save mesh`
+* Pour changer la couleur: `Tools / General / Color / Predefined color scheme / Dark`
+* Pour afficher le numéro des noeuds: `Tools / Mesh / Visibility / Node Iabels`
+* Pour afficher le numéro des éléments stem:[2 \mathrm{D}] : `Tools / Mesh / Visibility / 2D element Iabels`
+* Création d'un fichier msh en ligne de commande:
+--
+
+[source,sh]
+----
+gmsh -2 - order 1 carre . geo -o carre . msh
+----
+
+=== Fichier .msh
+
+[source,text,.small]
+----
+stem:[MeshFormat
+4 0 8
+]EndMeshFormat
+stem:[Entities
+4 4 1 0
+1 0 0 0 0 0 0 0 // Point 1
+2 1 0 0 1 0 0 0 // Point 2
+3 1 1 0 1 1 0 0 // Point 3
+4 0 1 0 0 1 0 0 // Point 4
+1 0 0 0 1 0 0 0 2 1 -2 // Line 1 entre Point 1 et Point 2
+2 1 0 0 1 1 0 0 2 2 -3 // Line 2 entre Point 2 et Point 3
+3 0 1 0 1 1 0 0 2 3 -4 // Line 3 ...
+4 0 0 0 0 1 0 0 2 4 -1 // Line 4 ...
+1 0 0 0 1 1 0 1 1 4 1 2 3 4 // Line 5
+]EndEntities
+----
+
+=== Fichier .msh
+
+[.source.x-small,text]
+----
+stem:[Nodes
+9 45
+1 0 0 1 // Point 1
+1 0 0 0
+2 0 0 1 // Point 2
+2 1 0 0
+3 0 0 1 // Point 3
+3 1 1 0
+4 0 0 1 // Point 4
+4 0 1 0
+1 1 0 4 // Line 1
+5 0.1999999999995579 0 0
+6 0.3999999999989749 0 0
+7 0.5999999999989468 0 0
+8 0.7999999999994734 0 0
+2 1 0 4 // Line 2
+9 1 0.1999999999995579 0
+10 1 0.3999999999989749 0
+11 1 0.5999999999989468 0
+12 1 0.7999999999994734 0
+3 1 0 4 // Line 3
+13 0.7999999999999998 1 0
+14 0.6000000000013869 1 0
+15 0.4000000000016644 1 0
+16 0.2000000000008322 1 0
+4 1 0 4 // Line 4
+17 0 0.7999999999999998 0
+18 0 0.6000000000013869 0
+19 0 0.4000000000016644 0
+20 0 0.2000000000008322 0
+1 2 0 25 // Surface 1
+21 0.7124999999991418 0.7124999999993721 0
+22 0.7125000000000453 0.2875000000003787 0
+.....
+]EndNodes
+----
+
+=== Fichier .msh (fin)
+
+[source,text,.small]
+----
+stem:[Elements
+1 68
+1 2 2 68 // 68 triangles
+1 21 43 29 // triangle 1 avec noeuds 21 , 43 et 29
+2 29 43 33
+3 41 29 35
+....
+----
+
+* vient de `Physical Surface(1) = {1};`
+* sans cette instruction : toutes les Elementary entities sont décrites
+* pour marquer les bords, on peut ajouter dans le code `.geo`
+
+[source,text]
+----
+Physical Line (11) = {1 ,3};
+Physical Line (12) = {2 ,4};
+----
+
+
+=== Autres commandes
+
+Maillage triangulaire structuré::
+----
+Transfinite surface {1}; 
+----
+
+Maillage quadrangulaire::
+----
+Recombine surface {1}; 
+----
+
+Maillage 3D par extrusion::
+----
+Extrude {0 ,1. ,1.5}{ Surface {1}; Layers {3}; Recombine ;}
+----
+
+// -------------------------------------
+
+== Assemblage de la matrice
+
+[.small]
+--
+[stem]
+++++
+\begin{aligned}
+A_{i, j} &=\int_{\Omega} \nabla \varphi_{i} \cdot \nabla \varphi_{j} \\
+&=\sum_{K \subset \operatorname{supp} \varphi_{i} \cap \operatorname{supp} \varphi_{j}} \int_{K} \nabla \varphi_{i} \cdot \nabla \varphi_{j} \\
+&=\sum_{K \subset \operatorname{supp} \varphi_{i} \cap \operatorname{supp} \varphi_{j}} \int_{K} \nabla \psi_{K, r_{K, i}} \cdot \nabla \psi_{K, r_{K, j}}
+\end{aligned}
+++++
+--
+
+=== Matrice de connectivité: 
+
+stem:[connect\left(\text {ind}_{K}, r\right)=i]
+
+* stem:[\rightarrow] le couple de fonctions de base stem:[\psi_{K, ri}, \psi_{K, rj}] contribue au terme stem:[A_{i, j}] avec stem:[i=connect\left(\text {ind}_{K}, r i\right)] et stem:[j=connect\left(\text {ind}_{K}, r j\right)]
+* stem:[\rightarrow] principe de l'assemblage : calculer les termes stem:[\int_{K} \nabla \psi_{K, r i} \cdot \nabla \psi_{K, r j}] et les ajouter au fur et à mesure dans la matrice.
+
+
+=== Assemblage de la matrice
+
+Rappel:: Changement de variable stem:[T: V \rightarrow U] un stem:[C^{1}] difféomorphisme
++
+[stem]
+++++
+\int_{U} f(x) d x=\int_{V} f(T(y))|\operatorname{det}(\nabla T(y))| d y
+++++
+
+Calcul des coefficients::
++
+[stem]
+++++
+\int_{K} \nabla \psi_{K, r i} \cdot \nabla \psi_{K, r j}=\int_{\hat{K}} \nabla \psi_{K, r i}\left(T_{K}(y)\right) \cdot \nabla \psi_{K, r j}\left(T_{K}(y)\right)\left|\operatorname{det}\left(\nabla T_{K}(x)\right)\right| d y
+++++
+
+=== Assemblage de la matrice
+
+Proposition:: 
++
+[stem]
+++++
+\nabla \psi_{K, r}\left(T_{K}(y)\right)=\nabla \hat{\psi}_{r}(y) \nabla T_{K}(y)^{-1}
+++++
+
+On a stem:[\psi_{K, r}(x)=\hat{\psi}_{r}\left(T_{K}^{-1}(x)\right)] donc stem:[\nabla \psi_{r}(x)=\nabla \hat{\psi}_{r}\left(T_{K}^{-1}(x)\right) \nabla T_{K}^{-1}(x)]
+puis stem:[\nabla \psi_{r}\left(T_{K}(y)\right)=\nabla \hat{\psi}_{r}(y) \nabla T_{K}^{-1}\left(T_{K}(y)\right) .] Puis stem:[\nabla T_{K}^{-1}\left(T_{K}(y)\right) \nabla T_{K}(y)=I d]
+
+* stem:[\left.\rightarrow \text { rem: } T_{K} \text { affine } \Rightarrow \nabla T_{K}(y) \text { matrice constante (indép. de } x\right)]
+* stem:[\rightarrow] Formules de quadratures sur stem:[\hat{K}]
+
+
+
+
+
+// -------------------------------------
+
+== Formule de quadrature
+
+Definition::
+Soit stem:[K] polygone et stem:[n \in \mathbb{N}^{*} .] 
+On considère stem:[a]
+[stem]
+++++
+Q(\phi)=\sum_{i=1}^{n} \omega_{i} \phi\left(\xi_{i}\right) \quad \approx \int_{K} \phi(x) d x
+++++
+stem:[\left(\xi_{i}\right) \in K^{n}:] points de quadrature
+stem:[\left(\omega_{i}\right) \in \mathbb{R}^{n}:] poids de quadrature 
+
+=== Ordre de quadrature
+le plus grand entier stem:[m \in \mathbb{N}] tel que stem:[p] soit exacte sur stem:[\mathbb{P}_{m}] Estimation d'erreur : stem:[\exists c>0] telle que stem:[\forall \phi \in C^{m+1}(K)]
+[stem]
+++++
+\left|\sum_{i=1}^{n} \omega_{i} \phi\left(\xi_{i}\right)-\int_{K} \phi(x) d x\right| \leqslant c \operatorname{mes}(K) h_{K}^{m+1}\|\phi\|_{C^{m+1}(K)}
+++++
+stem:[\operatorname{mes}(K):=] volume de stem:[K]
+
+=== Formule de quadrature
+
+Cas du simplexe dans stem:[\mathbb{R}^{2}: \hat{K}=\left\{x, y \in \mathbb{R}_{+}^{2}, \quad x+y \leqslant 1\right\}]
+Coordonnées barycentriques: stem:[A_{1}=(0,0), A_{2}=(1,0), A_{3}=(0,1)]
+[.x-small]
+[stem]
+++++
+(x, y)=\lambda_{1}(x, y) A_{1}+\lambda_{2}(x, y) A_{2}+\lambda_{3}(x, y) A_{3}
+++++
+avec stem:[\lambda_{1}(x, y)=1-(x+y), \lambda_{2}(x, y)=x, \lambda_{3}(x, y)=y]
+
+image::quadrature.png[Points et Poids de quadrature]
+
+=== Formule de quadrature
+
+[.x-small]
+.Exemples de quadratures, stem:[S=\operatorname{mes}(\hat{K})=1 / 2]
+|===
+| stem:[n] | ordre | coord. barycentrique | multiplicité | poids 
+| 3 | 1 | stem:[(1,0,0)]             | 3 | stem:[1 / 3 \times S] 
+| 3 | 2 | stem:[(1 / 2,1 / 2,0]      | 3 | stem:[1 / 3 \times S]
+| 7 | 3 | stem:[(1 / 3,1 / 3,1 / 3)] | 1 | stem:[9 / 20 \times S]
+|   |   | stem:[(1 / 2,1 / 2,0)]     | 3 | stem:[2 / 15 \times S]
+|   |   | stem:[(1,0,0)]             | 3 | stem:[1 / 20 \times S] 
+|===
+
+== Algorithme d’assemblage
+
+[.small]
+--
+Données:: on stocke les poids de quadrature dans un tableau poids. On
+stocke les valeurs des fonctions de formes et de son gradient aux points de
+quadrature dans les tableaux `psi` et `derpsi`.
+--
+
+[.source.small,python]
+----
+# Boucle sur les elements
+for ik in range ( Nel ):
+    compute ( detTK )
+    compute ( nabla_TK -1)
+    # Boucle sur les points de quadrature
+    for l in range ( nq ):
+        # Boucle sur les fonctions de formes
+        for ni in range ( nk ):
+            i = connect (ik , ni )
+            for nj in range ( nk ):
+                j = connect (ik , nj )
+                derpsii = derpsi [ ni ,l ] * nabla_TK -1
+                derpsij = derpsi [ nj ,l ] * nabla_TK -1
+                A[i ,j] += detTK * poids [l ] * derpsii @ derpsij
+----
+[.small]
+--
+NOTE: Même algorithme pour le calcul du second membre.
+--
+
+=== Conditions de Dirichlet
+
+Conditions de type Dirichlet:: fonctions de bases associés aux noeuds des bords à retirer
+
+[.left]
+--
+En pratique, pour ne pas modifier la taille de la matrice en fonction des conditions aux limites, on assemble la matrice avec tous les noeuds y compris ceux du bord
+
+* Méthode d'élimination
+* Méthode de pénalisation
+* Méthode de Nitsche
+--
+=== Méthode d'élimination
+
+[.left]
+--
+on modifie les lignes associés aux noeuds du bord. On met les lignes à 0 sauf 1 sur la diagonale et la valeur de la condition au second membre. 
+--
+
+NOTE: Afin d'avoir une matrice symétrique on peut aussi modifier les colonnes correspondantes et le second membre maios 
+
+
+=== Méthode de pénalisation
+
+on modifie la matrice avec stem:[\varepsilon>   0] ainsi
+
+[stem]
+++++
+\begin{array}{l}
+A_{i, i} \leftarrow A_{i, i}+\frac{1}{\varepsilon} \\
+f_{i} \leftarrow f_{i}+\frac{1}{\varepsilon} g_{i}
+\end{array}
+++++
+
