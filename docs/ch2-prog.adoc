@@ -92,17 +92,17 @@ gmsh carre.geo
 
 [source,sh]
 ----
-gmsh -2 - order 1 carre . geo -o carre . msh
+gmsh -2 -order 1 carre.geo -o carre.msh
 ----
 
 === Fichier .msh
 
 [source,text,.small]
 ----
-stem:[MeshFormat
+$MeshFormat
 4 0 8
-]EndMeshFormat
-stem:[Entities
+$EndMeshFormat
+$Entities
 4 4 1 0
 1 0 0 0 0 0 0 0 // Point 1
 2 1 0 0 1 0 0 0 // Point 2
@@ -113,14 +113,14 @@ stem:[Entities
 3 0 1 0 1 1 0 0 2 3 -4 // Line 3 ...
 4 0 0 0 0 1 0 0 2 4 -1 // Line 4 ...
 1 0 0 0 1 1 0 1 1 4 1 2 3 4 // Line 5
-]EndEntities
+$EndEntities
 ----
 
 === Fichier .msh
 
 [.source.x-small,text]
 ----
-stem:[Nodes
+$Nodes
 9 45
 1 0 0 1 // Point 1
 1 0 0 0
@@ -154,27 +154,28 @@ stem:[Nodes
 21 0.7124999999991418 0.7124999999993721 0
 22 0.7125000000000453 0.2875000000003787 0
 .....
-]EndNodes
+$EndNodes
 ----
 
 === Fichier .msh (fin)
 
-[source,text,.small]
+[.source.small,text]
 ----
-stem:[Elements
+$Elements
 1 68
 1 2 2 68 // 68 triangles
 1 21 43 29 // triangle 1 avec noeuds 21 , 43 et 29
 2 29 43 33
 3 41 29 35
 ....
+$EndElements
 ----
 
 * vient de `Physical Surface(1) = {1};`
 * sans cette instruction : toutes les Elementary entities sont décrites
 * pour marquer les bords, on peut ajouter dans le code `.geo`
 
-[source,text]
+[source,cpp]
 ----
 Physical Line (11) = {1 ,3};
 Physical Line (12) = {2 ,4};
@@ -183,17 +184,20 @@ Physical Line (12) = {2 ,4};
 
 === Autres commandes
 
-Maillage triangulaire structuré::
+.Maillage triangulaire structuré
+[source,cpp]
 ----
 Transfinite surface {1}; 
 ----
 
-Maillage quadrangulaire::
+.Maillage quadrangulaire
+[source,cpp]
 ----
 Recombine surface {1}; 
 ----
 
-Maillage 3D par extrusion::
+.Maillage 3D par extrusion
+[source,cpp]
 ----
 Extrude {0 ,1. ,1.5}{ Surface {1}; Layers {3}; Recombine ;}
 ----

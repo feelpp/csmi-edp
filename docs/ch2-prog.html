@@ -174,10 +174,10 @@ Plane surface (1)=(1);
 Physical surface (1)={1};</code></pre></div></div></div></section><section id="_exemple_2"><h2>Exemple</h2><div class="slide-content"><div class="listingblock"><div class="title">commande pour générer le fichier .geo</div>
 <div class="content"><pre class="highlightjs highlight"><code data-lang="sh" class="language-sh hljs" data-noescape="true">gmsh carre.geo</code></pre></div></div>
 <div class="openblock small"><div class="content"><div class="ulist"><ul><li><p>Pour générer le maillage : <code>Mesh / 2D</code></p></li><li><p>Pour générer le fichier gmsh : <code>File / Save mesh</code></p></li><li><p>Pour changer la couleur: <code>Tools / General / Color / Predefined color scheme / Dark</code></p></li><li><p>Pour afficher le numéro des noeuds: <code>Tools / Mesh / Visibility / Node Iabels</code></p></li><li><p>Pour afficher le numéro des éléments \(2 \mathrm{D}\) : <code>Tools / Mesh / Visibility / 2D element Iabels</code></p></li><li><p>Création d&#8217;un fichier msh en ligne de commande:</p></li></ul></div></div></div>
-<div class="listingblock"><div class="content"><pre class="highlightjs highlight"><code data-lang="sh" class="language-sh hljs" data-noescape="true">gmsh -2 - order 1 carre . geo -o carre . msh</code></pre></div></div></div></section><section id="_fichier_msh"><h2>Fichier .msh</h2><div class="slide-content"><div class="listingblock"><div class="content"><pre class="highlightjs highlight"><code data-lang="text" class="language-text hljs" data-noescape="true" data-line-numbers="">stem:[MeshFormat
+<div class="listingblock"><div class="content"><pre class="highlightjs highlight"><code data-lang="sh" class="language-sh hljs" data-noescape="true">gmsh -2 -order 1 carre.geo -o carre.msh</code></pre></div></div></div></section><section id="_fichier_msh"><h2>Fichier .msh</h2><div class="slide-content"><div class="listingblock"><div class="content"><pre class="highlightjs highlight"><code data-lang="text" class="language-text hljs" data-noescape="true" data-line-numbers="">$MeshFormat
 4 0 8
-]EndMeshFormat
-stem:[Entities
+$EndMeshFormat
+$Entities
 4 4 1 0
 1 0 0 0 0 0 0 0 // Point 1
 2 1 0 0 1 0 0 0 // Point 2
@@ -188,7 +188,7 @@ stem:[Entities
 3 0 1 0 1 1 0 0 2 3 -4 // Line 3 ...
 4 0 0 0 0 1 0 0 2 4 -1 // Line 4 ...
 1 0 0 0 1 1 0 1 1 4 1 2 3 4 // Line 5
-]EndEntities</code></pre></div></div></div></section><section id="_fichier_msh_2"><h2>Fichier .msh</h2><div class="slide-content"><div class="listingblock source x-small"><div class="content"><pre class="highlightjs highlight"><code data-lang="text" class="language-text hljs" data-noescape="true">stem:[Nodes
+$EndEntities</code></pre></div></div></div></section><section id="_fichier_msh_2"><h2>Fichier .msh</h2><div class="slide-content"><div class="listingblock source x-small"><div class="content"><pre class="highlightjs highlight"><code data-lang="text" class="language-text hljs" data-noescape="true">$Nodes
 9 45
 1 0 0 1 // Point 1
 1 0 0 0
@@ -222,21 +222,22 @@ stem:[Entities
 21 0.7124999999991418 0.7124999999993721 0
 22 0.7125000000000453 0.2875000000003787 0
 .....
-]EndNodes</code></pre></div></div></div></section><section id="_fichier_msh_fin"><h2>Fichier .msh (fin)</h2><div class="slide-content"><div class="listingblock"><div class="content"><pre class="highlightjs highlight"><code data-lang="text" class="language-text hljs" data-noescape="true" data-line-numbers="">stem:[Elements
+$EndNodes</code></pre></div></div></div></section><section id="_fichier_msh_fin"><h2>Fichier .msh (fin)</h2><div class="slide-content"><div class="listingblock source small"><div class="content"><pre class="highlightjs highlight"><code data-lang="text" class="language-text hljs" data-noescape="true">$Elements
 1 68
 1 2 2 68 // 68 triangles
 1 21 43 29 // triangle 1 avec noeuds 21 , 43 et 29
 2 29 43 33
 3 41 29 35
-....</code></pre></div></div>
+....
+$EndElements</code></pre></div></div>
 <div class="ulist"><ul><li><p>vient de <code>Physical Surface(1) = {1};</code></p></li><li><p>sans cette instruction : toutes les Elementary entities sont décrites</p></li><li><p>pour marquer les bords, on peut ajouter dans le code <code>.geo</code></p></li></ul></div>
-<div class="listingblock"><div class="content"><pre class="highlightjs highlight"><code data-lang="text" class="language-text hljs" data-noescape="true">Physical Line (11) = {1 ,3};
-Physical Line (12) = {2 ,4};</code></pre></div></div></div></section><section id="_autres_commandes"><h2>Autres commandes</h2><div class="slide-content"><div class="dlist"><dl><dt class="hdlist1">Maillage triangulaire structuré</dt></dl></div>
-<div class="listingblock"><div class="content"><pre>Transfinite surface {1};</pre></div></div>
-<div class="dlist"><dl><dt class="hdlist1">Maillage quadrangulaire</dt></dl></div>
-<div class="listingblock"><div class="content"><pre>Recombine surface {1};</pre></div></div>
-<div class="dlist"><dl><dt class="hdlist1">Maillage 3D par extrusion</dt></dl></div>
-<div class="listingblock"><div class="content"><pre>Extrude {0 ,1. ,1.5}{ Surface {1}; Layers {3}; Recombine ;}</pre></div></div></div></section></section>
+<div class="listingblock"><div class="content"><pre class="highlightjs highlight"><code data-lang="cpp" class="language-cpp hljs" data-noescape="true">Physical Line (11) = {1 ,3};
+Physical Line (12) = {2 ,4};</code></pre></div></div></div></section><section id="_autres_commandes"><h2>Autres commandes</h2><div class="slide-content"><div class="listingblock"><div class="title">Maillage triangulaire structuré</div>
+<div class="content"><pre class="highlightjs highlight"><code data-lang="cpp" class="language-cpp hljs" data-noescape="true">Transfinite surface {1};</code></pre></div></div>
+<div class="listingblock"><div class="title">Maillage quadrangulaire</div>
+<div class="content"><pre class="highlightjs highlight"><code data-lang="cpp" class="language-cpp hljs" data-noescape="true">Recombine surface {1};</code></pre></div></div>
+<div class="listingblock"><div class="title">Maillage 3D par extrusion</div>
+<div class="content"><pre class="highlightjs highlight"><code data-lang="cpp" class="language-cpp hljs" data-noescape="true">Extrude {0 ,1. ,1.5}{ Surface {1}; Layers {3}; Recombine ;}</code></pre></div></div></div></section></section>
 <section><section id="_assemblage_de_la_matrice"><h2>Assemblage de la matrice</h2><div class="slide-content"><div class="openblock small"><div class="content"><div class="stemblock"><div class="content">\[\begin{aligned}
 A_{i, j} &amp;=\int_{\Omega} \nabla \varphi_{i} \cdot \nabla \varphi_{j} \\
 &amp;=\sum_{K \subset \operatorname{supp} \varphi_{i} \cap \operatorname{supp} \varphi_{j}} \int_{K} \nabla \varphi_{i} \cdot \nabla \varphi_{j} \\
