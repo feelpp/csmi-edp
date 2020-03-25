@@ -7,7 +7,6 @@
 :topic: .topic,background-color="#da291c"
 :key: .topic,background-color="black"
 :revealjs_slidenumber: true
-:customcss: slides.css
 :author: Christophe Prud'homme <christophe.prudhomme@cemosis.fr>
 :date: 2020-04-24
 :icons: font
@@ -75,14 +74,14 @@ stem:[\Delta U=\nabla \cdot \nabla U=(\partial_{x_{1}^{2}} U_1+\ldots+\partial_{
 Logiciels:: Paraview, Visit, Mayavi, Gmsh, ...
 
 ==== champs scalaire
-* ensemble de niveau stem:[c] stem:[\{x \in \mathbb{R}^d, u(x) = c\}, \min u \leq c \max u]
-* graphe stem:[\{x \in \mathbb{R}^d, \alpha*u(x)\} \subset \mathbb{R}^{d+1}] où stem:[\alpha] est un facteur d'échelle (scaling factor sous paraview)
+* ensemble de niveau stem:[c] stem:[\{x \in \mathbb{R}^d, u(x) = c\}, \min u(x) \leq c \leq \max u(x)   ]
+* graphe stem:[\{ (x , \alpha*u(x)), x \in \Omega \} \subset \mathbb{R}^{d+1}] où stem:[\alpha] est un facteur d'échelle (scaling factor sous paraview, voir WarpByScalar)
 
 === champs de vecteurs
 
-* ensemble de niveau par composante ou sur la magnitude stem:[x \mapsto |u(x)|]
-* lignes de courant stem:[t \mapsto X(t)] telles que stem:[X'(t)=U \circ X(t), \quad X(0) = x_0]
-* flèches  stem:[x \mapsto (U_1(x),\ldots,U_d(x))]
+* ensemble de niveau par composante ou sur la magnitude stem:[x \mapsto |u(x)|] (Contour sous paraview)
+* lignes de courant stem:[t \mapsto X(t)] telles que stem:[X'(t)=U \circ X(t), \quad X(0) = x_0] (streamline sous paraview)
+* flèches  stem:[x \mapsto (U_1(x),\ldots,U_d(x))] (glyphs sous paraview)
 
 === Formules de Green
 
@@ -246,19 +245,21 @@ H_{0}^{1}(\Omega) &=\left\{u \in H^{1}(\Omega), \quad u_{| \partial \Omega}=0\ri
 
 [.small]
 --
-Definition Problème variationnel:: Soit stem:[V] un espace de Hilbert
+Definition Problème variationnel:: Soit stem:[V] un espace de Hilbert, on note stem:[a: V \times V \rightarrow \mathbb{R}] and stem:[\ell: V \rightarrow \mathbb{R}]
 +
 [stem]
 ++++
 \text {Trouver } u \in V, \quad a(u, v)=\ell(v), \quad \forall v \in V
 ++++
-avec stem:[a: V \times V \rightarrow \mathbb{R}] and stem:[\ell: V \rightarrow \mathbb{R}]
-
-Proposition (Lax-Milgram):: soit stem:[V] espace de Hilbert.
+--
+[.small]
+--
+Proposition (Lax-Milgram):: 
 +
 * a: forme bilinéaire, continue, coercive sur stem:[V]
 * stem:[\ell:] forme linéaire continue sur stem:[V] 
-Alors, le problème variationnel admet une unique solution stem:[u \in V]
++
+*Alors*, le problème variationnel admet une *unique solution* stem:[u \in V]
 De plus, si la forme bilinéaire est symmétrique, la solution est le minimum de la fonctionnelle
 [stem]
 ++++
@@ -272,10 +273,13 @@ J(u)=\frac{1}{2} a(u, u)-\ell(u)
 --
 Soit stem:[f \in L^{2}(\Omega)]. 
 
-Le problème de Poisson (avec condition de Dirichlet) admet une unique solution faible ]u \in H_{0}^{1}(\Omega)$ 
+Le problème de Poisson (avec condition de Dirichlet) admet une unique solution faible stem:[u \in H_{0}^{1}(\Omega)].
 --
 Régularité:: Si de plus stem:[\left.\Omega \text { est de classe } C^{2} \text { (ou polyédrique convexe en } 2 \mathrm{d}\right),] alors stem:[u \in H^{2}(\Omega)]
 
+* *Formulation avec condition de Dirichlet*: link:http://docs.feelpp.org/math/current/fem/laplacian/#sec:cadre-mathematique[Pour en savoir plus]
+* *Formulation avec condition de Neuman*: link:http://docs.feelpp.org/math/current/fem/laplacian/#sec:cond-aux-limit-2[Pour en savoir plus]
+* *Formulation avec condition de Robin/Fourier*: link:http://docs.feelpp.org/math/current/fem/laplacian/#sec:cond-aux-limit-robin[Pour en savoir plus]
 
 === Méthode de Galerkin
 
@@ -299,19 +303,20 @@ u_{h}(x)=\sum_{j=1}^{N_{h}} u_{j} \varphi_{j}(x)
 ++++
 
 === Méthode de Galerkin
-[.x-small,.left]
+[.x-small.left]
 --
 [stem]
 ++++
 \begin{aligned}
 a\left(u_{h}, v_{h}\right)=\ell\left(v_{h}\right), \quad \forall v_{h} \in V_{h} & \Longleftrightarrow \sum_{j=1}^{N_{h}} u_{j} a\left(\varphi_{j}, v_{h}\right)=\ell\left(v_{h}\right), \quad \forall v_{h} \in V_{h} \\
-& \Longleftrightarrow \sum_{j=1}^{N_{h}} u_{j} a\left(\varphi_{j}, \varphi_{i}\right)=\ell\left(\varphi_{i}\right), \quad \forall i \in \mathbb{I}, N_{h} \mathbb{I} \\
+& \Longleftrightarrow \sum_{j=1}^{N_{h}} u_{j} a\left(\varphi_{j}, \varphi_{i}\right)=\ell\left(\varphi_{i}\right), \quad \forall i \in \mathbb{I} 1, N_{h} \mathbb{I} \\
 & \Longleftrightarrow A u_{h}=b \\
 \operatorname{avec} A=\left(a\left(\varphi_{i}, \varphi_{j}\right)\right)_{i, j} \text { et } b=\left(\ell\left(\varphi_{i}\right)\right)
 \end{aligned}
 ++++
-*Question:* définir les espaces stem:[V_{h}] et les bases stem:[\left(\varphi_{i}\right)]
 --
+*Question:* définir les espaces stem:[V_{h}] et les bases stem:[\left(\varphi_{i}\right)]
+
 
 === Maillage
 
@@ -321,11 +326,11 @@ a\left(u_{h}, v_{h}\right)=\ell\left(v_{h}\right), \quad \forall v_{h} \in V_{h}
 --
 [stem]
 ++++
-\bar{\Omega}=\bigcup_{i=1}^{N_{\mathrm{e} 1}} K_{i} \quad \mbox{ avec } \dot{K}_{i} \cap \stackrel{\circ}{K}_{j}=\emptyset
+\bar{\Omega}=\bigcup_{i=1}^{N_{\mathrm{e} 1}} K_{i} \quad \mbox{ avec } \stackrel{\circ}{K}_{i} \cap \stackrel{\circ}{K}_{j}=\emptyset
 ++++
 [.small]
 --
-stem:[\mathcal{T}_{h}=\left\{K_{i}, i = 1, N_{\mathrm{el}} \right\}]
+stem:[\mathcal{T}_{h}=\left\{K_{i}, i = 1, \ldots, N_{\mathrm{el}} \right\}]
 
 * diamètre d'un élément: stem:[h_{K}=\operatorname{diam}(K)=\max _{x, y \in K}\|x-y\|]
 * plus grand diamètre: stem:[h=\max _{K \in \mathcal{T}_{h}} h_{K}]
@@ -365,7 +370,7 @@ NOTE: possibilité de maillages mixtes
 
 Proposition:: Soit stem:[u \in C(\Omega)] telle que stem:[u_{| K} \in H^{1}(K)] pour tout stem:[K \in \mathcal{T}_{h} .] Alors stem:[u \in H^{1}(\Omega)]
 
-stem:[P_{ch}^{k}=\left\{v_{h} \in C(\bar{\Omega}), \quad \forall K \in \mathcal{T}_{h}, v_{h | K} \in \mathbb{P}_{k}\right\} \subset H^{1}(\Omega)]
+stem:[P_{c,h}^{k}=\left\{v_{h} \in C(\bar{\Omega}), \quad \forall K \in \mathcal{T}_{h}, v_{h | K} \in \mathbb{P}_{k}\right\} \subset H^{1}(\Omega)]
 fonctions continues affines par morceaux
 
 stem:[P_{c,h,0}^{k}=\left\{v_{h} \in P_{h}^{k}, \quad v_{h | \partial \Omega}=0\right\} \subset H_{0}^{1}(\Omega)]
@@ -422,8 +427,8 @@ avec stem:[\psi_{K, r_{K, j}}\left(a_{j}\right)=1]. *stem:[\varphi_{i} \in P_{c,
 
 == Résolution
 
-stem:[\forall i 1,\ldots, N_{h} \mathbb{l}, \quad \sum_{j=1}^{N} u_{j} \int_{\Omega} \nabla \varphi_{j} \cdot \nabla \varphi_{i}=\int_{\Omega} f \varphi_{i}]
-equivalent à
+stem:[\forall i = 1,\ldots, N, \quad \sum_{j=1}^{N} u_{j} \int_{\Omega} \nabla \varphi_{j} \cdot \nabla \varphi_{i}=\int_{\Omega} f \varphi_{i}]
+est equivalent à résoudre
 [stem]
 ++++
 A 
