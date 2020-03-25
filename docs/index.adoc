@@ -39,4 +39,4 @@
 :iconfont-name: fonts/fontawesome/css/all
 
 * link:ch1-poisson.html[Méthode élément fini pour le problème de Poisson]
-* link:ch1-poisson.html[Programmation de la méthode élément fini]
+* link:ch2-prog.html[Programmation de la méthode élément fini]
