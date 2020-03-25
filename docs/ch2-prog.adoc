@@ -206,8 +206,7 @@ Extrude {0 ,1. ,1.5}{ Surface {1}; Layers {3}; Recombine ;}
 
 == Assemblage de la matrice
 
-[.small]
---
+
 [stem]
 ++++
 \begin{aligned}
@@ -216,14 +215,21 @@ A_{i, j} &=\int_{\Omega} \nabla \varphi_{i} \cdot \nabla \varphi_{j} \\
 &=\sum_{K \subset \operatorname{supp} \varphi_{i} \cap \operatorname{supp} \varphi_{j}} \int_{K} \nabla \psi_{K, r_{K, i}} \cdot \nabla \psi_{K, r_{K, j}}
 \end{aligned}
 ++++
+
+[.x-small]
+--
+IMPORTANT: La plupart des intégrales sont nulles par construction, il suffit alors de parcourir les éléments stem:[K] du maillage et de rajouter les contribution sur chaque élément à la matrice stem:[A] grâce à la propriété d'aditivité de l'intégrale.
 --
 
 === Matrice de connectivité: 
 
-stem:[connect\left(\text {ind}_{K}, r\right)=i]
+[stem]
+++++
+connect\left(\text {ind}_{K}, r\right)=i
+++++
 
-* stem:[\rightarrow] le couple de fonctions de base stem:[\psi_{K, ri}, \psi_{K, rj}] contribue au terme stem:[A_{i, j}] avec stem:[i=connect\left(\text {ind}_{K}, r i\right)] et stem:[j=connect\left(\text {ind}_{K}, r j\right)]
-* stem:[\rightarrow] principe de l'assemblage : calculer les termes stem:[\int_{K} \nabla \psi_{K, r i} \cdot \nabla \psi_{K, r j}] et les ajouter au fur et à mesure dans la matrice.
+* le couple de fonctions de base stem:[\psi_{K, ri}, \psi_{K, rj}] contribue au terme stem:[A_{i, j}] avec stem:[i=connect\left(\text {ind}_{K}, r i\right)] et stem:[j=connect\left(\text {ind}_{K}, r j\right)]
+* *principe de l'assemblage* : calculer les termes stem:[\int_{K} \nabla \psi_{K, r i} \cdot \nabla \psi_{K, r j}] et les ajouter au fur et à mesure dans la matrice.
 
 
 === Assemblage de la matrice
