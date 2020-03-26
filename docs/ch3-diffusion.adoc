@@ -40,30 +40,57 @@
 == Problème de diffusion Equation de diffusion / de la chaleur
 [stem]
 ++++
-\partial_{t} u-\Delta u=f
+\begin{split}
+\partial_{t} u-\Delta u&=f, \quad \mbox{ sur } \Omega \times \mathbb{R}^{+}\\
+u(x,t=0)&=u_{0}\\
+u(x,t)&=g(x,t), \quad \mbox{ sur } \partial \Omega_{D} \times \mathbb{R}^{+}
+\end{split}
 ++++
-sur stem:[\Omega \times \mathbb{R}^{+}]
-stem:[u=u_{i n i t}]
-stem:[u=g]
-sur stem:[\partial \Omega_{D} \times \mathbb{R}^{+}]
-stem:[u: \Omega \times \mathbb{R}^{+} \rightarrow \mathbb{R}:] densité
-stem:[u_{i n i t}: \Omega \rightarrow \mathbb{R}:] donnée initiale
-stem:[f: \Omega \times \mathbb{R}^{+} \rightarrow \mathbb{R}:] terme source
-stem:[g: \partial \Omega \rightarrow \mathbb{R}:] valeur au bord
+
+* stem:[u: \Omega \times \mathbb{R}^{+} \rightarrow \mathbb{R}:] densité
+* stem:[u_{°}: \Omega \rightarrow \mathbb{R}:] donnée initiale
+* stem:[f: \Omega \times \mathbb{R}^{+} \rightarrow \mathbb{R}:] terme source
+* stem:[g: \partial \Omega \rightarrow \mathbb{R}:] valeur au bord
+
+=== Formulation
+
+[.left]
+--
 stem:[\rightarrow] problème parabolique stem:[\rightarrow] Bilan de conservation
 [stem]
 ++++
-\frac{d}{d t} \int_{\Omega} u=\int_{\partial \Omega}(n \cdot \nabla u)+\int_{\Omega \in \mathbb{C}} f
+\frac{d}{d t} \int_{\Omega} u=\int_{\partial \Omega}(n \cdot \nabla u)+\int_{\Omega} f
 ++++
+
 stem:[\rightarrow] Dissipation de la norme stem:[L^{2}]
 [stem]
 ++++
 \frac{d}{d t} \int_{\Omega} u^{2}=-\int_{\Omega}|\nabla u|^{2}+\int_{\partial_{\Omega}} u \partial_{n} u+\int_{\Omega} f u
 ++++
+--
+
+=== Approche
+
+[.left]
+--
+Une approche simple pour résoudre les EDP dépendant du temps par la
+La méthode des éléments finis consiste à discrétiser d'abord la dérivée du temps par un
+l'approximation des différences, qui donne un ensemble récursif de
+problèmes, puis transformer chaque problème stationnaire en un problème variationnel
+formulation.
+
+Soit l'exposant stem:[k] qui désigne une quantité au temps stem:[t^k]
+où stem:[k] est un nombre entier comptant les niveaux de temps. 
+Par exemple, stem:[u^k] signifie stem:[u] au niveau du temps stem:[k]. 
+--
 
 === Semi-discrétisation en temps
-Discrétisation en temps: stem:[\Delta t>0, t_{n}=n \Delta t .] On note stem:[u^{n}(x):=u\left(t_{n}, x\right)]
+[.left]
+--
+Discrétisation en temps: stem:[\Delta t>0, t_{n}=n \Delta t .] 
+On note stem:[u^{n}(x):=u\left(t_{n}, x\right)]
 Schéma d'Euler (implicite):
+--
 [stem]
 ++++
 \frac{u^{n}-u^{n-1}}{\Delta t}=\Delta u^{n}+f^{n}
@@ -86,25 +113,33 @@ stem:[V_{0}=\left\{v \in H^{1}(\Omega), v=0 \text { sur } \partial \Omega\right\
 Problème variationnel
 [stem]
 ++++
-\text { Trouver } u^{n} \in V, \quad a\left(u^{n}, v\right)=\ell(v), \quad \forall v \in V_{0}
+\text { Trouver } u^{n} \in V, \quad a\left(u^{n}, v\right)=\ell(v), \quad \forall v \in V_{0}, \mbox{ avec }
 ++++
-avec
 [stem]
 ++++
-\begin{array}{l}
-a(u, v)=\int_{\Omega} u v+\Delta t \nabla u \cdot \nabla v \\
-\ell(v)=\int_{\Omega}\left(u^{n-1}+\Delta t f^{n}\right) v
-\end{array}
+a(u, v)=\int_{\Omega} u v+\Delta t \nabla u \cdot \nabla v,\quad \ell(v)=\int_{\Omega}\left(u^{n-1}+\Delta t f^{n}\right) v
 ++++
 stem:[\rightarrow] Méthode d'éléments finis
 
 === Remarques
+
+[.left]
+--
 Pour le calcul de stem:[u^{0}] :
-stem:[\cdot] interpolation: stem:[u^{0}=\sum_{j=1}^{N} u_{i n i t}\left(x_{i}\right) \varphi_{i}]
-projection stem:[L^{2}: u^{0}] est solution du problème variationnel
+
+* interpolation: stem:[u^{0}=\sum_{j=1}^{N} u_{0}\left(x_{i}\right) \varphi_{i}]
+* projection stem:[L^{2}: u^{0}] est solution du problème variationnel
+
 [stem]
 ++++
-\int_{\Omega} u v=\int_{\Omega} u_{i n i t} v, \quad \forall v \in V_{h}
+\int_{\Omega} u v=\int_{\Omega} u_{0} v, \quad \forall v \in V_{h}
 ++++
+
 Autre schéma numérique pour la discrêtisation de la dérivée en temps :
 Crank-Nicolson (ordre 2 en temps)
+--
+
+[%notitle]
+=== Exemple
+
+video::3dUjvRbCcVc?list=PLigsLWCja8px9vDW6uTpLv9tB-ljSJLXr[youtube,equation de diffusion en tomographie optique,width=1000,height=562,start=67]
