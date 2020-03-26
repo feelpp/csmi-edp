@@ -3,7 +3,7 @@
 # Inital Setup see:
 #    https://asciidoctor.org/docs/asciidoctor-revealjs/
 
-SRCFILES=(ch1-poisson.adoc ch2-prog.adoc index.adoc)
+SRCFILES=(ch1-poisson.adoc ch2-prog.adoc ch3-diffusion.adoc index.adoc)
 for SRCFILE in "${SRCFILES[@]}"; do
 
 echo "Rendering $SRCFILE"
