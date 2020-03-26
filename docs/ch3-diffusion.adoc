@@ -1,0 +1,110 @@
+= Equation de diffusion
+:stem: latexmath
+// 16:9
+:revealjs_width: 1280
+:revealjs_height: 720
+// shorthands
+:topic: .topic,background-color="#da291c"
+:key: .topic,background-color="black"
+:revealjs_slidenumber: true
+:author: Christophe Prud'homme <christophe.prudhomme@cemosis.fr>
+:date: 2020-04-24
+:icons: font
+// we want local served fonts. Therefore patched sky.css
+//:revealjs_theme: sky
+:revealjs_customtheme: css/sky.css
+:revealjs_autoSlide: 5000
+:revealjs_history: true
+:revealjs_fragmentInURL: true
+:revealjs_viewDistance: 5
+:revealjs_width: 1408
+:revealjs_height: 792
+:revealjs_controls: true
+:revealjs_controlsLayout: edges
+:revealjs_controlsTutorial: true
+:revealjs_slideNumber: c/t
+:revealjs_showSlideNumber: speaker
+:revealjs_autoPlayMedia: true
+:revealjs_defaultTiming: 42
+//:revealjs_transitionSpeed: fast
+:revealjs_parallaxBackgroundImage: images/background-landscape-light-orange.jpg
+:revealjs_parallaxBackgroundSize: 4936px 2092px
+:customcss: css/slides.css
+:imagesdir: images
+:source-highlighter: highlightjs
+:highlightjs-theme: css/atom-one-light.css
+// we want local served font-awesome fonts
+:iconfont-remote!:
+:iconfont-name: fonts/fontawesome/css/all
+
+== Problème de diffusion Equation de diffusion / de la chaleur
+[stem]
+++++
+\partial_{t} u-\Delta u=f
+++++
+sur stem:[\Omega \times \mathbb{R}^{+}]
+stem:[u=u_{i n i t}]
+stem:[u=g]
+sur stem:[\partial \Omega_{D} \times \mathbb{R}^{+}]
+stem:[u: \Omega \times \mathbb{R}^{+} \rightarrow \mathbb{R}:] densité
+stem:[u_{i n i t}: \Omega \rightarrow \mathbb{R}:] donnée initiale
+stem:[f: \Omega \times \mathbb{R}^{+} \rightarrow \mathbb{R}:] terme source
+stem:[g: \partial \Omega \rightarrow \mathbb{R}:] valeur au bord
+stem:[\rightarrow] problème parabolique stem:[\rightarrow] Bilan de conservation
+[stem]
+++++
+\frac{d}{d t} \int_{\Omega} u=\int_{\partial \Omega}(n \cdot \nabla u)+\int_{\Omega \in \mathbb{C}} f
+++++
+stem:[\rightarrow] Dissipation de la norme stem:[L^{2}]
+[stem]
+++++
+\frac{d}{d t} \int_{\Omega} u^{2}=-\int_{\Omega}|\nabla u|^{2}+\int_{\partial_{\Omega}} u \partial_{n} u+\int_{\Omega} f u
+++++
+
+=== Semi-discrétisation en temps
+Discrétisation en temps: stem:[\Delta t>0, t_{n}=n \Delta t .] On note stem:[u^{n}(x):=u\left(t_{n}, x\right)]
+Schéma d'Euler (implicite):
+[stem]
+++++
+\frac{u^{n}-u^{n-1}}{\Delta t}=\Delta u^{n}+f^{n}
+++++
+stem:[\rightarrow] "method of lines"
+stem:[\rightarrow] pour trouver stem:[u^{n},] on résout un problème elliptique (stationnaire)
+[stem]
+++++
+u^{n}-\Delta t \Delta u^{n}=u^{n-1}+\Delta t f^{n}
+++++
+
+=== Résolution en espace
+Problème au temps stem:[t^{n}]
+[stem]
+++++
+u^{n}-\Delta t \Delta u^{n}=u^{n-1}+\Delta t f^{n}
+++++
+stem:[V=\left\{v \in H^{1}(\Omega), v=g^{n} \text { sur } \partial \Omega\right\}]
+stem:[V_{0}=\left\{v \in H^{1}(\Omega), v=0 \text { sur } \partial \Omega\right\}]
+Problème variationnel
+[stem]
+++++
+\text { Trouver } u^{n} \in V, \quad a\left(u^{n}, v\right)=\ell(v), \quad \forall v \in V_{0}
+++++
+avec
+[stem]
+++++
+\begin{array}{l}
+a(u, v)=\int_{\Omega} u v+\Delta t \nabla u \cdot \nabla v \\
+\ell(v)=\int_{\Omega}\left(u^{n-1}+\Delta t f^{n}\right) v
+\end{array}
+++++
+stem:[\rightarrow] Méthode d'éléments finis
+
+=== Remarques
+Pour le calcul de stem:[u^{0}] :
+stem:[\cdot] interpolation: stem:[u^{0}=\sum_{j=1}^{N} u_{i n i t}\left(x_{i}\right) \varphi_{i}]
+projection stem:[L^{2}: u^{0}] est solution du problème variationnel
+[stem]
+++++
+\int_{\Omega} u v=\int_{\Omega} u_{i n i t} v, \quad \forall v \in V_{h}
+++++
+Autre schéma numérique pour la discrêtisation de la dérivée en temps :
+Crank-Nicolson (ordre 2 en temps)

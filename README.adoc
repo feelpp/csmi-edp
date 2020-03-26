@@ -23,3 +23,10 @@ make
 cd ../laplacian/circle
 ../../csmi-edp/build_feelpp_qs_lapacian_2d --config-file circle.cfg
 ----
+
+== edition des maths
+
+----
+perl -077pi.bak -e 's/(\s)\$\$(.+?)\$\$/\1\[stem\]\n++++\2++++/sg' ch3-diffusion.adoc
+perl -077pi.bak -e 's/(\s)\$(.+?)\$/\1stem:[\2]/sg' ch3-diffusion.adoc    
+----
