@@ -7,7 +7,7 @@
 :topic: .topic,background-color="#da291c"
 :key: .topic,background-color="black"
 :revealjs_slidenumber: true
-:author: Christophe Prud'homme <christophe.prudhomme@cemosis.fr>
+:author: Christophe Prud'homme <christophe.prudhomme@cemosis.fr>, Laurent Navoret
 :date: 2020-04-24
 :icons: font
 // we want local served fonts. Therefore patched sky.css
