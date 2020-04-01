@@ -44,11 +44,11 @@
 --
 [stem]
 ++++
-\begin{array}{l}
+\begin{array}{rl}
 \nabla \cdot \sigma(u)+f&=0 \mbox{ sur }  \Omega\\
-\sigma(u)=\mu\left(\nabla u+\nabla u^{T}\right)+\lambda(\nabla \cdot u) \mathrm{ld}
+\sigma(u)&=\mu\left(\nabla u+\nabla u^{T}\right)+\lambda(\nabla \cdot u) \mathrm{Id}\\
 u&=0 \mbox{ sur } \partial \Omega_{D}\\
-\sigma(u) \cdot n=h \mbox{ sur } \partial \Omega_{N}
+\sigma(u) \cdot n&=h \mbox{ sur } \partial \Omega_{N}
 \end{array}
 ++++
 
@@ -57,16 +57,12 @@ u&=0 \mbox{ sur } \partial \Omega_{D}\\
 * stem:[\lambda, \mu>0:] coefficients de Lamé du matériau 
 * stem:[f: \Omega \rightarrow \mathbb{R}^{d}] force volumique
 
-*Elasticité linéaire*:
+*Elasticité linéaire*::
 * stem:[\varepsilon(u)=\frac{1}{2}\left(\nabla u+\nabla u^{T}\right):] tenseur des déformations
 * stem:[\nabla \cdot u=\operatorname{tr}(\varepsilon(u))]
 * stem:[\rightarrow \sigma] dépend linéairement de stem:[\varepsilon(u)]
 
-*Version intégrale*:
-[stem]
-++++
-\forall \omega \subset \Omega, \quad \int_{\partial \omega} \sigma(u) n=-\int_{\omega} f
-++++
+*Version intégrale*: stem:[\forall \omega \subset \Omega, \quad \int_{\partial \omega} \sigma(u) n=-\int_{\omega} f]
 --
 
 == Coefficient de Poisson stem:[\nu \text { et module de Young } E \text { (en } 3 \mathrm{d})]

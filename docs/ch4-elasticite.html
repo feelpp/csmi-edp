@@ -154,19 +154,14 @@ TeX: { equationNumbers: { autoNumber: "none" } }
 link.rel = 'stylesheet';
 link.type = 'text/css';
 link.href = window.location.search.match( /print-pdf/gi ) ? "https://cdn.jsdelivr.net/npm/reveal.js@3.9.2/css/print/pdf.css" : "https://cdn.jsdelivr.net/npm/reveal.js@3.9.2/css/print/paper.css";
-document.getElementsByTagName( 'head' )[0].appendChild( link );</script><link rel="stylesheet" href="css/slides.css"></head><body><div class="reveal"><div class="slides"><section class="title" data-state="title"><h1>Elasticité Linéaire</h1><p class="author"><small>Christophe Prud'homme &lt;christophe.prudhomme@cemosis.fr&gt;, Laurent Navoret</small></p></section><section id="_problème_délasticité_linéaire"><h2>Problème d&#8217;élasticité linéaire</h2><div class="slide-content"><div class="openblock left x-small"><div class="content"><div class="stemblock"><div class="content">\[\begin{array}{l}
+document.getElementsByTagName( 'head' )[0].appendChild( link );</script><link rel="stylesheet" href="css/slides.css"></head><body><div class="reveal"><div class="slides"><section class="title" data-state="title"><h1>Elasticité Linéaire</h1><p class="author"><small>Christophe Prud'homme &lt;christophe.prudhomme@cemosis.fr&gt;, Laurent Navoret</small></p></section><section id="_problème_délasticité_linéaire"><h2>Problème d&#8217;élasticité linéaire</h2><div class="slide-content"><div class="openblock left x-small"><div class="content"><div class="stemblock"><div class="content">\[\begin{array}{rl}
 \nabla \cdot \sigma(u)+f&amp;=0 \mbox{ sur }  \Omega\\
-\sigma(u)=\mu\left(\nabla u+\nabla u^{T}\right)+\lambda(\nabla \cdot u) \mathrm{ld}
+\sigma(u)&amp;=\mu\left(\nabla u+\nabla u^{T}\right)+\lambda(\nabla \cdot u) \mathrm{Id}\\
 u&amp;=0 \mbox{ sur } \partial \Omega_{D}\\
-\sigma(u) \cdot n=h \mbox{ sur } \partial \Omega_{N}
+\sigma(u) \cdot n&amp;=h \mbox{ sur } \partial \Omega_{N}
 \end{array}\]</div></div>
-<div class="ulist"><ul><li><p>\(u: \Omega \rightarrow \mathbb{R}^{d}:\) champ de déplacement</p></li><li><p>\(\sigma(u) \in M_{d}(\mathbb{R}):\) tenseur des contraintes</p></li><li><p>\(\lambda, \mu&gt;0:\) coefficients de Lamé du matériau</p></li><li><p>\(f: \Omega \rightarrow \mathbb{R}^{d}\) force volumique</p></li></ul></div>
-<div class="paragraph"><p><strong>Elasticité linéaire</strong>:
-* \(\varepsilon(u)=\frac{1}{2}\left(\nabla u+\nabla u^{T}\right):\) tenseur des déformations
-* \(\nabla \cdot u=\operatorname{tr}(\varepsilon(u))\)
-* \(\rightarrow \sigma\) dépend linéairement de \(\varepsilon(u)\)</p></div>
-<div class="paragraph"><p><strong>Version intégrale</strong>:</p></div>
-<div class="stemblock"><div class="content">\[\forall \omega \subset \Omega, \quad \int_{\partial \omega} \sigma(u) n=-\int_{\omega} f\]</div></div></div></div></div></section>
+<div class="ulist"><ul><li><p>\(u: \Omega \rightarrow \mathbb{R}^{d}:\) champ de déplacement</p></li><li><p>\(\sigma(u) \in M_{d}(\mathbb{R}):\) tenseur des contraintes</p></li><li><p>\(\lambda, \mu&gt;0:\) coefficients de Lamé du matériau</p></li><li><p>\(f: \Omega \rightarrow \mathbb{R}^{d}\) force volumique</p><div class="dlist"><dl><dt class="hdlist1"><strong>Elasticité linéaire</strong></dt></dl></div></li><li><p>\(\varepsilon(u)=\frac{1}{2}\left(\nabla u+\nabla u^{T}\right):\) tenseur des déformations</p></li><li><p>\(\nabla \cdot u=\operatorname{tr}(\varepsilon(u))\)</p></li><li><p>\(\rightarrow \sigma\) dépend linéairement de \(\varepsilon(u)\)</p></li></ul></div>
+<div class="paragraph"><p><strong>Version intégrale</strong>: \(\forall \omega \subset \Omega, \quad \int_{\partial \omega} \sigma(u) n=-\int_{\omega} f\)</p></div></div></div></div></section>
 <section id="_coefficient_de_poisson_nu_text_et_module_de_young_e_text_en_3_mathrmd"><h2>Coefficient de Poisson \(\nu \text { et module de Young } E \text { (en } 3 \mathrm{d})\)</h2><div class="slide-content"><div class="stemblock"><div class="content">\[E=\frac{\mu(3 \lambda+2 \mu)}{\lambda+\mu}, \quad \nu=\frac{\lambda}{2(\lambda+\mu)}\]</div></div>
 <div class="paragraph"><p>Si on effectue une élongation verticale d&#8217;une longueur \(\varepsilon\) alors:
 Ia contrainte de traction à opérer est de l&#8217;ordre de \(E \varepsilon\)
