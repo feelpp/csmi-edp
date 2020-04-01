@@ -68,3 +68,151 @@ u&=0 \mbox{ sur } \partial \Omega_{D}\\
 \forall \omega \subset \Omega, \quad \int_{\partial \omega} \sigma(u) n=-\int_{\omega} f
 ++++
 --
+
+== Coefficient de Poisson stem:[\nu \text { et module de Young } E \text { (en } 3 \mathrm{d})]
+[stem]
+++++
+E=\frac{\mu(3 \lambda+2 \mu)}{\lambda+\mu}, \quad \nu=\frac{\lambda}{2(\lambda+\mu)}
+++++
+Si on effectue une élongation verticale d'une longueur stem:[\varepsilon] alors:
+Ia contrainte de traction à opérer est de l'ordre de stem:[E \varepsilon]
+Ia compression horizontale, relativement à stem:[\varepsilon] est de l'ordre du coefficient de Poisson,
+En effet, en considérant le champ de déplacement suivant pour un cube:
+[stem]
+++++
+u=\left[\begin{array}{c}
+-\nu \varepsilon x \\
+-\nu \varepsilon y \\
+\varepsilon z
+\end{array}\right]
+++++
+le tenseur des contraintes associé stem:[\sigma] est solution du problème avec stem:[0=\sigma_{11}=\sigma_{22}] (contrainte normale nulle sur les bords horizontaux) et stem:[\sigma_{33}=E \varepsilon(\text { contrainte normale sur le bord du haut })]
+stem:[\rightarrow] Grand stem:[E=] matériau rigide, faible stem:[E=] matériau souple
+
+== Analyse vectorielle
+
+=== champs de vecteurs et de matrices 
+[.left.small]
+--
+* stem:[u=\left(u_{1}, \ldots u_{d}\right)] champ de vecteur 
+stem:[\nabla u=\left(\partial_{x_{j}} u_{i}\right)_{i, j}:] gradient de stem:[u(\text { matrice jacobienne })] 
+* stem:[\varepsilon(u)=\frac{1}{2}\left(\nabla u+\nabla u^{T}\right):] partie symétrique du gradient de stem:[u] 
+* stem:[\Delta u=\left(\Delta u_{1}, \ldots, \Delta u_{d}\right)^{T} \in \mathbb{R}^{d}:] Laplacien du stem:[u]
+
+* stem:[A=\left(A_{i, j}\right) \in \mathbb{R}^{d \times d}] tenseur (matrice)
+* stem:[\nabla \cdot A=\left(\nabla \cdot A_{1,:}, \ldots, \nabla \cdot A_{d,:}\right)^{T} \in \mathbb{R}^{d}:] divergence d'un tenseur
+* stem:[A: B=\sum_{i, j} A_{i, j} B_{i, j} \in \mathbb{R}:] produit contracté de deux tenseurs
+* stem:[\left(H^{1}(\Omega)\right)^{d}:] espace de Sobolev vectoriel
+--
+
+=== Calcul intégral
+Proposition stem:[\Omega] ouvert régulier Lipshitz et
+* *Formule de Gauss vectorielle*: stem:[ u \in\left(H^{1}(\Omega)\right)^{d}]
++
+[stem]
+++++
+\int_{\Omega} \nabla \cdot u=\int_{\partial \Omega} u \cdot n
+++++
+* *Formule d'intégration par partie vectorielle*: stem:[A \in\left(H^{1}(\Omega)\right)^{d \times d}, v \in H^{1}(\Omega)]
++
+[stem]
+++++
+-\int_{\Omega}(\nabla \cdot A) \cdot v=\int_{\Omega} A: \nabla v-\int_{\partial \Omega}(A n) \cdot v
+++++
+* *Formule de Green vectorielle* stem:[u \in\left(H^{2}(\Omega)\right)^{d}, v \in\left(H^{1}(\Omega)\right)^{d}]
+[stem]
+++++
+-\int_{\Omega} v \cdot \Delta u=\int_{\Omega} \nabla u: \nabla v-\int_{\partial \Omega} v \cdot(\nabla u n)
+++++
+
+== Méthode élément fini
+
+=== 1) Formulation variationnelle
+[.left]
+--
+stem:[V=\left\{v \in\left(H^{1}(\Omega)\right)^{d}, u=0 \text { sur } \partial \Omega_{D}\right\}:] espace vectoriel
+*Formulation faible :*
+trouver stem:[u \in V] tel que stem:[\quad a(u, v)=\ell(v), \quad \forall v \in V]
+avec
+[stem]
+++++
+\begin{array}{l}
+a(u, v)=\frac{1}{2} \int_{\Omega} \mu\left(\nabla u+\nabla u^{T}\right):\left(\nabla v+\nabla v^{T}\right)+\lambda \int_{\Omega}(\nabla \cdot u)(\nabla \cdot v) \\
+\ell(v)=\int_{\partial \Omega_{N}} v \cdot h-\int_{\Omega} f \cdot v
+\end{array}
+++++
+--
+
+=== 2) Résolution
+
+[.left]
+--
+Déplacement rigide stem:[z(x)=\alpha+\beta \times x,] avec stem:[\alpha, \beta \in \mathbb{R}^{d}]
+stem:[\rightarrow] composée d'une translation et d'une rotation
+
+
+Proposition (Inégalité de Korn)::
+stem:[\Omega] Lipshitz. Supposons que stem:[V \subset\left(H^{1}(\Omega)\right)^{d},] s.e.v, ne contient aucun déplacement rigide autre que 0. II existe stem:[\kappa>0] tel que
+[stem]
+++++
+\forall v \in V, \quad \kappa\|u\|_{H_{\Omega}^{1}} \leqslant\|\varepsilon(u)\|_{L^{2}}
+++++
+stem:[\rightarrow a] est stem:[2 \mu \kappa^{2}] coercive
+stem:[\rightarrow a] est bilinéaire continue sur stem:[V \times V]
+stem:[\rightarrow \ell] est linéaire continue sur stem:[V]
+Soit stem:[\Omega] Lipshitz, stem:[f \in\left(L^{2}(\Omega)\right)^{d}] et stem:[g \in L^{2}\left(\partial \Omega_{N}\right) .] Alors le problème a une unique solution dans stem:[V]
+--
+
+=== Discretisation
+
+[.left]
+--
+3) Choix du maillage stem:[\overrightarrow{\mathcal{T}}_{h}=\left\{K_{i}\right\}] maillage affine
+4) Choix de l'espace stem:[V_{h}]
+stem:[P_{h}^{k}=\left\{v_{h} \in C(\bar{\Omega})^{d}, \quad \forall K \in \mathcal{T}_{h}, v_{h | K} \in \mathbb{P}_{k}^{d}, v_{h}=0 \text { sur } \partial \Omega_{D}\right\} \in V]
+5) Construction de la base d'eléments finis
+--
+
+=== 6) Convergence
+
+[.left]
+--
+*Proposition*
+--
+stem:[\Omega] polyédrique et stem:[\left(\mathcal{T}_{h}\right)] une famille régulière de triangulations. Soit stem:[f \in L^{2}(\Omega)] et stem:[u \in V] la solution du problème. Soit stem:[u_{h} \in P_{h}^{k}] la solution approché du problème d'élasticité linéaire. Alors
+[stem]
+++++
+\left\|u-u_{h}\right\|_{\left(H^{1}(\Omega)\right)^{d}} \rightarrow 0
+++++
+Si de plus stem:[u \in\left(H^{k+1}(\Omega)\right)^{d} \cap V,] alors
+[stem]
+++++
+\left\|u-u_{h}\right\|_{\left(H^{1}(\Omega)\right)^{d}} \leqslant C h^{k}\|u\|_{L^{2}}
+++++
+stem:[\rightarrow] Pour les éléments fini d'ordre stem:[P^{k},] la convergence est d'ordre stem:[O\left(h^{k}\right)] à la condition que la solution exacte soit suffisamment régulière.
+stem:[\rightarrow] Pas de convergence dans stem:[L^{2}] d'ordre stem:[O\left(h^{k+1}\right)] car pas d'équivalent de Lemme d'Aubin Nitsche pour ce problème.
+--
+
+== Perte de coercivité
+[.left]
+--
+*Propriété de stem:[a] bilinéaire :*
+[stem]
+++++
+\begin{array}{ll}
+\|a(u, v)\| & \leqslant M(\lambda+\mu)\|u\|\|v\| & \text { (continuité) } \\
+\|a(u, u)\| & \geqslant \kappa \mu\|v\|^{2} & \text { (coercivité) }
+\end{array}
+++++
+Preuve de la convergence pour stem:[u \in\left(H^{k+1}(\Omega)\right)^{d} \cap V:]
+[stem]
+++++
+\begin{aligned}
+\left\|u-u_{h}\right\| \leqslant_{\mathrm{Céa}} \frac{M}{\kappa} \frac{(\lambda+\mu)}{\mu} \operatorname{dist}\left(u, V_{h}\right) & \leqslant \frac{M}{\kappa} \frac{(\lambda+\mu)}{\mu}\left\|u-\mathcal{I}_{V_{h}}(u)\right\| \\
+& \leqslant \quad \frac{M}{\kappa} \frac{(\lambda+\mu)}{\mu} C h^{k}\|u\|_{H^{k+1}}
+\end{aligned}
+++++
+* stem:[\rightarrow] quand stem:[\lambda / \mu] est très grand, mauvais contrôle de l'erreur
+* stem:[\rightarrow] Coeff. de Poisson stem:[\nu=\frac{1}{2} \frac{\lambda}{\lambda+\mu}\left(\leqslant \frac{1}{2}\right)] tend vers stem:[1 / 2] quand stem:[\lambda / \mu \rightarrow+\infty]
+* stem:[\rightarrow] limite d'incompressibilité
+--

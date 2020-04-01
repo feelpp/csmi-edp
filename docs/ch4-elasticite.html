@@ -166,7 +166,63 @@ u&amp;=0 \mbox{ sur } \partial \Omega_{D}\\
 * \(\nabla \cdot u=\operatorname{tr}(\varepsilon(u))\)
 * \(\rightarrow \sigma\) dépend linéairement de \(\varepsilon(u)\)</p></div>
 <div class="paragraph"><p><strong>Version intégrale</strong>:</p></div>
-<div class="stemblock"><div class="content">\[\forall \omega \subset \Omega, \quad \int_{\partial \omega} \sigma(u) n=-\int_{\omega} f\]</div></div></div></div></div></section></div></div><script src="https://cdn.jsdelivr.net/npm/reveal.js@3.9.2/js/reveal.js"></script><script>Array.prototype.slice.call(document.querySelectorAll('.slides section')).forEach(function(slide) {
+<div class="stemblock"><div class="content">\[\forall \omega \subset \Omega, \quad \int_{\partial \omega} \sigma(u) n=-\int_{\omega} f\]</div></div></div></div></div></section>
+<section id="_coefficient_de_poisson_nu_text_et_module_de_young_e_text_en_3_mathrmd"><h2>Coefficient de Poisson \(\nu \text { et module de Young } E \text { (en } 3 \mathrm{d})\)</h2><div class="slide-content"><div class="stemblock"><div class="content">\[E=\frac{\mu(3 \lambda+2 \mu)}{\lambda+\mu}, \quad \nu=\frac{\lambda}{2(\lambda+\mu)}\]</div></div>
+<div class="paragraph"><p>Si on effectue une élongation verticale d&#8217;une longueur \(\varepsilon\) alors:
+Ia contrainte de traction à opérer est de l&#8217;ordre de \(E \varepsilon\)
+Ia compression horizontale, relativement à \(\varepsilon\) est de l&#8217;ordre du coefficient de Poisson,
+En effet, en considérant le champ de déplacement suivant pour un cube:</p></div>
+<div class="stemblock"><div class="content">\[u=\left[\begin{array}{c}
+-\nu \varepsilon x \\
+-\nu \varepsilon y \\
+\varepsilon z
+\end{array}\right]\]</div></div>
+<div class="paragraph"><p>le tenseur des contraintes associé \(\sigma\) est solution du problème avec \(0=\sigma_{11}=\sigma_{22}\) (contrainte normale nulle sur les bords horizontaux) et \(\sigma_{33}=E \varepsilon(\text { contrainte normale sur le bord du haut })\)
+\(\rightarrow\) Grand \(E=\) matériau rigide, faible \(E=\) matériau souple</p></div></div></section>
+<section><section id="_analyse_vectorielle"><h2>Analyse vectorielle</h2></section><section id="_champs_de_vecteurs_et_de_matrices"><h2>champs de vecteurs et de matrices</h2><div class="slide-content"><div class="openblock left small"><div class="content"><div class="ulist"><ul><li><p>\(u=\left(u_{1}, \ldots u_{d}\right)\) champ de vecteur
+\(\nabla u=\left(\partial_{x_{j}} u_{i}\right)_{i, j}:\) gradient de \(u(\text { matrice jacobienne })\)</p></li><li><p>\(\varepsilon(u)=\frac{1}{2}\left(\nabla u+\nabla u^{T}\right):\) partie symétrique du gradient de \(u\)</p></li><li><p>\(\Delta u=\left(\Delta u_{1}, \ldots, \Delta u_{d}\right)^{T} \in \mathbb{R}^{d}:\) Laplacien du \(u\)</p></li><li><p>\(A=\left(A_{i, j}\right) \in \mathbb{R}^{d \times d}\) tenseur (matrice)</p></li><li><p>\(\nabla \cdot A=\left(\nabla \cdot A_{1,:}, \ldots, \nabla \cdot A_{d,:}\right)^{T} \in \mathbb{R}^{d}:\) divergence d&#8217;un tenseur</p></li><li><p>\(A: B=\sum_{i, j} A_{i, j} B_{i, j} \in \mathbb{R}:\) produit contracté de deux tenseurs</p></li><li><p>\(\left(H^{1}(\Omega)\right)^{d}:\) espace de Sobolev vectoriel</p></li></ul></div></div></div></div></section><section id="_calcul_intégral"><h2>Calcul intégral</h2><div class="slide-content"><div class="paragraph"><p>Proposition \(\Omega\) ouvert régulier Lipshitz et
+* <strong>Formule de Gauss vectorielle</strong>: \( u \in\left(H^{1}(\Omega)\right)^{d}\)</p></div>
+<div class="paragraph"><p>+</p></div>
+<div class="stemblock"><div class="content">\[\int_{\Omega} \nabla \cdot u=\int_{\partial \Omega} u \cdot n\]</div></div>
+<div class="ulist"><ul><li><p><strong>Formule d&#8217;intégration par partie vectorielle</strong>: \(A \in\left(H^{1}(\Omega)\right)^{d \times d}, v \in H^{1}(\Omega)\)</p><div class="stemblock"><div class="content">\[-\int_{\Omega}(\nabla \cdot A) \cdot v=\int_{\Omega} A: \nabla v-\int_{\partial \Omega}(A n) \cdot v\]</div></div></li><li><p><strong>Formule de Green vectorielle</strong> \(u \in\left(H^{2}(\Omega)\right)^{d}, v \in\left(H^{1}(\Omega)\right)^{d}\)</p></li></ul></div>
+-\int_{\Omega} v \cdot \Delta u=\int_{\Omega} \nabla u: \nabla v-\int_{\partial \Omega} v \cdot(\nabla u n)</div></section></section>
+<section><section id="_méthode_élément_fini"><h2>Méthode élément fini</h2></section><section id="_1_formulation_variationnelle"><h2>1) Formulation variationnelle</h2><div class="slide-content"><div class="openblock left"><div class="content"><div class="paragraph"><p>\(V=\left\{v \in\left(H^{1}(\Omega)\right)^{d}, u=0 \text { sur } \partial \Omega_{D}\right\}:\) espace vectoriel
+<strong>Formulation faible :</strong>
+trouver \(u \in V\) tel que \(\quad a(u, v)=\ell(v), \quad \forall v \in V\)
+avec</p></div>
+<div class="stemblock"><div class="content">\[\begin{array}{l}
+a(u, v)=\frac{1}{2} \int_{\Omega} \mu\left(\nabla u+\nabla u^{T}\right):\left(\nabla v+\nabla v^{T}\right)+\lambda \int_{\Omega}(\nabla \cdot u)(\nabla \cdot v) \\
+\ell(v)=\int_{\partial \Omega_{N}} v \cdot h-\int_{\Omega} f \cdot v
+\end{array}\]</div></div></div></div></div></section><section id="_2_résolution"><h2>2) Résolution</h2><div class="slide-content"><div class="openblock left"><div class="content"><div class="paragraph"><p>Déplacement rigide \(z(x)=\alpha+\beta \times x,\) avec \(\alpha, \beta \in \mathbb{R}^{d}\)
+\(\rightarrow\) composée d&#8217;une translation et d&#8217;une rotation</p></div>
+<div class="dlist"><dl><dt class="hdlist1">Proposition (Inégalité de Korn)</dt><dd><p>\(\Omega\) Lipshitz. Supposons que \(V \subset\left(H^{1}(\Omega)\right)^{d},\) s.e.v, ne contient aucun déplacement rigide autre que 0. II existe \(\kappa&gt;0\) tel que</p></dd></dl></div>
+<div class="stemblock"><div class="content">\[\forall v \in V, \quad \kappa\|u\|_{H_{\Omega}^{1}} \leqslant\|\varepsilon(u)\|_{L^{2}}\]</div></div>
+<div class="paragraph"><p>\(\rightarrow a\) est \(2 \mu \kappa^{2}\) coercive
+\(\rightarrow a\) est bilinéaire continue sur \(V \times V\)
+\(\rightarrow \ell\) est linéaire continue sur \(V\)
+Soit \(\Omega\) Lipshitz, \(f \in\left(L^{2}(\Omega)\right)^{d}\) et \(g \in L^{2}\left(\partial \Omega_{N}\right) .\) Alors le problème a une unique solution dans \(V\)</p></div></div></div></div></section><section id="_discretisation"><h2>Discretisation</h2><div class="slide-content"><div class="openblock left"><div class="content"><div class="paragraph"><p>3) Choix du maillage \(\overrightarrow{\mathcal{T}}_{h}=\left\{K_{i}\right\}\) maillage affine
+4) Choix de l&#8217;espace \(V_{h}\)
+\(P_{h}^{k}=\left\{v_{h} \in C(\bar{\Omega})^{d}, \quad \forall K \in \mathcal{T}_{h}, v_{h | K} \in \mathbb{P}_{k}^{d}, v_{h}=0 \text { sur } \partial \Omega_{D}\right\} \in V\)
+5) Construction de la base d&#8217;eléments finis</p></div></div></div></div></section><section id="_6_convergence"><h2>6) Convergence</h2><div class="slide-content"><div class="openblock left"><div class="content"><div class="paragraph"><p><strong>Proposition</strong></p></div></div></div>
+<div class="paragraph"><p>\(\Omega\) polyédrique et \(\left(\mathcal{T}_{h}\right)\) une famille régulière de triangulations. Soit \(f \in L^{2}(\Omega)\) et \(u \in V\) la solution du problème. Soit \(u_{h} \in P_{h}^{k}\) la solution approché du problème d&#8217;élasticité linéaire. Alors</p></div>
+<div class="stemblock"><div class="content">\[\left\|u-u_{h}\right\|_{\left(H^{1}(\Omega)\right)^{d}} \rightarrow 0\]</div></div>
+<div class="paragraph"><p>Si de plus \(u \in\left(H^{k+1}(\Omega)\right)^{d} \cap V,\) alors</p></div>
+<div class="stemblock"><div class="content">\[\left\|u-u_{h}\right\|_{\left(H^{1}(\Omega)\right)^{d}} \leqslant C h^{k}\|u\|_{L^{2}}\]</div></div>
+<div class="paragraph"><p>\(\rightarrow\) Pour les éléments fini d&#8217;ordre \(P^{k},\) la convergence est d&#8217;ordre \(O\left(h^{k}\right)\) à la condition que la solution exacte soit suffisamment régulière.
+\(\rightarrow\) Pas de convergence dans \(L^{2}\) d&#8217;ordre \(O\left(h^{k+1}\right)\) car pas d&#8217;équivalent de Lemme d&#8217;Aubin Nitsche pour ce problème.</p></div>
+<div class="openblock"><div class="content"><div class="paragraph"><p>== Perte de coercivité</p></div></div></div>
+<div class="paragraph"><p><strong>Propriété de \(a\) bilinéaire :</strong></p></div>
+<div class="stemblock"><div class="content">\[\begin{array}{ll}
+\|a(u, v)\| &amp; \leqslant M(\lambda+\mu)\|u\|\|v\| &amp; \text { (continuité) } \\
+\|a(u, u)\| &amp; \geqslant \kappa \mu\|v\|^{2} &amp; \text { (coercivité) }
+\end{array}\]</div></div>
+<div class="paragraph"><p>Preuve de la convergence pour \(u \in\left(H^{k+1}(\Omega)\right)^{d} \cap V:\)</p></div>
+<div class="stemblock"><div class="content">\[\begin{aligned}
+\left\|u-u_{h}\right\| \leqslant_{\mathrm{Céa}} \frac{M}{\kappa} \frac{(\lambda+\mu)}{\mu} \operatorname{dist}\left(u, V_{h}\right) &amp; \leqslant \frac{M}{\kappa} \frac{(\lambda+\mu)}{\mu}\left\|u-\mathcal{I}_{V_{h}}(u)\right\| \\
+&amp; \leqslant \quad \frac{M}{\kappa} \frac{(\lambda+\mu)}{\mu} C h^{k}\|u\|_{H^{k+1}}
+\end{aligned}\]</div></div>
+<div class="ulist"><ul><li><p>\(\rightarrow\) quand \(\lambda / \mu\) est très grand, mauvais contrôle de l&#8217;erreur</p></li><li><p>\(\rightarrow\) Coeff. de Poisson \(\nu=\frac{1}{2} \frac{\lambda}{\lambda+\mu}\left(\leqslant \frac{1}{2}\right)\) tend vers \(1 / 2\) quand \(\lambda / \mu \rightarrow+\infty\)</p></li><li><p>\(\rightarrow\) limite d&#8217;incompressibilité</p></li></ul></div>
+<div class="openblock"><div class="content"></div></div></div></section></section></div></div><script src="https://cdn.jsdelivr.net/npm/reveal.js@3.9.2/js/reveal.js"></script><script>Array.prototype.slice.call(document.querySelectorAll('.slides section')).forEach(function(slide) {
   if (slide.getAttribute('data-background-color')) return;
   // user needs to explicitly say he wants CSS color to override otherwise we might break custom css or theme (#226)
   if (!(slide.classList.contains('canvas') || slide.classList.contains('background'))) return;
