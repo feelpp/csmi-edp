@@ -154,18 +154,18 @@ TeX: { equationNumbers: { autoNumber: "none" } }
 link.rel = 'stylesheet';
 link.type = 'text/css';
 link.href = window.location.search.match( /print-pdf/gi ) ? "https://cdn.jsdelivr.net/npm/reveal.js@3.9.2/css/print/pdf.css" : "https://cdn.jsdelivr.net/npm/reveal.js@3.9.2/css/print/paper.css";
-document.getElementsByTagName( 'head' )[0].appendChild( link );</script><link rel="stylesheet" href="css/slides.css"></head><body><div class="reveal"><div class="slides"><section class="title" data-state="title"><h1>Elasticité Linéaire</h1><p class="author"><small>Christophe Prud'homme &lt;christophe.prudhomme@cemosis.fr&gt;, Laurent Navoret</small></p></section><section id="_problème_délasticité_linéaire"><h2>Problème d&#8217;élasticité linéaire</h2><div class="slide-content"><div class="stemblock"><div class="content">\[\begin{array}{l}
-\nabla \cdot \sigma(u)+f&amp;=0 \mbox{ sur }  stem:[\Omega]\\
+document.getElementsByTagName( 'head' )[0].appendChild( link );</script><link rel="stylesheet" href="css/slides.css"></head><body><div class="reveal"><div class="slides"><section class="title" data-state="title"><h1>Elasticité Linéaire</h1><p class="author"><small>Christophe Prud'homme &lt;christophe.prudhomme@cemosis.fr&gt;, Laurent Navoret</small></p></section><section id="_problème_délasticité_linéaire"><h2>Problème d&#8217;élasticité linéaire</h2><div class="slide-content"><div class="openblock left x-small"><div class="content"><div class="stemblock"><div class="content">\[\begin{array}{l}
+\nabla \cdot \sigma(u)+f&amp;=0 \mbox{ sur }  \Omega\\
 \sigma(u)=\mu\left(\nabla u+\nabla u^{T}\right)+\lambda(\nabla \cdot u) \mathrm{ld}
-u&amp;=0 \mbox{ sur } stem:[\partial \Omega_{D}]
+u&amp;=0 \mbox{ sur } \partial \Omega_{D}\\
 \sigma(u) \cdot n=h \mbox{ sur } \partial \Omega_{N}
 \end{array}\]</div></div>
-<div class="openblock left x-small"><div class="content"><div class="ulist"><ul><li><p>\(u: \Omega \rightarrow \mathbb{R}^{d}:\) champ de déplacement</p></li><li><p>\(\sigma(u) \in M_{d}(\mathbb{R}):\) tenseur des contraintes</p></li><li><p>\(\lambda, \mu&gt;0:\) coefficients de Lamé du matériau</p></li><li><p>\(f: \Omega \rightarrow \mathbb{R}^{d}\) force volumique</p></li></ul></div>
+<div class="ulist"><ul><li><p>\(u: \Omega \rightarrow \mathbb{R}^{d}:\) champ de déplacement</p></li><li><p>\(\sigma(u) \in M_{d}(\mathbb{R}):\) tenseur des contraintes</p></li><li><p>\(\lambda, \mu&gt;0:\) coefficients de Lamé du matériau</p></li><li><p>\(f: \Omega \rightarrow \mathbb{R}^{d}\) force volumique</p></li></ul></div>
 <div class="paragraph"><p><strong>Elasticité linéaire</strong>:
-\(\varepsilon(u)=\frac{1}{2}\left(\nabla u+\nabla u^{T}\right):\) tenseur des déformations
-\(\nabla \cdot u=\operatorname{tr}(\varepsilon(u))\)
-\(\rightarrow \sigma\) dépend linéairement de \(\varepsilon(u)\)</p></div>
-<div class="paragraph"><p><strong>Version intégrale</strong></p></div>
+* \(\varepsilon(u)=\frac{1}{2}\left(\nabla u+\nabla u^{T}\right):\) tenseur des déformations
+* \(\nabla \cdot u=\operatorname{tr}(\varepsilon(u))\)
+* \(\rightarrow \sigma\) dépend linéairement de \(\varepsilon(u)\)</p></div>
+<div class="paragraph"><p><strong>Version intégrale</strong>:</p></div>
 <div class="stemblock"><div class="content">\[\forall \omega \subset \Omega, \quad \int_{\partial \omega} \sigma(u) n=-\int_{\omega} f\]</div></div></div></div></div></section></div></div><script src="https://cdn.jsdelivr.net/npm/reveal.js@3.9.2/js/reveal.js"></script><script>Array.prototype.slice.call(document.querySelectorAll('.slides section')).forEach(function(slide) {
   if (slide.getAttribute('data-background-color')) return;
   // user needs to explicitly say he wants CSS color to override otherwise we might break custom css or theme (#226)

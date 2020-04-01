@@ -321,13 +321,13 @@ image::quadrature.png[Points et Poids de quadrature]
 |   |   | stem:[(1,0,0)]             | 3 | stem:[1 / 20 \times S] 
 |===
 
-=== Multiplicity
+=== Multiplicité
 
 Definition::
-In the previous table, we call *multiplicity* the number of permutations that must be performed on the barycentric coordinates to obtain the list of all the points of the quadrature. 
+Dans le tableau précédent, nous appelons *multiplicité* le nombre de permutations qui doivent être effectuées sur les coordonnées barycentriques pour obtenir la liste de tous les points de la quadrature. 
 
-Example::
-The first-order formula has 3 points; the corresponding barycentric coordinates and weights are
+Exemple::
+La formule du premier ordre comporte 3 points ; les coordonnées barycentriques et les poids correspondants sont
 [stem]
 ++++
 \{1,1,0;1 / 3 \times S  \}, \{0,1,1;1 / 3 \times S  \}, \{1,0,1;1 / 3 \times S  \}
