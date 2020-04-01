@@ -37,7 +37,9 @@
 :iconfont-remote!:
 :iconfont-name: fonts/fontawesome/css/all
 
-== Problème de diffusion Equation de diffusion / de la chaleur
+== Problème de diffusion 
+
+=== Equation de diffusion
 [stem]
 ++++
 \begin{split}
@@ -143,3 +145,4 @@ Crank-Nicolson (ordre 2 en temps)
 === Exemple
 
 video::3dUjvRbCcVc?list=PLigsLWCja8px9vDW6uTpLv9tB-ljSJLXr[youtube,equation de diffusion en tomographie optique,width=1000,height=562,start=67]
+

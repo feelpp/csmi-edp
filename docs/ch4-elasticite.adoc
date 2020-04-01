@@ -1,4 +1,5 @@
 = Elasticité Linéaire
+:feelpp: Feel++
 :stem: latexmath
 // 16:9
 :revealjs_width: 1280
@@ -299,7 +300,57 @@ Preuve de la convergence pour stem:[u \in\left(H^{k+1}(\Omega)\right)^{d} \cap V
 * stem:[\rightarrow] limite d'incompressibilité
 --
 
-== Exemples
+== {feelpp}
+
+=== References
+
+Manuel::
+    http://docs.feelpp.org/toolboxes/0.108/[]
+
+Examples and Benchmarks::
+    http://docs.feelpp.org/cases/0.108/[]
+
+=== {feelpp} pipeline
+
+[blockdiag,"feelpp-pipeline",svg]
+....
+blockdiag {
+   // Set labels to nodes.
+   A [label = "geometry or mesh .geo, .json/h5"];
+   B [label = "modeling .json"];
+   C [label = "configuration .cfg"];
+   D [label = "feelpp toolbox"];
+   E [label = "logs"];
+   F [label = "paraview files: .case"];
+   // Set labels to edges. (short text only)
+   B -> D [label = "config"];
+   A -> D [label = "mesh generation"];
+   C -> D [label = "config"];
+   D -> F [label = "generate"];
+   D -> E [label = "produce"];
+}
+....
+
+
+=== Docker
+
+[source,sh]
+--
+> docker pull feelpp/feelpp-toolboxes
+> docker run --rm -it -v $HOME/csmi:/feel feelpp/feelpp-toolboxes
+--
+
+IMPORTANT: the docker image is bigger than `feelpp/feelpp`. `feelpp/feelpp` is contained in `feelpp/feelpp-toolboxes`. You may want to remove `feelpp/feelpp` to preserve space.
+
+[source,sh]
+--
+# remove image
+> docker rmi feelpp/feelpp
+# cleanup system from dangling images
+> docker system prune
+--
+
+=== Exemples
 
 * http://docs.feelpp.org/cases/0.108/csm/rotating-winch[Tourner une Clé]
 * http://docs.feelpp.org/cases/0.108/csm/ribs/[Utilisation de nervure pour raidir]
