@@ -40,7 +40,7 @@
 
 == Problème d'élasticité linéaire
 
-[.left.x-small]
+[.left]
 --
 [stem]
 ++++
@@ -56,23 +56,68 @@ u&=0 \mbox{ sur } \partial \Omega_{D}\\
 * stem:[\sigma(u) \in M_{d}(\mathbb{R}):] tenseur des contraintes 
 * stem:[\lambda, \mu>0:] coefficients de Lamé du matériau 
 * stem:[f: \Omega \rightarrow \mathbb{R}^{d}] force volumique
+--
 
-*Elasticité linéaire*::
+=== Elasticité linéaire
+
+Petites Déformations::
 * stem:[\varepsilon(u)=\frac{1}{2}\left(\nabla u+\nabla u^{T}\right):] tenseur des déformations
 * stem:[\nabla \cdot u=\operatorname{tr}(\varepsilon(u))]
 * stem:[\rightarrow \sigma] dépend linéairement de stem:[\varepsilon(u)]
 
-*Version intégrale*: stem:[\forall \omega \subset \Omega, \quad \int_{\partial \omega} \sigma(u) n=-\int_{\omega} f]
---
+Version intégrale:: 
+[stem]
+++++
+\forall \omega \subset \Omega, \quad \int_{\partial \omega} \sigma(u) n=-\int_{\omega} f
+++++
 
-== Coefficient de Poisson stem:[\nu \text { et module de Young } E \text { (en } 3 \mathrm{d})]
+=== Matériau hyperélastique
+
+[.left.x-small]
+--
+Pour de nombreux matériaux, les modèles élastiques linéaires ne décrivent pas avec précision le comportement observé du matériau. L'exemple le plus courant de ce type de matériau est le caoutchouc, dont la relation contrainte-déformation peut être définie comme non linéairement élastique, isotrope, incompressible et généralement indépendante de la vitesse de déformation. L'hyperélasticité fournit un moyen de modéliser le comportement contrainte-déformation de ces matériaux.
+
+Le modèle de matériau hyperélastique le plus simple est le modèle de Saint Venant-Kirchhoff qui n'est qu'une extension du modèle de matériau élastique géométriquement linéaire au régime géométriquement non linéaire. 
+--
+.Matériau hyperélastique de type Saint Venant-Kirchhoff
+[stem]
+++++
+\varepsilon(u)=\frac{1}{2}\left(\nabla u+\nabla u^{T} + (\nabla  u)^T \cdot\nabla  u \right)
+++++
+
+
+
+== Coefficient de Poisson stem:[\nu] et module de Young stem:[E] (en stem:[3\mathrm{d}])
+
+=== Interprétation
+
+[.left]
+--
 [stem]
 ++++
 E=\frac{\mu(3 \lambda+2 \mu)}{\lambda+\mu}, \quad \nu=\frac{\lambda}{2(\lambda+\mu)}
 ++++
 Si on effectue une élongation verticale d'une longueur stem:[\varepsilon] alors:
-Ia contrainte de traction à opérer est de l'ordre de stem:[E \varepsilon]
-Ia compression horizontale, relativement à stem:[\varepsilon] est de l'ordre du coefficient de Poisson,
+
+* la *contrainte de traction* à opérer est de l'ordre de stem:[E \varepsilon]
+* la *compression horizontale*, relativement à stem:[\varepsilon] est de l'ordre du coefficient de Poisson
+
+Unités::
+* stem:[E]: En unités de base SI : stem:[Pa = kg m^{-1} s^{-2}]; Dimension : stem:[M L^{-1} T^{-2}]
+* stem:[\nu]: sans dimension stem:[ 0 < \nu \leq 0.5], stem:[\nu=0.5] matériau incompressible
+//[.note]
+//--
+//Le coefficient de Poisson est sans dimension et caractérise la contraction de la matière perpendiculairement à la direction de l'effort appliqué (stem:[ 0 < \nu \leq 0.5]).
+//.Matériau linéaire isotrope (cas de petites déformations)
+//[stem]
+//++++
+//\frac {\Delta V} {V_0} \approx (1-2\nu)\frac {\varepslion} {L_0}
+//++++
+--
+
+=== Interprétation
+[.left.small.col2]
+--
 En effet, en considérant le champ de déplacement suivant pour un cube:
 [stem]
 ++++
@@ -82,8 +127,18 @@ u=\left[\begin{array}{c}
 \varepsilon z
 \end{array}\right]
 ++++
-le tenseur des contraintes associé stem:[\sigma] est solution du problème avec stem:[0=\sigma_{11}=\sigma_{22}] (contrainte normale nulle sur les bords horizontaux) et stem:[\sigma_{33}=E \varepsilon(\text { contrainte normale sur le bord du haut })]
-stem:[\rightarrow] Grand stem:[E=] matériau rigide, faible stem:[E=] matériau souple
+le tenseur des contraintes associé stem:[\sigma] est solution du problème avec 
+
+* stem:[0=\sigma_{11}=\sigma_{22}] (contrainte normale nulle sur les bords horizontaux) et 
+* stem:[\sigma_{33}=E \varepsilon(\text { contrainte normale sur le bord du haut })]
+
+* stem:[\rightarrow] Grand stem:[E=] matériau rigide, faible stem:[E=] matériau souple
+--
+
+[.col2.small]
+--
+image::poisson-ratio-wikipedia.png[]
+--
 
 == Analyse vectorielle
 
@@ -91,31 +146,43 @@ stem:[\rightarrow] Grand stem:[E=] matériau rigide, faible stem:[E=] matériau 
 [.left.small]
 --
 * stem:[u=\left(u_{1}, \ldots u_{d}\right)] champ de vecteur 
-stem:[\nabla u=\left(\partial_{x_{j}} u_{i}\right)_{i, j}:] gradient de stem:[u(\text { matrice jacobienne })] 
+* stem:[\nabla u=\left(\partial_{x_{j}} u_{i}\right)_{i, j}:] gradient de stem:[u(\text { matrice jacobienne })] 
 * stem:[\varepsilon(u)=\frac{1}{2}\left(\nabla u+\nabla u^{T}\right):] partie symétrique du gradient de stem:[u] 
 * stem:[\Delta u=\left(\Delta u_{1}, \ldots, \Delta u_{d}\right)^{T} \in \mathbb{R}^{d}:] Laplacien du stem:[u]
 
+Calcul matriciel::
 * stem:[A=\left(A_{i, j}\right) \in \mathbb{R}^{d \times d}] tenseur (matrice)
 * stem:[\nabla \cdot A=\left(\nabla \cdot A_{1,:}, \ldots, \nabla \cdot A_{d,:}\right)^{T} \in \mathbb{R}^{d}:] divergence d'un tenseur
 * stem:[A: B=\sum_{i, j} A_{i, j} B_{i, j} \in \mathbb{R}:] produit contracté de deux tenseurs
+
+Espace fonctionnel::
 * stem:[\left(H^{1}(\Omega)\right)^{d}:] espace de Sobolev vectoriel
+//* stem:[\left(H^{1}(\Omega)\right)^{d\times d}:] espace de Sobolev matriciel
 --
 
 === Calcul intégral
-Proposition stem:[\Omega] ouvert régulier Lipshitz et
+[.left.small]
+--
+*Proposition:* stem:[\Omega] ouvert régulier Lipshitz et
+
 * *Formule de Gauss vectorielle*: stem:[ u \in\left(H^{1}(\Omega)\right)^{d}]
-+
+
 [stem]
 ++++
 \int_{\Omega} \nabla \cdot u=\int_{\partial \Omega} u \cdot n
 ++++
 * *Formule d'intégration par partie vectorielle*: stem:[A \in\left(H^{1}(\Omega)\right)^{d \times d}, v \in H^{1}(\Omega)]
-+
+
 [stem]
 ++++
 -\int_{\Omega}(\nabla \cdot A) \cdot v=\int_{\Omega} A: \nabla v-\int_{\partial \Omega}(A n) \cdot v
 ++++
+--
+=== Calcul intégral (suite)
+
+[.left.small]
 * *Formule de Green vectorielle* stem:[u \in\left(H^{2}(\Omega)\right)^{d}, v \in\left(H^{1}(\Omega)\right)^{d}]
+
 [stem]
 ++++
 -\int_{\Omega} v \cdot \Delta u=\int_{\Omega} \nabla u: \nabla v-\int_{\partial \Omega} v \cdot(\nabla u n)
@@ -127,6 +194,7 @@ Proposition stem:[\Omega] ouvert régulier Lipshitz et
 [.left]
 --
 stem:[V=\left\{v \in\left(H^{1}(\Omega)\right)^{d}, u=0 \text { sur } \partial \Omega_{D}\right\}:] espace vectoriel
+
 *Formulation faible :*
 trouver stem:[u \in V] tel que stem:[\quad a(u, v)=\ell(v), \quad \forall v \in V]
 avec
@@ -153,10 +221,11 @@ stem:[\Omega] Lipshitz. Supposons que stem:[V \subset\left(H^{1}(\Omega)\right)^
 ++++
 \forall v \in V, \quad \kappa\|u\|_{H_{\Omega}^{1}} \leqslant\|\varepsilon(u)\|_{L^{2}}
 ++++
-stem:[\rightarrow a] est stem:[2 \mu \kappa^{2}] coercive
+stem:[\rightarrow a] est coercive 
+// stem:[2 \mu \kappa^{2}] coercive
 stem:[\rightarrow a] est bilinéaire continue sur stem:[V \times V]
 stem:[\rightarrow \ell] est linéaire continue sur stem:[V]
-Soit stem:[\Omega] Lipshitz, stem:[f \in\left(L^{2}(\Omega)\right)^{d}] et stem:[g \in L^{2}\left(\partial \Omega_{N}\right) .] Alors le problème a une unique solution dans stem:[V]
+Soit stem:[\Omega] Lipshitz, stem:[f \in\left(L^{2}(\Omega)\right)^{d}] et stem:[g \in L^{2}\left(\partial \Omega_{N}\right) .] *Alors le problème a une unique solution dans stem:[V]*.
 --
 
 === Discretisation
@@ -164,36 +233,52 @@ Soit stem:[\Omega] Lipshitz, stem:[f \in\left(L^{2}(\Omega)\right)^{d}] et stem:
 [.left]
 --
 3) Choix du maillage stem:[\overrightarrow{\mathcal{T}}_{h}=\left\{K_{i}\right\}] maillage affine
+
 4) Choix de l'espace stem:[V_{h}]
-stem:[P_{h}^{k}=\left\{v_{h} \in C(\bar{\Omega})^{d}, \quad \forall K \in \mathcal{T}_{h}, v_{h | K} \in \mathbb{P}_{k}^{d}, v_{h}=0 \text { sur } \partial \Omega_{D}\right\} \in V]
-5) Construction de la base d'eléments finis
+[stem]
+++++
+P_{h}^{k}=\left\{v_{h} \in C(\bar{\Omega})^{d}, \quad \forall K \in \mathcal{T}_{h}, v_{h | K} \in \mathbb{P}_{k}^{d}, v_{h}=0 \text { sur } \partial \Omega_{D}\right\} \in V
+++++
+
+5). Construction de la base d'eléments finis: Lagrange
 --
 
 === 6) Convergence
 
 [.left]
 --
-*Proposition*
---
-stem:[\Omega] polyédrique et stem:[\left(\mathcal{T}_{h}\right)] une famille régulière de triangulations. Soit stem:[f \in L^{2}(\Omega)] et stem:[u \in V] la solution du problème. Soit stem:[u_{h} \in P_{h}^{k}] la solution approché du problème d'élasticité linéaire. Alors
+Proposition::
+stem:[\Omega] polyédrique et stem:[\left(\mathcal{T}_{h}\right)] une famille régulière de triangulations. 
++
+Soit stem:[f \in L^{2}(\Omega)] et stem:[u \in V] la solution du problème. 
++
+Soit stem:[u_{h} \in P_{h}^{k}] la solution approché du problème d'élasticité linéaire. Alors
++
 [stem]
 ++++
 \left\|u-u_{h}\right\|_{\left(H^{1}(\Omega)\right)^{d}} \rightarrow 0
 ++++
+--
+
+=== 6) Convergence
+[.left]
+--
 Si de plus stem:[u \in\left(H^{k+1}(\Omega)\right)^{d} \cap V,] alors
+
 [stem]
 ++++
 \left\|u-u_{h}\right\|_{\left(H^{1}(\Omega)\right)^{d}} \leqslant C h^{k}\|u\|_{L^{2}}
 ++++
-stem:[\rightarrow] Pour les éléments fini d'ordre stem:[P^{k},] la convergence est d'ordre stem:[O\left(h^{k}\right)] à la condition que la solution exacte soit suffisamment régulière.
-stem:[\rightarrow] Pas de convergence dans stem:[L^{2}] d'ordre stem:[O\left(h^{k+1}\right)] car pas d'équivalent de Lemme d'Aubin Nitsche pour ce problème.
+
+* stem:[\rightarrow] Pour les éléments fini d'ordre stem:[P^{k},] la convergence est d'ordre stem:[O\left(h^{k}\right)] à la condition que la solution exacte soit suffisamment régulière.
+* stem:[\rightarrow] Pas de convergence dans stem:[L^{2}] d'ordre stem:[O\left(h^{k+1}\right)] car pas d'équivalent de Lemme d'Aubin Nitsche pour ce problème.
 --
 
 == Perte de coercivité
-[.left]
+[.left.small]
 --
 *Propriété de stem:[a] bilinéaire :*
-[stem]
+[stem.small]
 ++++
 \begin{array}{ll}
 \|a(u, v)\| & \leqslant M(\lambda+\mu)\|u\|\|v\| & \text { (continuité) } \\
@@ -201,14 +286,22 @@ stem:[\rightarrow] Pas de convergence dans stem:[L^{2}] d'ordre stem:[O\left(h^{
 \end{array}
 ++++
 Preuve de la convergence pour stem:[u \in\left(H^{k+1}(\Omega)\right)^{d} \cap V:]
-[stem]
+[stem.x-small]
 ++++
 \begin{aligned}
-\left\|u-u_{h}\right\| \leqslant_{\mathrm{Céa}} \frac{M}{\kappa} \frac{(\lambda+\mu)}{\mu} \operatorname{dist}\left(u, V_{h}\right) & \leqslant \frac{M}{\kappa} \frac{(\lambda+\mu)}{\mu}\left\|u-\mathcal{I}_{V_{h}}(u)\right\| \\
-& \leqslant \quad \frac{M}{\kappa} \frac{(\lambda+\mu)}{\mu} C h^{k}\|u\|_{H^{k+1}}
+\left\|u-u_{h}\right\| \leqslant \frac{M}{\kappa} \frac{(\lambda+\mu)}{\mu} \operatorname{dist}\left(u, V_{h}\right) & \leqslant \frac{M}{\kappa} \frac{(\lambda+\mu)}{\mu}\left\|u-\mathcal{I}_{V_{h}}(u)\right\| 
+\leqslant  \frac{M}{\kappa} \frac{(\lambda+\mu)}{\mu} C h^{k}\|u\|_{H^{k+1}}
 \end{aligned}
 ++++
+
 * stem:[\rightarrow] quand stem:[\lambda / \mu] est très grand, mauvais contrôle de l'erreur
-* stem:[\rightarrow] Coeff. de Poisson stem:[\nu=\frac{1}{2} \frac{\lambda}{\lambda+\mu}\left(\leqslant \frac{1}{2}\right)] tend vers stem:[1 / 2] quand stem:[\lambda / \mu \rightarrow+\infty]
+* stem:[\rightarrow] Coeff. de Poisson stem:[\nu=\frac{1}{2} \frac{\lambda}{\lambda+\mu}\left(\leqslant \frac{1}{2}\right)] tend vers stem:[1 / 2] quand stem:[\lambda / \mu \rightarrow+\infty], on a stem:[\lambda=\frac{E \nu}{(1+\nu)(1-2\nu)},\, \mu = \frac{E}{2(1+\nu)}]
 * stem:[\rightarrow] limite d'incompressibilité
 --
+
+== Exemples
+
+* http://docs.feelpp.org/cases/0.108/csm/rotating-winch[Tourner une Clé]
+* http://docs.feelpp.org/cases/0.108/csm/ribs/[Utilisation de nervure pour raidir]
+* http://docs.feelpp.org/cases/0.108/csm/suspension/[Mécanisme de suspension]
+* http://docs.feelpp.org/cases/0.108/csm/vierendeel-truss/[Poutre de Vierendeel]
