@@ -268,13 +268,13 @@ puis stem:[\nabla \psi_{r}\left(T_{K}(y)\right)=\nabla \hat{\psi}_{r}(y) \nabla 
 
 [stem]
 ++++
-\hat{X} = (\hat{x}_0,\ldots,\hat{x}_d)^T : \mbox{point dans} \hat{K} \subset \mathbb{R}^d\\
-\hat{X}_i = (\hat{x}_{i,0},\ldots,\hat{x}_{i,d})^T: \mbox{sommets de } \hat{K}\\
-X_i = (x_{i,0},\ldots,x_{i,d})^T = T_K(\hat{X}_i), \quad i=1 \ldots d+1 \mbox{sommets de K}\\
-X = (x_{0},\ldots,x_{d})^T = T_K(\hat{X}), \quad  \mbox{point de K}\\
+\hat{X} = (\hat{x}_0,\ldots,\hat{x}_{d-1})^T : \mbox{point dans} \hat{K} \subset \mathbb{R}^d\\
+\hat{X}_i = (\hat{x}_{i,0},\ldots,\hat{x}_{i,d-1})^T: \mbox{ sommets de } \hat{K}\\
+X_i = (x_{i,0},\ldots,x_{i,d-1})^T = T_K(\hat{X}_i), \quad i=1 \ldots d+1 \mbox{ sommets de K}\\
+X = (x_{0},\ldots,x_{d-1})^T = T_K(\hat{X}), \quad  \mbox{point de K}\\
 \psi_i \mbox{ ieme fonction de base de Lagrange sur } \hat{K} \mbox{ associée à } \hat{x}_i\\
-x_j = T_K(\hat{x})_j = \sum_{i=1}^{d+1} x_{i,j} \psi_i(\hat{x}), \quad j=1\ldots d\\
-\hat{\nabla} T_K(\hat{x}) = (\hat{\nabla} T_K (\hat{x})_0, \ldots, \hat{\nabla} T_K (\hat{x})_d ) \quad \mbox{ indep de } \hat{x}\\
+x_j = T_K(\hat{x})_j = \sum_{i=1}^{d+1} x_{i,j} \psi_i(\hat{x}), \quad j=0\ldots d-1\\
+\hat{\nabla} T_K(\hat{x}) = (\hat{\nabla} T_K (\hat{x})_0, \ldots, \hat{\nabla} T_K (\hat{x})_{d-1} ) \quad \mbox{ indep de } \hat{x}\\
 \mbox{calcul } |\mathrm{det} \nabla T_K |, \quad \mbox{calcul } \nabla T_K ^{-1}\\
 ++++
 
