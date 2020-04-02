@@ -266,6 +266,8 @@ puis stem:[\nabla \psi_{r}\left(T_{K}(y)\right)=\nabla \hat{\psi}_{r}(y) \nabla 
 
 === Transformation géométrique
 
+[.left.small]
+--
 [stem]
 ++++
 \hat{X} = (\hat{x}_0,\ldots,\hat{x}_{d-1})^T : \mbox{point dans} \hat{K} \subset \mathbb{R}^d\\
@@ -277,7 +279,7 @@ x_j = T_K(\hat{x})_j = \sum_{i=1}^{d+1} x_{i,j} \psi_i(\hat{x}), \quad j=0\ldots
 \hat{\nabla} T_K(\hat{x}) = (\hat{\nabla} T_K (\hat{x})_0, \ldots, \hat{\nabla} T_K (\hat{x})_{d-1} ) \quad \mbox{ indep de } \hat{x}\\
 \mbox{calcul } |\mathrm{det} \nabla T_K |, \quad \mbox{calcul } \nabla T_K ^{-1}\\
 ++++
-
+--
 
 // -------------------------------------
 
@@ -414,13 +416,14 @@ f_{i} \leftarrow f_{i}+\frac{1}{\varepsilon} g_{i}
 ==  Discussions
 :stem: latexmath
 
+.Algorithme élimination
 [source,python]
 --
 for i in dir_nodes: 
     # acces ligne i de la matrice A et du vecteur F
-    A[i,:] = 0
-    A[i,i] = 1
-    F[i] = 10
+    A[i,:] = 0  #mettre `a zero la ligne correspondant 
+    A[i,i] = 1 # 1 sur la diagonale de la matrice
+    F[i] = 10 # mettre la valeur de la solution
 --
 avec ce code `u[i] = 10, i in dir_nodes`.
 
@@ -432,9 +435,9 @@ stem:[L^2] et de la norme stem:[H^1]:
 
 === Norme stem:[L^2]
 
-[.left.small]
+[.left.x-small]
 --
-[stem]
+[stem.small]
 ++++
 \| u_h = \sum u_i   \phi_i \|_2^2 =\int_\Omega u_h*u_h \approx \\
 \sum_K \sum_{q=1}^Q  w_q u_h \circ T_K (\hat{x}_q)*u_h \circ T_K (\hat{x}_q) |det \nabla T_K | \\
@@ -443,7 +446,7 @@ u_h\circ T_K (\hat{x}_q)= \sum_{i=1}^3 u_{connect(K,i)} \phi_i(\hat{x_q})
 
 IMPORTANT: choisir une formule de quadrature d'ordre stem:[2k] pour stem:[u_h \in P^k_{c,h}]
 
-[stem]
+[stem.small]
 ++++
 \|u  \|_2^2 =\int_\Omega u*u \approx,\quad 
 \sum_K \sum_{q=1}^Q  w_q u \circ T_K (\hat{x}_q)*u \circ T_K (\hat{x}_q) |det \nabla T_K | \\
@@ -454,7 +457,7 @@ NOTE: il faut calculer stem:[x_{K,q}=T_K(\hat{x}_q)], puis calculer stem:[u(x_{K
 
 === SemiNorme stem:[H^1]
 
-[stem]
+[stem.small]
 ++++
 \|\nabla u_h = \sum u_i \nabla \phi_i \|^2_2 =\int_\Omega \nabla u_h \cdot \nabla u_h = \\
 \sum_K \int_\hat{K} \nabla u_h \circ T_K \cdot \nabla u_h \circ T_K |det \nabla T_K | = \\
@@ -466,9 +469,11 @@ NOTE: il faut calculer stem:[x_{K,q}=T_K(\hat{x}_q)], puis calculer stem:[u(x_{K
 
 ===  SemiNorme stem:[H^1] (suite)
 
+[.left.small]
+--
 Si stem:[u] quelconque, soit on calcule l'interpolant de stem:[u], stem:[\pi^1_h u], dans stem:[P^1_{c,h}] puis la semi norme stem:[H^1] en utilisant l'interpolant, soit on  connait le gradient de stem:[u] et on utilise celui ci dans les formules de quadratures
 
-[stem]
+[stem.small]
 ++++
 \pi^1_h u (x_j) = \sum_{i=1}^N u(x_j) \psi_i(x_j) = u(x_j) * \delta_{i,j} = u(x_j)\\
 ++++
@@ -480,7 +485,7 @@ stem:[\pi^1_h u ] est l'élément de stem:[P^1_{c,h}] dont les composantes sont 
 for N in nodes:
     Piu[N.i] = fonction_u(N.x,N.y)
 --
-
+--
 
 
 === Assemblage des matrices de raideur
@@ -491,14 +496,14 @@ stem:[A] avec condition de dirichlet.
 
 on assemble stem:[A] *_sans condition Dirichlet._*
 
-[stem]
+[stem.small]
 ++++
 \|\nabla u_h \|^2 = U_h^T A U_h = \int_\Omega \nabla u_h  \cdot \nabla u_h\\
 u_h = \sum_{i=1} U_i \psi_i(x)
 ++++
 avec stem:[U_h] le vecteur des composantes de stem:[u_h] dans la base de Lagrange stem:[P^1].
 
-[stem]
+[stem.small]
 ++++
 \|\nabla u \|^2 \approx \|\nabla \pi^1_h u \|^2 = \Pi_h^T A \Pi_h = \int_\Omega \nabla \pi^1_h u  \cdot \nabla \pi^1_h u\\
 \pi^1_h u = \sum_{i=1} u(x_i) \psi_i(x)

@@ -247,14 +247,14 @@ A_{i, j} &amp;=\int_{\Omega} \nabla \varphi_{i} \cdot \nabla \varphi_{j} \\
 <div class="ulist"><ul><li><p>le couple de fonctions de base \(\psi_{K, ri}, \psi_{K, rj}\) contribue au terme \(A_{i, j}\) avec \(i=connect\left(\text {ind}_{K}, r i\right)\) et \(j=connect\left(\text {ind}_{K}, r j\right)\)</p></li><li><p><strong>principe de l&#8217;assemblage</strong> : calculer les termes \(\int_{K} \nabla \psi_{K, r i} \cdot \nabla \psi_{K, r j}\) et les ajouter au fur et à mesure dans la matrice.</p></li></ul></div></div></section><section id="_assemblage_de_la_matrice_2"><h2>Assemblage de la matrice</h2><div class="slide-content"><div class="dlist"><dl><dt class="hdlist1">Rappel</dt><dd><p>Changement de variable \(T: V \rightarrow U\) un \(C^{1}\) difféomorphisme</p><div class="stemblock"><div class="content">\[\int_{U} f(x) d x=\int_{V} f(T(y))|\operatorname{det}(\nabla T(y))| d y\]</div></div></dd><dt class="hdlist1">Calcul des coefficients</dt><dd><div class="stemblock"><div class="content">\[\int_{K} \nabla \psi_{K, r i} \cdot \nabla \psi_{K, r j}=\int_{\hat{K}} \nabla \psi_{K, r i}\left(T_{K}(y)\right) \cdot \nabla \psi_{K, r j}\left(T_{K}(y)\right)\left|\operatorname{det}\left(\nabla T_{K}(x)\right)\right| d y\]</div></div></dd></dl></div></div></section><section id="_assemblage_de_la_matrice_3"><h2>Assemblage de la matrice</h2><div class="slide-content"><div class="dlist"><dl><dt class="hdlist1">Proposition</dt><dd><div class="stemblock"><div class="content">\[\nabla \psi_{K, r}\left(T_{K}(y)\right)=\nabla \hat{\psi}_{r}(y) \nabla T_{K}(y)^{-1}\]</div></div></dd></dl></div>
 <div class="paragraph"><p>On a \(\psi_{K, r}(x)=\hat{\psi}_{r}\left(T_{K}^{-1}(x)\right)\) donc \(\nabla \psi_{r}(x)=\nabla \hat{\psi}_{r}\left(T_{K}^{-1}(x)\right) \nabla T_{K}^{-1}(x)\)
 puis \(\nabla \psi_{r}\left(T_{K}(y)\right)=\nabla \hat{\psi}_{r}(y) \nabla T_{K}^{-1}\left(T_{K}(y)\right) .\) Puis \(\nabla T_{K}^{-1}\left(T_{K}(y)\right) \nabla T_{K}(y)=I d\)</p></div>
-<div class="ulist"><ul><li><p>\(\left.\rightarrow \text { rem: } T_{K} \text { affine } \Rightarrow \nabla T_{K}(y) \text { matrice constante (indép. de } x\right)\)</p></li><li><p>\(\rightarrow\) Formules de quadratures sur \(\hat{K}\)</p></li></ul></div></div></section><section id="_transformation_géométrique"><h2>Transformation géométrique</h2><div class="slide-content"><div class="stemblock"><div class="content">\[\hat{X} = (\hat{x}_0,\ldots,\hat{x}_{d-1})^T : \mbox{point dans} \hat{K} \subset \mathbb{R}^d\\
+<div class="ulist"><ul><li><p>\(\left.\rightarrow \text { rem: } T_{K} \text { affine } \Rightarrow \nabla T_{K}(y) \text { matrice constante (indép. de } x\right)\)</p></li><li><p>\(\rightarrow\) Formules de quadratures sur \(\hat{K}\)</p></li></ul></div></div></section><section id="_transformation_géométrique"><h2>Transformation géométrique</h2><div class="slide-content"><div class="openblock left small"><div class="content"><div class="stemblock"><div class="content">\[\hat{X} = (\hat{x}_0,\ldots,\hat{x}_{d-1})^T : \mbox{point dans} \hat{K} \subset \mathbb{R}^d\\
 \hat{X}_i = (\hat{x}_{i,0},\ldots,\hat{x}_{i,d-1})^T: \mbox{ sommets de } \hat{K}\\
 X_i = (x_{i,0},\ldots,x_{i,d-1})^T = T_K(\hat{X}_i), \quad i=1 \ldots d+1 \mbox{ sommets de K}\\
 X = (x_{0},\ldots,x_{d-1})^T = T_K(\hat{X}), \quad  \mbox{point de K}\\
 \psi_i \mbox{ ieme fonction de base de Lagrange sur } \hat{K} \mbox{ associée à } \hat{x}_i\\
 x_j = T_K(\hat{x})_j = \sum_{i=1}^{d+1} x_{i,j} \psi_i(\hat{x}), \quad j=0\ldots d-1\\
 \hat{\nabla} T_K(\hat{x}) = (\hat{\nabla} T_K (\hat{x})_0, \ldots, \hat{\nabla} T_K (\hat{x})_{d-1} ) \quad \mbox{ indep de } \hat{x}\\
-\mbox{calcul } |\mathrm{det} \nabla T_K |, \quad \mbox{calcul } \nabla T_K ^{-1}\\\]</div></div></div></section></section>
+\mbox{calcul } |\mathrm{det} \nabla T_K |, \quad \mbox{calcul } \nabla T_K ^{-1}\\\]</div></div></div></div></div></section></section>
 <section><section id="_formule_de_quadrature"><h2>Formule de quadrature</h2><div class="slide-content"><div class="dlist"><dl><dt class="hdlist1">Definition</dt><dd><p>Soit \(K\) polygone et \(n \in \mathbb{N}^{*} .\)
 On considère</p></dd></dl></div><div class="stemblock"><div class="content">\[Q(\phi)=\sum_{i=1}^{n} \omega_{i} \phi\left(\xi_{i}\right) \quad \approx \int_{K} \phi(x) d x\]</div></div><div class="ulist"><ul><li><p>\(\left(\xi_{i}\right) \in K^{n}:\) points de quadrature</p></li><li><p>\(\left(\omega_{i}\right) \in \mathbb{R}^{n}:\) poids de quadrature</p></li></ul></div></div></section><section id="_ordre_de_quadrature"><h2>Ordre de quadrature</h2><div class="slide-content"><div class="paragraph"><p>C&#8217;est le plus grand entier \(m \in \mathbb{N}\) tel que l&#8217;intégrale soit exacte sur \(\mathbb{P}_{m}\)</p></div>
 <div class="dlist"><dl><dt class="hdlist1">Estimation d&#8217;erreur</dt><dd><p>\(\exists c&gt;0\) telle que \(\forall \phi \in C^{m+1}(K)\)</p></dd></dl></div>
@@ -289,33 +289,34 @@ On écrit simplement ce que valent les degré de liberté aux bords Dirichlet.</
 A_{i, i} \leftarrow A_{i, i}+\frac{1}{\varepsilon} \\
 f_{i} \leftarrow f_{i}+\frac{1}{\varepsilon} g_{i}
 \end{array}\]</div></div></div></section></section>
-<section><section id="_discussions"><h2>Discussions</h2><div class="slide-content"><div class="listingblock"><div class="content"><pre class="highlightjs highlight"><code data-lang="python" class="language-python hljs" data-noescape="true">for i in dir_nodes:
+<section><section id="_discussions"><h2>Discussions</h2><div class="slide-content"><div class="listingblock"><div class="title">Algorithme élimination</div>
+<div class="content"><pre class="highlightjs highlight"><code data-lang="python" class="language-python hljs" data-noescape="true">for i in dir_nodes:
     # acces ligne i de la matrice A et du vecteur F
-    A[i,:] = 0
-    A[i,i] = 1
-    F[i] = 10</code></pre></div></div><div class="paragraph"><p>avec ce code <code>u[i] = 10, i in dir_nodes</code>.</p></div><div class="paragraph"><p>Deux facons de faire pour le calcul de la norme
-\(L^2\) et de la norme \(H^1\):</p></div><div class="ulist"><ul><li><p>calcul des intégrales directement</p></li><li><p>calcul via les matrices</p></li></ul></div></div></section><section id="_norme_l2"><h2>Norme \(L^2\)</h2><div class="slide-content"><div class="openblock left small"><div class="content"><div class="stemblock"><div class="content">\[\| u_h = \sum u_i   \phi_i \|_2^2 =\int_\Omega u_h*u_h \approx \\
+    A[i,:] = 0  #mettre `a zero la ligne correspondant
+    A[i,i] = 1 # 1 sur la diagonale de la matrice
+    F[i] = 10 # mettre la valeur de la solution</code></pre></div></div><div class="paragraph"><p>avec ce code <code>u[i] = 10, i in dir_nodes</code>.</p></div><div class="paragraph"><p>Deux facons de faire pour le calcul de la norme
+\(L^2\) et de la norme \(H^1\):</p></div><div class="ulist"><ul><li><p>calcul des intégrales directement</p></li><li><p>calcul via les matrices</p></li></ul></div></div></section><section id="_norme_l2"><h2>Norme \(L^2\)</h2><div class="slide-content"><div class="openblock left x-small"><div class="content"><div class="stemblock small"><div class="content">\[\| u_h = \sum u_i   \phi_i \|_2^2 =\int_\Omega u_h*u_h \approx \\
 \sum_K \sum_{q=1}^Q  w_q u_h \circ T_K (\hat{x}_q)*u_h \circ T_K (\hat{x}_q) |det \nabla T_K | \\
 u_h\circ T_K (\hat{x}_q)= \sum_{i=1}^3 u_{connect(K,i)} \phi_i(\hat{x_q})\]</div></div>
 <div class="admonitionblock important"><table><tr><td class="icon"><i class="fa fa-exclamation-circle" title="Important"></i></td><td class="content">choisir une formule de quadrature d&#8217;ordre \(2k\) pour \(u_h \in P^k_{c,h}\)</td></tr></table></div>
-<div class="stemblock"><div class="content">\[\|u  \|_2^2 =\int_\Omega u*u \approx,\quad
+<div class="stemblock small"><div class="content">\[\|u  \|_2^2 =\int_\Omega u*u \approx,\quad
 \sum_K \sum_{q=1}^Q  w_q u \circ T_K (\hat{x}_q)*u \circ T_K (\hat{x}_q) |det \nabla T_K | \\\]</div></div>
-<div class="admonitionblock note"><table><tr><td class="icon"><i class="fa fa-info-circle" title="Note"></i></td><td class="content">il faut calculer \(x_{K,q}=T_K(\hat{x}_q)\), puis calculer \(u(x_{K,q})\).</td></tr></table></div></div></div></div></section><section id="_seminorme_h1"><h2>SemiNorme \(H^1\)</h2><div class="slide-content"><div class="stemblock"><div class="content">\[\|\nabla u_h = \sum u_i \nabla \phi_i \|^2_2 =\int_\Omega \nabla u_h \cdot \nabla u_h = \\
+<div class="admonitionblock note"><table><tr><td class="icon"><i class="fa fa-info-circle" title="Note"></i></td><td class="content">il faut calculer \(x_{K,q}=T_K(\hat{x}_q)\), puis calculer \(u(x_{K,q})\).</td></tr></table></div></div></div></div></section><section id="_seminorme_h1"><h2>SemiNorme \(H^1\)</h2><div class="slide-content"><div class="stemblock small"><div class="content">\[\|\nabla u_h = \sum u_i \nabla \phi_i \|^2_2 =\int_\Omega \nabla u_h \cdot \nabla u_h = \\
 \sum_K \int_\hat{K} \nabla u_h \circ T_K \cdot \nabla u_h \circ T_K |det \nabla T_K | = \\
 \sum_K \int_\hat{K} \hat{\nabla} u_h \nabla T_K^{-1} \cdot \hat{\nabla} u_h \nabla T_K^{-1} |det \nabla T_K | \approx \\
 \sum_K \sum_{q=1}^Q  w_q \hat{\nabla} u_h \nabla T_K^{-1} * \hat{\nabla} u_h \nabla T_K^{-1} |det \nabla T_K | \\
 \hat{\nabla} u_h = \sum_{i=1}^3 u_{connect(K,i)} \hat{\nabla} \phi_i,\quad
-\nabla u_{h_|K} = \sum_{i=1}^3 u_{connect(K,i)} \hat{\nabla} \phi_i \nabla T_K^{-1}\]</div></div></div></section><section id="_seminorme_h1_suite"><h2>SemiNorme \(H^1\) (suite)</h2><div class="slide-content"><div class="paragraph"><p>Si \(u\) quelconque, soit on calcule l&#8217;interpolant de \(u\), \(\pi^1_h u\), dans \(P^1_{c,h}\) puis la semi norme \(H^1\) en utilisant l&#8217;interpolant, soit on  connait le gradient de \(u\) et on utilise celui ci dans les formules de quadratures</p></div>
-<div class="stemblock"><div class="content">\[\pi^1_h u (x_j) = \sum_{i=1}^N u(x_j) \psi_i(x_j) = u(x_j) * \delta_{i,j} = u(x_j)\\\]</div></div>
-<div class="paragraph"><p>\(\pi^1_h u \) est l&#8217;élément de \(P^1_{c,h}\) dont les composantes sont \((u(x_1),\ldots,u(x_N)))^T\).</p></div>
-<div class="listingblock"><div class="content"><pre class="highlightjs highlight"><code data-lang="python" class="language-python hljs" data-noescape="true">// nodes renvoit une paire (i,(x,y))
-for N in nodes:
-    Piu[N.i] = fonction_u(N.x,N.y)</code></pre></div></div></div></section><section id="_assemblage_des_matrices_de_raideur"><h2>Assemblage des matrices de raideur</h2><div class="slide-content"><div class="openblock left small"><div class="content"><div class="paragraph"><p>\(A\) avec condition de dirichlet.</p></div>
+\nabla u_{h_|K} = \sum_{i=1}^3 u_{connect(K,i)} \hat{\nabla} \phi_i \nabla T_K^{-1}\]</div></div></div></section><section id="_seminorme_h1_suite"><h2>SemiNorme \(H^1\) (suite)</h2><div class="slide-content"><div class="openblock left small"><div class="content"><div class="paragraph"><p>Si \(u\) quelconque, soit on calcule l&#8217;interpolant de \(u\), \(\pi^1_h u\), dans \(P^1_{c,h}\) puis la semi norme \(H^1\) en utilisant l&#8217;interpolant, soit on  connait le gradient de \(u\) et on utilise celui ci dans les formules de quadratures</p></div>
+<div class="stemblock small"><div class="content">\[\pi^1_h u (x_j) = \sum_{i=1}^N u(x_j) \psi_i(x_j) = u(x_j) * \delta_{i,j} = u(x_j)\\\]</div></div>
+<div class="paragraph"><p>\(\pi^1_h u \) est l&#8217;élément de \(P^1_{c,h}\) dont les composantes sont \((u(x_1),\ldots,u(x_N)))^T\).</p></div></div></div>
+<div class="paragraph"><p>for N in nodes:
+    Piu[N.i] = fonction_u(N.x,N.y)</p></div>
+<div class="openblock"><div class="content"></div></div></div></section><section id="_assemblage_des_matrices_de_raideur"><h2>Assemblage des matrices de raideur</h2><div class="slide-content"><div class="openblock left small"><div class="content"><div class="paragraph"><p>\(A\) avec condition de dirichlet.</p></div>
 <div class="paragraph"><p>on assemble \(A\) <strong><em>sans condition Dirichlet.</em></strong></p></div>
-<div class="stemblock"><div class="content">\[\|\nabla u_h \|^2 = U_h^T A U_h = \int_\Omega \nabla u_h  \cdot \nabla u_h\\
+<div class="stemblock small"><div class="content">\[\|\nabla u_h \|^2 = U_h^T A U_h = \int_\Omega \nabla u_h  \cdot \nabla u_h\\
 u_h = \sum_{i=1} U_i \psi_i(x)\]</div></div>
 <div class="paragraph"><p>avec \(U_h\) le vecteur des composantes de \(u_h\) dans la base de Lagrange \(P^1\).</p></div>
-<div class="stemblock"><div class="content">\[\|\nabla u \|^2 \approx \|\nabla \pi^1_h u \|^2 = \Pi_h^T A \Pi_h = \int_\Omega \nabla \pi^1_h u  \cdot \nabla \pi^1_h u\\
+<div class="stemblock small"><div class="content">\[\|\nabla u \|^2 \approx \|\nabla \pi^1_h u \|^2 = \Pi_h^T A \Pi_h = \int_\Omega \nabla \pi^1_h u  \cdot \nabla \pi^1_h u\\
 \pi^1_h u = \sum_{i=1} u(x_i) \psi_i(x)\]</div></div>
 <div class="paragraph"><p>avec \(\Pi_h\) le vecteur des composantes de \(\pi^1_h u\) dans la base de Lagrange \(P^1\).</p></div></div></div></div></section></section></div></div><script src="https://cdn.jsdelivr.net/npm/reveal.js@3.9.2/js/reveal.js"></script><script>Array.prototype.slice.call(document.querySelectorAll('.slides section')).forEach(function(slide) {
   if (slide.getAttribute('data-background-color')) return;
