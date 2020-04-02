@@ -457,7 +457,7 @@ NOTE: il faut calculer stem:[x_{K,q}=T_K(\hat{x}_q)], puis calculer stem:[u(x_{K
 
 === SemiNorme stem:[H^1]
 
-[stem.small]
+[stem.x-small]
 ++++
 \|\nabla u_h = \sum u_i \nabla \phi_i \|^2_2 =\int_\Omega \nabla u_h \cdot \nabla u_h = \\
 \sum_K \int_\hat{K} \nabla u_h \circ T_K \cdot \nabla u_h \circ T_K |det \nabla T_K | = \\
@@ -469,11 +469,11 @@ NOTE: il faut calculer stem:[x_{K,q}=T_K(\hat{x}_q)], puis calculer stem:[u(x_{K
 
 ===  SemiNorme stem:[H^1] (suite)
 
-[.left.small]
+[.left.x-small]
 --
 Si stem:[u] quelconque, soit on calcule l'interpolant de stem:[u], stem:[\pi^1_h u], dans stem:[P^1_{c,h}] puis la semi norme stem:[H^1] en utilisant l'interpolant, soit on  connait le gradient de stem:[u] et on utilise celui ci dans les formules de quadratures
 
-[stem.small]
+[stem.x-small]
 ++++
 \pi^1_h u (x_j) = \sum_{i=1}^N u(x_j) \psi_i(x_j) = u(x_j) * \delta_{i,j} = u(x_j)\\
 ++++
@@ -481,7 +481,7 @@ stem:[\pi^1_h u ] est l'élément de stem:[P^1_{c,h}] dont les composantes sont 
 
 [source,python]
 --
-// nodes renvoit une paire (i,(x,y))
+ # nodes renvoit une paire (i,(x,y))
 for N in nodes:
     Piu[N.i] = fonction_u(N.x,N.y)
 --
@@ -490,23 +490,27 @@ for N in nodes:
 
 === Assemblage des matrices de raideur
 
-[.left.small]
+[.left.x-small]
 --
 stem:[A] avec condition de dirichlet.
 
 on assemble stem:[A] *_sans condition Dirichlet._*
 
-[stem.small]
+[stem.x-small]
 ++++
 \|\nabla u_h \|^2 = U_h^T A U_h = \int_\Omega \nabla u_h  \cdot \nabla u_h\\
 u_h = \sum_{i=1} U_i \psi_i(x)
 ++++
 avec stem:[U_h] le vecteur des composantes de stem:[u_h] dans la base de Lagrange stem:[P^1].
+--
 
-[stem.small]
+=== Assemblage des matrices de raideur (suite)
+
+Pour stem:[u] on a
+
+[stem.x-small]
 ++++
-\|\nabla u \|^2 \approx \|\nabla \pi^1_h u \|^2 = \Pi_h^T A \Pi_h = \int_\Omega \nabla \pi^1_h u  \cdot \nabla \pi^1_h u\\
-\pi^1_h u = \sum_{i=1} u(x_i) \psi_i(x)
+\|\nabla u \|^2 \approx \|\nabla \pi^1_h u \|^2 = \Pi_h^T A \Pi_h = \int_\Omega \nabla \pi^1_h u  \cdot \nabla \pi^1_h u,\quad \mbox{ avec } \pi^1_h u = \sum_{i=1} u(x_i) \psi_i(x)
 ++++
 avec stem:[\Pi_h] le vecteur des composantes de stem:[\pi^1_h u] dans la base de Lagrange stem:[P^1].
---
+
