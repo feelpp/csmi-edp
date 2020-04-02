@@ -445,6 +445,13 @@ u_h\circ T_K (\hat{x}_q)= \sum_{i=1}^3 u_{connect(K,i)} \phi_i(\hat{x_q})
 ++++
 
 IMPORTANT: choisir une formule de quadrature d'ordre stem:[2k] pour stem:[u_h \in P^k_{c,h}]
+--
+
+=== Norme stem:[L^2] (suite)
+
+[.left.x-small]
+--
+Pour stem:[u] on a:
 
 [stem.small]
 ++++
