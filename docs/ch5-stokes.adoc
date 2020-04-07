@@ -1,4 +1,5 @@
-= Méthodes numériques pour les EDP
+= Stokes 
+:feelpp: Feel++
 :stem: latexmath
 // 16:9
 :revealjs_width: 1280
@@ -7,8 +8,7 @@
 :topic: .topic,background-color="#da291c"
 :key: .topic,background-color="black"
 :revealjs_slidenumber: true
-:customcss: slides.css
-:author: Christophe Prud'homme <christophe.prudhomme@cemosis.fr>
+:author: Christophe Prud'homme <christophe.prudhomme@cemosis.fr>, Laurent Navoret
 :date: 2020-04-24
 :icons: font
 // we want local served fonts. Therefore patched sky.css
@@ -38,10 +38,30 @@
 :iconfont-remote!:
 :iconfont-name: fonts/fontawesome/css/all
 
-== Overview 
+== Problème de Stokes 
 
-1. link:ch1-poisson.html[Méthode élément fini pour le problème de Poisson]
-2. link:ch2-prog.html[Programmation de la méthode élément fini]
-3. link:ch3-diffusion.html[Equation de diffusion avec dépendence en temps]
-4. link:ch4-elasticite.html[Equation d'élasticité linéaire]
-5. link:ch5-stokes.html[Problème Mixte: Stokes]
+Instationnaire::
+[stem]
+++++
+\begin{aligned}
+\partial_{t} u-\Delta u+\nabla p &=f & & \text { sur } \Omega \times \mathbb{R}^{+} \\
+\nabla \cdot u &=0 & \text { sur } \Omega \times \mathbb{R}^{+} \\
+u &=0 & \text { sur } \partial \Omega
+\end{aligned}
+++++
+stem:[u: \mathbb{R}^{+} \times \Omega \rightarrow \mathbb{R}^{d}] et stem:[p: \mathbb{R}^{+} \times \Omega \rightarrow \mathbb{R}] pression
+
+Stationnaire
+[stem]
+++++
+-\Delta u+\nabla p=f
+++++
+sur stem:[\Omega]
+[stem]
+++++
+\begin{aligned}
+\nabla \cdot u &=0 & & \text { sur } \Omega \\
+u &=0 & & \text { sur } \partial \Omega
+\end{aligned}
+++++
+stem:[u: \Omega \rightarrow \mathbb{R}^{d}] et stem:[p: \Omega \rightarrow \mathbb{R}] pression
