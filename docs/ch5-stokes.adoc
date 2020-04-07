@@ -65,3 +65,18 @@ u &=0 & & \text { sur } \partial \Omega
 \end{aligned}
 ++++
 stem:[u: \Omega \rightarrow \mathbb{R}^{d}] et stem:[p: \Omega \rightarrow \mathbb{R}] pression
+
+== Incompressibilité
+
+Proposition (Théorème de transport):: Soit stem:[\Omega(t)] un domaine évoluant avec stem:[u(t, x)]
+[stem]
+++++
+\begin{aligned}
+\frac{d}{d t} \int_{\Omega(t)} F(t, x) d x &=\int_{\Omega(t)} \partial_{t} F(t, x) d x+\int_{\partial \Omega(t)} F(t, x)(u(t, x) \cdot n(x)) d s(x) \\
+\frac{d}{d t} \int_{\Omega(t)} d x &=0 \quad+\int_{\partial \Omega(t)}(u(t, x) \cdot n(x)) d s(x) \\
+&=0 \quad+\int_{\Omega(t)} \nabla \cdot u(t, x) d x
+\end{aligned}
+++++
+Proposition (Divergence et incompressibilité)
+stem:[\nabla \cdot u:] taux stem:[d^{\prime}] expansion de volume
+stem:[\nabla \cdot u=0:] flot incompressible

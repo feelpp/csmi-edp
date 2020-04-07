@@ -168,7 +168,16 @@ u &amp;=0 &amp; \text { sur } \partial \Omega
 \nabla \cdot u &amp;=0 &amp; &amp; \text { sur } \Omega \\
 u &amp;=0 &amp; &amp; \text { sur } \partial \Omega
 \end{aligned}\]</div></div>
-<div class="paragraph"><p>\(u: \Omega \rightarrow \mathbb{R}^{d}\) et \(p: \Omega \rightarrow \mathbb{R}\) pression</p></div></div></section></div></div><script src="https://cdn.jsdelivr.net/npm/reveal.js@3.9.2/js/reveal.js"></script><script>Array.prototype.slice.call(document.querySelectorAll('.slides section')).forEach(function(slide) {
+<div class="paragraph"><p>\(u: \Omega \rightarrow \mathbb{R}^{d}\) et \(p: \Omega \rightarrow \mathbb{R}\) pression</p></div></div></section>
+<section id="_incompressibilité"><h2>Incompressibilité</h2><div class="slide-content"><div class="dlist"><dl><dt class="hdlist1">Proposition (Théorème de transport)</dt><dd><p>Soit \(\Omega(t)\) un domaine évoluant avec \(u(t, x)\)</p></dd></dl></div>
+<div class="stemblock"><div class="content">\[\begin{aligned}
+\frac{d}{d t} \int_{\Omega(t)} F(t, x) d x &amp;=\int_{\Omega(t)} \partial_{t} F(t, x) d x+\int_{\partial \Omega(t)} F(t, x)(u(t, x) \cdot n(x)) d s(x) \\
+\frac{d}{d t} \int_{\Omega(t)} d x &amp;=0 \quad+\int_{\partial \Omega(t)}(u(t, x) \cdot n(x)) d s(x) \\
+&amp;=0 \quad+\int_{\Omega(t)} \nabla \cdot u(t, x) d x
+\end{aligned}\]</div></div>
+<div class="paragraph"><p>Proposition (Divergence et incompressibilité)
+\(\nabla \cdot u:\) taux \(d^{\prime}\) expansion de volume
+\(\nabla \cdot u=0:\) flot incompressible</p></div></div></section></div></div><script src="https://cdn.jsdelivr.net/npm/reveal.js@3.9.2/js/reveal.js"></script><script>Array.prototype.slice.call(document.querySelectorAll('.slides section')).forEach(function(slide) {
   if (slide.getAttribute('data-background-color')) return;
   // user needs to explicitly say he wants CSS color to override otherwise we might break custom css or theme (#226)
   if (!(slide.classList.contains('canvas') || slide.classList.contains('background'))) return;
