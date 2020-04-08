@@ -154,30 +154,141 @@ TeX: { equationNumbers: { autoNumber: "none" } }
 link.rel = 'stylesheet';
 link.type = 'text/css';
 link.href = window.location.search.match( /print-pdf/gi ) ? "https://cdn.jsdelivr.net/npm/reveal.js@3.9.2/css/print/pdf.css" : "https://cdn.jsdelivr.net/npm/reveal.js@3.9.2/css/print/paper.css";
-document.getElementsByTagName( 'head' )[0].appendChild( link );</script><link rel="stylesheet" href="css/slides.css"></head><body><div class="reveal"><div class="slides"><section class="title" data-state="title"><h1>Stokes</h1><p class="author"><small>Christophe Prud'homme &lt;christophe.prudhomme@cemosis.fr&gt;, Laurent Navoret</small></p></section><section id="_problème_de_stokes"><h2>Problème de Stokes</h2><div class="slide-content"><div class="dlist"><dl><dt class="hdlist1">Instationnaire</dt></dl></div>
-<div class="stemblock"><div class="content">\[\begin{aligned}
+document.getElementsByTagName( 'head' )[0].appendChild( link );</script><link rel="stylesheet" href="css/slides.css"></head><body><div class="reveal"><div class="slides"><section class="title" data-state="title"><h1>Stokes</h1><p class="author"><small>Christophe Prud'homme &lt;christophe.prudhomme@cemosis.fr&gt;, Laurent Navoret</small></p></section><section><section id="_problème_de_stokes"><h2>Problème de Stokes</h2><div class="slide-content"><div class="openblock left x-small"><div class="content"><div class="dlist"><dl><dt class="hdlist1">Instationnaire</dt></dl></div>
+<div class="stemblock x-small"><div class="content">\[\begin{aligned}
 \partial_{t} u-\Delta u+\nabla p &amp;=f &amp; &amp; \text { sur } \Omega \times \mathbb{R}^{+} \\
 \nabla \cdot u &amp;=0 &amp; \text { sur } \Omega \times \mathbb{R}^{+} \\
 u &amp;=0 &amp; \text { sur } \partial \Omega
 \end{aligned}\]</div></div>
-<div class="paragraph"><p>\(u: \mathbb{R}^{} \times \Omega \rightarrow \mathbb{R}^{d}] et stem:[p: \mathbb{R}^{} \times \Omega \rightarrow \mathbb{R}\) pression</p></div>
-<div class="paragraph"><p>Stationnaire</p></div>
-<div class="stemblock"><div class="content">\[-\Delta u+\nabla p=f\]</div></div>
-<div class="paragraph"><p>sur \(\Omega\)</p></div>
-<div class="stemblock"><div class="content">\[\begin{aligned}
+<div class="paragraph"><p>avec \(u: \mathbb{R}^{} \times \Omega \rightarrow \mathbb{R}^{d}] et stem:[p: \mathbb{R}^{} \times \Omega \rightarrow \mathbb{R}\) pression</p></div>
+<div class="dlist"><dl><dt class="hdlist1">Stationnaire</dt></dl></div>
+<div class="stemblock x-small"><div class="content">\[\begin{aligned}
+-\Delta u+\nabla p&amp;=f, \quad \mbox{ sur } \Omega\\
 \nabla \cdot u &amp;=0 &amp; &amp; \text { sur } \Omega \\
 u &amp;=0 &amp; &amp; \text { sur } \partial \Omega
 \end{aligned}\]</div></div>
-<div class="paragraph"><p>\(u: \Omega \rightarrow \mathbb{R}^{d}\) et \(p: \Omega \rightarrow \mathbb{R}\) pression</p></div></div></section>
-<section id="_incompressibilité"><h2>Incompressibilité</h2><div class="slide-content"><div class="dlist"><dl><dt class="hdlist1">Proposition (Théorème de transport)</dt><dd><p>Soit \(\Omega(t)\) un domaine évoluant avec \(u(t, x)\)</p></dd></dl></div>
-<div class="stemblock"><div class="content">\[\begin{aligned}
+<div class="paragraph"><p>\(u: \Omega \rightarrow \mathbb{R}^{d}\) et \(p: \Omega \rightarrow \mathbb{R}\) pression</p></div></div></div></div></section><section id="_incompressibilité"><h2>Incompressibilité</h2><div class="slide-content"><div class="openblock left x-small"><div class="content"><div class="dlist"><dl><dt class="hdlist1">Proposition (Théorème de transport)</dt><dd><p>Soit \(\Omega(t)\) un domaine évoluant avec \(u(t, x)\)</p></dd></dl></div>
+<div class="stemblock x-small"><div class="content">\[\begin{aligned}
 \frac{d}{d t} \int_{\Omega(t)} F(t, x) d x &amp;=\int_{\Omega(t)} \partial_{t} F(t, x) d x+\int_{\partial \Omega(t)} F(t, x)(u(t, x) \cdot n(x)) d s(x) \\
 \frac{d}{d t} \int_{\Omega(t)} d x &amp;=0 \quad+\int_{\partial \Omega(t)}(u(t, x) \cdot n(x)) d s(x) \\
 &amp;=0 \quad+\int_{\Omega(t)} \nabla \cdot u(t, x) d x
-\end{aligned}\]</div></div>
-<div class="paragraph"><p>Proposition (Divergence et incompressibilité)
-\(\nabla \cdot u:\) taux \(d^{\prime}\) expansion de volume
-\(\nabla \cdot u=0:\) flot incompressible</p></div></div></section></div></div><script src="https://cdn.jsdelivr.net/npm/reveal.js@3.9.2/js/reveal.js"></script><script>Array.prototype.slice.call(document.querySelectorAll('.slides section')).forEach(function(slide) {
+\end{aligned}\]</div></div></div></div></div></section><section id="_incompressibilité_bis"><h2>Incompressibilité (Bis)</h2><div class="slide-content"><div class="dlist"><dl><dt class="hdlist1">Proposition (Divergence et incompressibilité)</dt><dd><div class="ulist"><ul><li><p>\(\nabla \cdot u:\) taux d&#8217;expansion de volume</p></li><li><p>\(\nabla \cdot u=0:\) flot incompressible</p></li></ul></div></dd></dl></div></div></section><section id="_divergence"><h2>Divergence</h2><div class="slide-content"><div class="openblock col2"><div class="content"><div class="paragraph"><p>Exemple: \(u(x, y)=(y, 0)\)
+\(\nabla \cdot u=0\)</p></div></div></div>
+<div class="openblock col2"><div class="content"><div class="imageblock" style=""><img src="images/div1.png" alt="Champs à divergence nulle"></div></div></div></div></section><section id="_divergence_2"><h2>Divergence</h2><div class="slide-content"><div class="dlist"><dl><dt class="hdlist1">Definition (en coordonnées polaires(2D)</dt><dd><p>Pour \(u(r, \theta)=u_{r}(r, \theta) e_{r}+u_{\theta}(r, \theta) e_{\theta},\) nous avons:</p></dd></dl></div>
+<div class="stemblock"><div class="content">\[\nabla \cdot u=\frac{1}{r} \partial_{r}\left(r u_{r}\right)+\frac{1}{r} \partial_{\theta} u_{\theta}, \quad \nabla \times u=\frac{1}{r} \partial_{r}\left(r u_{\theta}\right)-\frac{1}{r} \partial_{\theta} u_{r}\]</div></div>
+<div class="openblock col2"><div class="content"><div class="ulist"><ul><li><p>Exemple: \(u(r, \theta)=r e_{r}\)
+\(\operatorname{div} u=2\) and rot \(u=0\)</p></li><li><p>Exemple: \(u(r, \theta)=r e_{\theta}\)
+\(\operatorname{div} u=0\) and rot \(u=2\)</p></li></ul></div></div></div>
+<div class="openblock col2"><div class="content"><div class="paragraph"><p><span class="image"><img src="images/div2.png" alt="div2" width="45%"></span> <span class="image"><img src="images/div3.png" alt="div3" width="45%"></span></p></div></div></div></div></section><section id="_contrainte_dincompressibilité"><h2>Contrainte d&#8217;incompressibilité</h2><div class="slide-content"><div class="openblock left x-small"><div class="content"><div class="paragraph"><p>Multiplication par une fonction test \(+\) intégration par partie conduit à</p></div>
+<div class="stemblock x-small"><div class="content">\[\int_{\Omega} \nabla u: \nabla v+\int_{\Omega} p \nabla \cdot v=\int_{\Omega} f \cdot v\]</div></div>
+<div class="paragraph"><p><strong>Formulation variationnelle 1:</strong></p></div>
+<div class="stemblock x-small"><div class="content">\[\text { Trouver } u \in V, \quad \int_{\Omega} \nabla u: \nabla v=\int_{\Omega} f \cdot v, \quad \forall v \in V\]</div></div>
+<div class="paragraph"><p>avec \(V=\left\{u \in\left(H_{0}^{1}(\Omega)\right)^{d}, \nabla \cdot u=0\right\}\)
+Proposition:: \(u\) solution ssi \(u\) est un minimum de la fonctionnelle \(J(v)=\frac{1}{2} \int_{\Omega}|\nabla v|^{2}-\int f \cdot v\)
+sur \(V\)</p></div>
+<div class="admonitionblock note"><table><tr><td class="icon"><i class="fa fa-info-circle" title="Note"></i></td><td class="content">On interprete la pression \(p:\) multiplicateur de Lagrange associé à la contrainte d&#8217;incompressibilité</td></tr></table></div>
+<div class="admonitionblock warning"><table><tr><td class="icon"><i class="fa fa-warning" title="Warning"></i></td><td class="content"><strong>Difficulté :</strong> construire sous espace discret \(V_{h} \subset V\)</td></tr></table></div></div></div></div></section></section>
+<section id="_1_formulation_variationnelle"><h2>1) Formulation variationnelle</h2><div class="slide-content"><div class="openblock left small"><div class="content"><div class="paragraph"><p>Supposons \(f \in\left(L^{2}(\Omega)\right)^{d}\)
+Formulation variationnelle 2:</p></div>
+<div class="paragraph"><p>trouver \((u, p) \in\left(H_{0}^{1}(\Omega)\right)^{d} \times L_{*}^{2}(\Omega)\) tels que</p></div>
+<div class="stemblock small"><div class="content">\[\begin{array}{ll}
+\int_{\Omega} \nabla u: \nabla v-\int_{\Omega} p \nabla \cdot v=\int_{\Omega} f \cdot v, &amp; \forall v \in\left(H_{0}^{1}(\Omega)\right)^{d} \\
+\int_{\Omega} q \nabla \cdot u=0 &amp; \forall q \in L_{*}^{2}(\Omega)
+\end{array}\]</div></div>
+<div class="paragraph"><p>avec \(L_{*}^{2}=\left\{q \in L^{2}(\Omega), \int_{\Omega} q=0\right\}\)</p></div>
+<div class="admonitionblock note"><table><tr><td class="icon"><i class="fa fa-info-circle" title="Note"></i></td><td class="content">\(\rightarrow p\) est définie à une constante près : \(p \in L_{*}^{2}(\Omega)\) permet d&#8217;assurer l&#8217;unicité</td></tr></table></div></div></div></div></section>
+<section><section id="_2_résolution"><h2>2) Résolution</h2></section><section id="_problème_variationnel"><h2>Problème variationnel</h2><div class="slide-content"><div class="openblock left x-small"><div class="content"><div class="paragraph"><p>Soit \(X, M\) deux espaces de Hilbert</p></div>
+<div class="stemblock"><div class="content">\[\begin{array}{ll}
+\text { Trouver }(u, p) \in X \times M, &amp; a(u, v)+b(v, q)=\ell(v), \quad \forall v \in X \\
+&amp; b(u, q)=g(q), \quad \forall q \in M
+\end{array}\]</div></div>
+<div class="paragraph"><p>avec \(a: X \times X \rightarrow \mathbb{R}, b: X \times M \rightarrow \mathbb{R}\) bilinéaires, \(\ell: V \rightarrow \mathbb{R}\) et \(g: M \rightarrow \mathbb{R}\)
+linéaires.</p></div></div></div></div></section><section id="_condition_inf_sup"><h2>Condition inf-sup</h2><div class="slide-content"><div class="openblock left x-small"><div class="content"><div class="dlist"><dl><dt class="hdlist1">Proposition</dt><dd><p>\(V\) espace de Hilbert.
+a: forme bilinéaire, continue, coercive sur \(X\)
+b: forme bilinéaire, continue sur \(X \times M\)
+\(\ell, g:\) forme linéaire continue.
+Le problème variationnel admet une unique solution \((u, p) \in X \times M\) <strong>ssi</strong> \(\exists \beta&gt;0\)</p></dd></dl></div>
+<div class="stemblock"><div class="content">\[\inf _{q \in M_{v \in X}} \sup _{\|v\|_{X}\|q\|_{M}} \frac{b(v, q)}{\|v\|_{X}\|q\|_{M}} \geqslant \beta\]</div></div>
+<div class="paragraph"><p>Si a est symmétrique, la solution est un point selle du Lagrangien:</p></div>
+<div class="stemblock"><div class="content">\[L(v, q)=\frac{1}{2} a(v, v)-b(v, q)-f(v)-g(q)\]</div></div></div></div></div></section></section>
+<section><section id="_méthode_de_galerkin"><h2>Méthode de Galerkin</h2><div class="slide-content"><div class="openblock left x-small"><div class="content"><div class="dlist"><dl><dt class="hdlist1">Definition ( Problème variationnel discret)</dt><dd><p>Soit \(X_{h} \subset X, M_{h} \subset M\)</p></dd></dl></div>
+<div class="stemblock"><div class="content">\[\begin{array}{ll}
+\text { Trouver }\left(u_{h}, p_{h}\right) \in X_{h} \times M_{h}, &amp; a\left(u_{h}, v_{h}\right)+b\left(v_{h}, p_{h}\right)=\ell\left(v_{h}\right), \quad \forall v_{h} \in X_{h} \\
+&amp; b\left(u_{h}, q_{h}\right)=g\left(q_{h}\right), \quad \forall q_{h} \in M_{h}
+\end{array}\]</div></div>
+<div class="dlist"><dl><dt class="hdlist1">Proposition (Condition inf-sup discrète)</dt><dd><p>Le problème variationnel approché admet une unique solution \(\left(u_{h}, p_{h}\right) \in X_{h} \times M_{h}\) <strong>ssi</strong> \(\exists \beta&gt;0\)</p></dd></dl></div>
+<div class="stemblock"><div class="content">\[\inf _{q_{h} \in M_{h} v_{h} \in X_{h}} \sup _{\left\|v_{h}\right\|_{X}\left\|q_{h}\right\|_{M}}  \frac{b\left(v_{h}, q_{h}\right)}{\left\|v_{h}\right\|_{X}\left\|q_{h}\right\|_{M}} \geqslant \beta\]</div></div></div></div></div></section><section id="_méthode_de_galerkin_2"><h2>Méthode de Galerkin</h2><div class="slide-content"><div class="openblock left x-small"><div class="content"><div class="paragraph"><p>\(X_{h} \subset X\) s.e.v de dimension \(N_{u},\left(\varphi_{i}\right)\) base de \(X_{h}\) \(M_{h} \subset M\) s.e.v de dimension \(N_{p},\left(\psi_{i}\right)\) base de \(M_{h}\)</p></div></div></div>
+<div class="stemblock x-small"><div class="content">\[\begin{aligned}
+u_{h}(x)=\sum_{j=1}^{N_{u}} u_{j} \varphi_{j}(x), &amp; \quad p_{h}(x)=\sum_{j=1}^{N_{p}} p_{j} \psi_{j}(x) &amp; &amp; \\
+&amp; &amp; &amp; \\
+&amp; a\left(u_{h}, v_{h}\right)+b\left(v_{h}, p_{h}\right)=\ell\left(v_{h}\right), &amp; &amp; \forall v_{h} \in X_{h} \\
+&amp; b\left(u_{h}, q_{h}\right)=g\left(q_{h}\right), &amp; &amp; \forall q_{h} \in M_{h} \\
+\Longleftrightarrow &amp; \sum_{j=1}^{N_{u}} u_{j} a\left(\varphi_{j}, v_{h}\right)+\sum_{j=1}^{N_{p}} p_{j} b\left(v_{h}, \psi_{j}\right)=\ell\left(v_{h}\right) &amp; \forall v_{h} \in X_{h} \\
+&amp; \sum_{j=1}^{N_{u}} u_{j} b\left(\varphi_{j}, q_{h}\right)=g\left(q_{h}\right), &amp; \forall q_{h} \in M_{h}
+\end{aligned}\]</div></div></div></section></section>
+<section><section id="_formulation_matricielle"><h2>Formulation matricielle</h2><div class="slide-content"><div class="stemblock small"><div class="content">\[\Longleftrightarrow \quad \sum_{j=1}^{N_{u}} u_{j} a\left(\varphi_{j}, \varphi_{i}\right)+\sum_{j=1}^{N_{p}} p_{j} b\left(\varphi_{i}, \psi_{j}\right)=\ell\left(\varphi_{i}\right) \quad \forall i \in \mathbb{I}, N_{u} \mathbb{J}\]</div></div><div class="stemblock small"><div class="content">\[\Longleftrightarrow \quad\left[\begin{array}{ll}
+A &amp; B^{T} \\
+B &amp; 0
+\end{array}\right]\left[\begin{array}{l}
+U \\
+P
+\end{array}\right]=\left[\begin{array}{l}
+F \\
+G
+\end{array}\right]\]</div></div><div class="paragraph"><p>avec</p></div><div class="stemblock x-small"><div class="content">\[\begin{aligned}
+A_{i, j} &amp;=\left(a\left(\varphi_{i}, \varphi_{j}\right)\right)_{i, j} \in M_{N_{u}}(\mathbb{R}) &amp; U &amp;=\left(u_{j}\right), \quad F=\left(f\left(\varphi_{j}\right)\right)_{j} \in \mathbb{R}^{N_{u}} \\
+B &amp;=\left(b\left(\varphi_{j}, \psi_{i}\right)\right)_{i, j} \in M_{N_{u}, N_{p}}(\mathbb{R}) &amp; P &amp; =\left(p_{j}\right), \quad G=\left(g\left(\psi_{i}\right)\right)_{j} \in \mathbb{R}^{N_{p}}
+\end{aligned}\]</div></div></div></section><section id="_formulation_matricielle_2"><h2>Formulation matricielle</h2><div class="slide-content"><div class="openblock left x-small"><div class="content"><div class="stemblock x-small"><div class="content">\[\left[\begin{array}{cc}
+A &amp; B^{T} \\
+B &amp; 0
+\end{array}\right]\left[\begin{array}{l}
+U \\
+P
+\end{array}\right]=\left[\begin{array}{l}
+F \\
+G
+\end{array}\right]\]</div></div>
+<div class="ulist"><ul><li><p>\(\rightarrow A\) est symétrique définie positive</p></li><li><p>\(\rightarrow\) La matrice est symétrique mais n&#8217;est pas définie positive</p></li><li><p>\(\rightarrow\) Condition inf-sup discrète ssi \(B\) est de rang \(N_{p}\)
+ssi \(B^{T}\) est de rang \(N_{p}\)</p></li></ul></div>
+<div class="stemblock x-small"><div class="content">\[\text { ssi } \operatorname{ker}\left(B^{T}\right)=\{0\}\]</div></div></div></div>
+<div class="paragraph"><p>Dans ce cas, la matrice est inversible.</p></div></div></section><section id="_formulation_matricielle_3"><h2>Formulation matricielle</h2><div class="slide-content"><div class="openblock left small"><div class="content"><div class="paragraph"><p>La condition inf-sup discrète n&#8217;est pas satisfaite dans les cas suivants :</p></div>
+<div class="ulist"><ul><li><p>\(N_{p}&gt;N_{u}:\) l&#8217;espace vectoriel pour la pression est trop grand comparée à celui de la vitesse pour que \(B\) soit de rang \(N_{p}\)</p><div class="ulist"><ul><li><p>\(\rightarrow\) Locking</p></li><li><p>\(\rightarrow B\) est alors en général de rang. \(N_{u}\) et \(\operatorname{ker}(B)=\{0\}:\) la seule solution possible est \(U=0\)</p></li></ul></div></li><li><p>il existe \(Q^{*} \in \operatorname{ker}\left(B^{T}\right)\) non nul. Alors \(q_{h}^{*}=\sum_{j=1}^{N_{p}} Q_{k}^{*} \psi_{k}\) vérifie
+\(b\left(v_{h}, q_{h}^{*}\right)=0\) pour tout \(v_{h} \in V_{h}\)</p><div class="ulist"><ul><li><p>\(\rightarrow\) mode parasite (spurious mode)</p></li></ul></div></li></ul></div></div></div></div></section></section>
+<section><section id="_espaces_dapproximation"><h2>Espaces d&#8217;approximation</h2><div class="slide-content"><div class="openblock left x-small"><div class="content"><div class="ulist"><ul><li><p>3) Choix du maillage (généralement affine)</p></li><li><p>4) Choix des espaces d&#8217;approximation \(X_{h}, M_{h}\)
+\(X_{h}=\left\{v_{h} \in(C(\bar{\Omega}))^{d}, \quad \forall K \in \mathcal{T}_{h}, v_{h} \circ T_{K} \in\left(\hat{P}_{u}\right)^{d}\right\} \subset\left(H^{1}(\Omega)\right)^{d}\)
+\(M_{h}=\tilde{M}_{h} \cap L_{*}^{2}(\Omega)\)
+avec \(\tilde{M}_{h}=\left\{v_{h} \in C(\bar{\Omega}), \quad \forall K \in \mathcal{T}_{h}, v_{h} \circ T_{K} \in \hat{P}_{p}\right\} \subset L^{2}(\Omega)\)</p><div class="dlist"><dl><dt class="hdlist1">Choix de \(\hat{P}_{u}\) et \(\hat{P}_{p}:\)</dt></dl></div></li><li><p>\(\mathbb{P}_{1} / \mathbb{P}_{0} \rightarrow\) locking</p></li><li><p>\(\mathbb{P}_{1} / \mathbb{P}_{1} \rightarrow\) mode parasite</p></li><li><p>\(\cdot \mathbb{P}_{1}\) -bulle/P \(_{1}\) (mini-element) \(\rightarrow\) ok</p></li><li><p>\(\mathbb{P}_{k} / \mathbb{P}_{k-1}(\text { Taylor-Hood }) \rightarrow\) ok</p></li></ul></div></div></div></div></section><section id="_mathbbp_1_bulle_mathbbp_1"><h2>\(\mathbb{P}_{1}\) -bulle \(/ \mathbb{P}_1\)</h2><div class="slide-content"><div class="openblock left x-small"><div class="content"><div class="stemblock"><div class="content">\[\hat{P}_{u}=\left(\mathbb{P}_{1}+\operatorname{vect}(\hat{b})\right)^{d} \quad \hat{P}_{p}=\mathbb{P}_{1}\]</div></div>
+<div class="paragraph"><p><strong>Fonction bulle:</strong> \(\hat{b} \in H_{0}^{1}(\hat{K})\) telle que \(0 \leqslant \hat{b} \leqslant 1\) et \(\hat{b}(\text { barycentre})=1\)</p></div>
+<div class="dlist"><dl><dt class="hdlist1">Exemple</dt><dd><p>\(\hat{b}=3^{3} \lambda_{1} \lambda_{2} \lambda_{3}\)</p></dd><dt class="hdlist1">Proposition</dt><dd><p>\(\Omega\) polyédrique et \(\left(\mathcal{T}_{h}\right)\) une famille régulière de triangulations. Alors la condition inf-sup discrète est satisfaite uniformément pour tout \(h\) Soit \(f \in L^{2}(\Omega)\) et \(u \in V\) la solution du problème. Soit \(\left(u_{h}, p_{h}\right) \in X_{h} \times M_{h}\) la solution approchée du problème de Stokes. Alors si \(u \in\left(H^{2}(\Omega) \cap H_{0}^{1}(\Omega)\right)^{d}\) et
+\(p \in H^{1}(\Omega) \cap L_{*}^{2}(\Omega),\) alors</p></dd></dl></div>
+<div class="stemblock"><div class="content">\[\left\|u-u_{h}\right\|_{\left(H^{1}\right)^{d}}+\left\|p-p_{h}\right\|_{L^{2}} \leqslant C h\left(\|u\|_{H^{2}}+\|p\|_{H^{1}}\right)\]</div></div></div></div></div></section><section id="_mathbbp_1_bulle_mathbbp_1_2"><h2>\(\mathbb{P}_{1}\) -bulle \(/ \mathbb{P}_1\)</h2><div class="slide-content"><div class="openblock left x-small"><div class="content"><div class="paragraph"><p>Si de plus le problème est régularisant (toute solution du problème (adjoint) est régulière ), alors</p></div>
+<div class="stemblock"><div class="content">\[\left\|u-u_{h}\right\|_{\left(L^{2}\right)^{d}} \leqslant C h^{2}\left(\|u\|_{H^{2}}+\|p\|_{H^{1}}\right)\]</div></div>
+<div class="ulist"><ul><li><p>\(\rightarrow\) pas de convergence en \(h^{2}\) pour la pression \(\hat{P}_{p}=\mathbb{P}_{1}\)</p></li><li><p>\(\rightarrow\) pas de convergence en \(h^{3}\) pour la vitesse alors que \(\hat{P}_{u}\) contient strictement
+\(\mathbb{P}_{1}\)</p></li></ul></div></div></div></div></section></section>
+<section><section id="_hatp_umathbbp_2_quad_hatp_pmathbbp_1"><h2>\(\hat{P}_{u}=\mathbb{P}_{2} \quad \hat{P}_{p}=\mathbb{P}_{1} \)</h2><div class="slide-content"><div class="openblock left x-small"><div class="content"><div class="dlist"><dl><dt class="hdlist1">Proposition</dt><dd><p>\(\Omega\) polyédrique et \(\left(\mathcal{T}_{h}\right)\) une famille régulière de triangulations.</p></dd></dl></div>
+<div class="paragraph"><p>Alors la condition inf-sup discrète est satisfaite uniformément pour tout \(h\) en prenant \(X_{h}\)</p></div>
+<div class="paragraph"><p>Soit \(f \in L^{2}(\Omega)\) et \(u \in V\) la solution du problème.  Soit \(\left(u_{h}, p_{h}\right) \in X_{h} \times M_{h}\) la solution approchée du problème de Stokes.</p></div>
+<div class="paragraph"><p>Alors  si \(u \in\left(H^{3}(\Omega) \cap H_{0}^{1}(\Omega)\right)^{d}\) et
+\(p \in H^{2}(\Omega) \cap L_{*}^{2}(\Omega),\) alors</p></div>
+<div class="stemblock"><div class="content">\[\left\|u-u_{h}\right\|_{\left(H^{1}\right)^{d}}+\left\|p-p_{h}\right\|_{L^{2}} \leqslant C h^{2}\left(\|u\|_{\left(H^{3}\right)^{d}}+\|p\|_{H^{2}}\right)\]</div></div></div></div></div></section><section id="_hatp_umathbbp_2_quad_hatp_pmathbbp_1_2"><h2>\(\hat{P}_{u}=\mathbb{P}_{2} \quad \hat{P}_{p}=\mathbb{P}_{1} \)</h2><div class="slide-content"><div class="openblock left x-small"><div class="content"><div class="paragraph"><p>Si de plus le problème est régularisant (toute solution du problème (adjoint) est régulière ), alors</p></div>
+<div class="stemblock"><div class="content">\[\left\|u-u_{h}\right\|_{\left(L^{2}\right)^{d}} \leqslant C h^{3}\left(\|u\|_{\left(H^{3}\right)^{d}}+\|p\|_{H^{2}}\right)\]</div></div>
+<div class="paragraph"><p>\(\rightarrow\) convergence en \(h^{2}\) pour la pression \(\hat{P}_{p}=\mathbb{P}_{1}\)
+\(\rightarrow\) convergence en \(h^{3}\) pour la vitesse avec que \(\hat{P}_{u}=\mathbb{P}_{2}\)</p></div></div></div></div></section></section>
+<section><section id="_résolution"><h2>Résolution</h2><div class="slide-content"><div class="openblock left x-small"><div class="content"><div class="paragraph"><p>Matrice symétrique mais non définie positive : les méthodes itératives classiques fonctionnent mal</p></div>
+<div class="dlist"><dl><dt class="hdlist1">Deux méthodes</dt><dd><div class="ulist"><ul><li><p>Equation sur la pression:
+\(\rightarrow\left(B A^{-1} B^{T}\right)\) sym. def. pos. : complément de Schur
+\(\rightarrow\) Calcul de \(P\) puis \(U\)
+\(\rightarrow\) méthode itérative d&#8217;Uzawa</p></li><li><p>Méthode de compressibilité artificielle : on considère la matrice</p></li></ul></div></dd></dl></div>
+<div class="stemblock"><div class="content">\[\begin{bmatrix}
+A &amp; B^{T} \\
+B &amp; \varepsilon M
+\end{bmatrix}\]</div></div>
+<div class="paragraph"><p>avec \(\varepsilon&gt;0,\) qui est définie positive et \(M=\left(\int \psi_{i} \psi_{j}\right)\)</p></div></div></div></div></section><section id="_en_pratique"><h2>En pratique</h2><div class="slide-content"><div class="openblock left x-small"><div class="content"><div class="stemblock"><div class="content">\[M_{h}=\tilde{M}_{h} \cap L_{*}^{2}(\Omega)\]</div></div>
+<div class="paragraph"><p>avec</p></div>
+<div class="stemblock"><div class="content">\[\tilde{M}_{h}=\left\{v_{h} \in C(\bar{\Omega}), \quad \forall K \in \mathcal{T}_{h}, v_{h} \circ T_{K} \in \hat{P}_{p}\right\} \subset L^{2}(\Omega)\]</div></div>
+<div class="ulist"><ul><li><p>\(\rightarrow\) numériquement, on ne considère pas
+\(M_{h}\) mais \(\tilde{M}_{h}\)</p></li><li><p>\(\rightarrow\) le système linéaire a alors plusieurs solutions puisque la pression n&#8217;est définie qu&#8217;à une constante près</p><div class="dlist"><dl><dt class="hdlist1">Remèdes</dt><dd><div class="olist arabic"><ol class="arabic"><li><p>si les méthodes itératives convergent tout de même vers une des solutions,</p></li><li><p>il faut ensuite retrancher à la pression sa moyenne.
+la méthode de compressibilité artificielle sélectionne directement la pression à moyenne nulle.</p></li></ol></div></dd></dl></div></li></ul></div></div></div></div></section></section></div></div><script src="https://cdn.jsdelivr.net/npm/reveal.js@3.9.2/js/reveal.js"></script><script>Array.prototype.slice.call(document.querySelectorAll('.slides section')).forEach(function(slide) {
   if (slide.getAttribute('data-background-color')) return;
   // user needs to explicitly say he wants CSS color to override otherwise we might break custom css or theme (#226)
   if (!(slide.classList.contains('canvas') || slide.classList.contains('background'))) return;

@@ -39,9 +39,10 @@
 :iconfont-name: fonts/fontawesome/css/all
 
 == Problème de Stokes 
-
+[.left.x-small]
+--
 Instationnaire::
-[stem]
+[stem.x-small]
 ++++
 \begin{aligned}
 \partial_{t} u-\Delta u+\nabla p &=f & & \text { sur } \Omega \times \mathbb{R}^{+} \\
@@ -49,27 +50,26 @@ Instationnaire::
 u &=0 & \text { sur } \partial \Omega
 \end{aligned}
 ++++
-stem:[u: \mathbb{R}^{+} \times \Omega \rightarrow \mathbb{R}^{d}] et stem:[p: \mathbb{R}^{+} \times \Omega \rightarrow \mathbb{R}] pression
+avec stem:[u: \mathbb{R}^{+} \times \Omega \rightarrow \mathbb{R}^{d}] et stem:[p: \mathbb{R}^{+} \times \Omega \rightarrow \mathbb{R}] pression
 
-Stationnaire
-[stem]
-++++
--\Delta u+\nabla p=f
-++++
-sur stem:[\Omega]
-[stem]
+Stationnaire::
+[stem.x-small]
 ++++
 \begin{aligned}
+-\Delta u+\nabla p&=f, \quad \mbox{ sur } \Omega\\
 \nabla \cdot u &=0 & & \text { sur } \Omega \\
 u &=0 & & \text { sur } \partial \Omega
 \end{aligned}
 ++++
 stem:[u: \Omega \rightarrow \mathbb{R}^{d}] et stem:[p: \Omega \rightarrow \mathbb{R}] pression
+--
 
-== Incompressibilité
+=== Incompressibilité
 
+[.left.x-small]
+--
 Proposition (Théorème de transport):: Soit stem:[\Omega(t)] un domaine évoluant avec stem:[u(t, x)]
-[stem]
+[stem.x-small]
 ++++
 \begin{aligned}
 \frac{d}{d t} \int_{\Omega(t)} F(t, x) d x &=\int_{\Omega(t)} \partial_{t} F(t, x) d x+\int_{\partial \Omega(t)} F(t, x)(u(t, x) \cdot n(x)) d s(x) \\
@@ -77,6 +77,365 @@ Proposition (Théorème de transport):: Soit stem:[\Omega(t)] un domaine évolua
 &=0 \quad+\int_{\Omega(t)} \nabla \cdot u(t, x) d x
 \end{aligned}
 ++++
-Proposition (Divergence et incompressibilité)
-stem:[\nabla \cdot u:] taux stem:[d^{\prime}] expansion de volume
-stem:[\nabla \cdot u=0:] flot incompressible
+--
+
+=== Incompressibilité (Bis)
+
+Proposition (Divergence et incompressibilité)::
+* stem:[\nabla \cdot u:] taux d'expansion de volume
+* stem:[\nabla \cdot u=0:] flot incompressible
+
+=== Divergence
+
+[.col2]
+--
+Exemple: stem:[u(x, y)=(y, 0)]
+stem:[\nabla \cdot u=0] 
+--
+[.col2]
+--
+image::div1.png[Champs à divergence nulle]
+--
+
+=== Divergence 
+
+Definition (en coordonnées polaires(2D):: Pour stem:[u(r, \theta)=u_{r}(r, \theta) e_{r}+u_{\theta}(r, \theta) e_{\theta},] nous avons:
+[stem]
+++++
+\nabla \cdot u=\frac{1}{r} \partial_{r}\left(r u_{r}\right)+\frac{1}{r} \partial_{\theta} u_{\theta}, \quad \nabla \times u=\frac{1}{r} \partial_{r}\left(r u_{\theta}\right)-\frac{1}{r} \partial_{\theta} u_{r}
+++++
+
+[.col2]
+--
+* Exemple: stem:[u(r, \theta)=r e_{r}]
+stem:[\operatorname{div} u=2] and rot stem:[u=0]
+* Exemple: stem:[u(r, \theta)=r e_{\theta}]
+stem:[\operatorname{div} u=0] and rot stem:[u=2]
+--
+[.col2]
+--
+image:div2.png[width=45%] image:div3.png[width=45%] 
+--
+
+
+
+=== Contrainte d'incompressibilité
+
+[.left.x-small]
+--
+Multiplication par une fonction test stem:[+] intégration par partie conduit à
+[stem.x-small]
+++++
+\int_{\Omega} \nabla u: \nabla v+\int_{\Omega} p \nabla \cdot v=\int_{\Omega} f \cdot v
+++++
+*Formulation variationnelle 1:*
+[stem.x-small]
+++++
+\text { Trouver } u \in V, \quad \int_{\Omega} \nabla u: \nabla v=\int_{\Omega} f \cdot v, \quad \forall v \in V
+++++
+avec stem:[V=\left\{u \in\left(H_{0}^{1}(\Omega)\right)^{d}, \nabla \cdot u=0\right\}]
+Proposition:: stem:[u] solution ssi stem:[u] est un minimum de la fonctionnelle stem:[J(v)=\frac{1}{2} \int_{\Omega}|\nabla v|^{2}-\int f \cdot v]
+sur stem:[V]
+
+NOTE: On interprete la pression stem:[p:] multiplicateur de Lagrange associé à la contrainte d'incompressibilité
+
+WARNING: *Difficulté :* construire sous espace discret stem:[V_{h} \subset V]
+--
+
+== 1) Formulation variationnelle
+
+[.left.small]
+--
+Supposons stem:[f \in\left(L^{2}(\Omega)\right)^{d}]
+Formulation variationnelle 2: 
+
+trouver stem:[(u, p) \in\left(H_{0}^{1}(\Omega)\right)^{d} \times L_{*}^{2}(\Omega)] tels que
+[stem.small]
+++++
+\begin{array}{ll}
+\int_{\Omega} \nabla u: \nabla v-\int_{\Omega} p \nabla \cdot v=\int_{\Omega} f \cdot v, & \forall v \in\left(H_{0}^{1}(\Omega)\right)^{d} \\
+\int_{\Omega} q \nabla \cdot u=0 & \forall q \in L_{*}^{2}(\Omega)
+\end{array}
+++++
+avec stem:[L_{*}^{2}=\left\{q \in L^{2}(\Omega), \int_{\Omega} q=0\right\}]
+
+NOTE: stem:[\rightarrow p] est définie à une constante près : stem:[p \in L_{*}^{2}(\Omega)] permet d'assurer l'unicité
+--
+
+== 2) Résolution  
+
+=== Problème variationnel
+
+[.left.x-small]
+--
+Soit stem:[X, M] deux espaces de Hilbert
+[stem]
+++++
+\begin{array}{ll}
+\text { Trouver }(u, p) \in X \times M, & a(u, v)+b(v, q)=\ell(v), \quad \forall v \in X \\
+& b(u, q)=g(q), \quad \forall q \in M
+\end{array}
+++++
+avec stem:[a: X \times X \rightarrow \mathbb{R}, b: X \times M \rightarrow \mathbb{R}] bilinéaires, stem:[\ell: V \rightarrow \mathbb{R}] et stem:[g: M \rightarrow \mathbb{R}]
+linéaires.
+--
+
+=== Condition inf-sup
+
+[.left.x-small]
+--
+Proposition::
+stem:[V] espace de Hilbert.
+a: forme bilinéaire, continue, coercive sur stem:[X]
+b: forme bilinéaire, continue sur stem:[X \times M]
+stem:[\ell, g:] forme linéaire continue.
+Le problème variationnel admet une unique solution stem:[(u, p) \in X \times M] *ssi* stem:[\exists \beta>0]
+[stem]
+++++
+\inf _{q \in M_{v \in X}} \sup _{\|v\|_{X}\|q\|_{M}} \frac{b(v, q)}{\|v\|_{X}\|q\|_{M}} \geqslant \beta
+++++
+Si a est symmétrique, la solution est un point selle du Lagrangien:
+[stem]
+++++
+L(v, q)=\frac{1}{2} a(v, v)-b(v, q)-f(v)-g(q)
+++++
+--
+
+== Méthode de Galerkin
+
+[.left.x-small]
+--
+Definition ( Problème variationnel discret)::
+Soit stem:[X_{h} \subset X, M_{h} \subset M]
+[stem]
+++++
+\begin{array}{ll}
+\text { Trouver }\left(u_{h}, p_{h}\right) \in X_{h} \times M_{h}, & a\left(u_{h}, v_{h}\right)+b\left(v_{h}, p_{h}\right)=\ell\left(v_{h}\right), \quad \forall v_{h} \in X_{h} \\
+& b\left(u_{h}, q_{h}\right)=g\left(q_{h}\right), \quad \forall q_{h} \in M_{h}
+\end{array}
+++++
+Proposition (Condition inf-sup discrète)::
+Le problème variationnel approché admet une unique solution stem:[\left(u_{h}, p_{h}\right) \in X_{h} \times M_{h}] *ssi* stem:[\exists \beta>0]
+[stem]
+++++
+\inf _{q_{h} \in M_{h} v_{h} \in X_{h}} \sup _{\left\|v_{h}\right\|_{X}\left\|q_{h}\right\|_{M}}  \frac{b\left(v_{h}, q_{h}\right)}{\left\|v_{h}\right\|_{X}\left\|q_{h}\right\|_{M}} \geqslant \beta
+++++
+--
+
+=== Méthode de Galerkin
+
+[.left.x-small]
+--
+stem:[X_{h} \subset X] s.e.v de dimension stem:[N_{u},\left(\varphi_{i}\right)] base de stem:[X_{h}] stem:[M_{h} \subset M] s.e.v de dimension stem:[N_{p},\left(\psi_{i}\right)] base de stem:[M_{h}]
+--
+[stem.x-small]
+++++
+\begin{aligned}
+u_{h}(x)=\sum_{j=1}^{N_{u}} u_{j} \varphi_{j}(x), & \quad p_{h}(x)=\sum_{j=1}^{N_{p}} p_{j} \psi_{j}(x) & & \\
+& & & \\
+& a\left(u_{h}, v_{h}\right)+b\left(v_{h}, p_{h}\right)=\ell\left(v_{h}\right), & & \forall v_{h} \in X_{h} \\
+& b\left(u_{h}, q_{h}\right)=g\left(q_{h}\right), & & \forall q_{h} \in M_{h} \\
+\Longleftrightarrow & \sum_{j=1}^{N_{u}} u_{j} a\left(\varphi_{j}, v_{h}\right)+\sum_{j=1}^{N_{p}} p_{j} b\left(v_{h}, \psi_{j}\right)=\ell\left(v_{h}\right) & \forall v_{h} \in X_{h} \\
+& \sum_{j=1}^{N_{u}} u_{j} b\left(\varphi_{j}, q_{h}\right)=g\left(q_{h}\right), & \forall q_{h} \in M_{h}
+\end{aligned}
+++++
+
+== Formulation matricielle
+[stem.small]
+++++
+\Longleftrightarrow \quad \sum_{j=1}^{N_{u}} u_{j} a\left(\varphi_{j}, \varphi_{i}\right)+\sum_{j=1}^{N_{p}} p_{j} b\left(\varphi_{i}, \psi_{j}\right)=\ell\left(\varphi_{i}\right) \quad \forall i \in \mathbb{I}, N_{u} \mathbb{J}
+++++
+
+[stem.small]
+++++
+\Longleftrightarrow \quad\left[\begin{array}{ll}
+A & B^{T} \\
+B & 0
+\end{array}\right]\left[\begin{array}{l}
+U \\
+P
+\end{array}\right]=\left[\begin{array}{l}
+F \\
+G
+\end{array}\right]
+++++
+avec
+[stem.x-small]
+++++
+\begin{aligned}
+A_{i, j} &=\left(a\left(\varphi_{i}, \varphi_{j}\right)\right)_{i, j} \in M_{N_{u}}(\mathbb{R}) & U &=\left(u_{j}\right), \quad F=\left(f\left(\varphi_{j}\right)\right)_{j} \in \mathbb{R}^{N_{u}} \\
+B &=\left(b\left(\varphi_{j}, \psi_{i}\right)\right)_{i, j} \in M_{N_{u}, N_{p}}(\mathbb{R}) & P & =\left(p_{j}\right), \quad G=\left(g\left(\psi_{i}\right)\right)_{j} \in \mathbb{R}^{N_{p}}
+\end{aligned}
+++++
+
+=== Formulation matricielle
+[.left.x-small]
+--
+[stem.x-small]
+++++
+\left[\begin{array}{cc}
+A & B^{T} \\
+B & 0
+\end{array}\right]\left[\begin{array}{l}
+U \\
+P
+\end{array}\right]=\left[\begin{array}{l}
+F \\
+G
+\end{array}\right]
+++++
+
+* stem:[\rightarrow A] est symétrique définie positive
+* stem:[\rightarrow] La matrice est symétrique mais n'est pas définie positive
+* stem:[\rightarrow] Condition inf-sup discrète ssi stem:[B] est de rang stem:[N_{p}]
+ssi stem:[B^{T}] est de rang stem:[N_{p}]
+
+[stem.x-small]
+++++
+\text { ssi } \operatorname{ker}\left(B^{T}\right)=\{0\}
+++++
+--
+Dans ce cas, la matrice est inversible.
+
+=== Formulation matricielle
+
+[.left.small]
+--
+La condition inf-sup discrète n'est pas satisfaite dans les cas suivants :
+
+* stem:[N_{p}>N_{u}:] l'espace vectoriel pour la pression est trop grand comparée à celui de la vitesse pour que stem:[B] soit de rang stem:[N_{p}] 
+** stem:[\rightarrow] Locking
+** stem:[\rightarrow B] est alors en général de rang. stem:[N_{u}] et stem:[\operatorname{ker}(B)=\{0\}:] la seule solution possible est stem:[U=0]
+* il existe stem:[Q^{*} \in \operatorname{ker}\left(B^{T}\right)] non nul. Alors stem:[q_{h}^{*}=\sum_{j=1}^{N_{p}} Q_{k}^{*} \psi_{k}] vérifie
+stem:[b\left(v_{h}, q_{h}^{*}\right)=0] pour tout stem:[v_{h} \in V_{h}]
+** stem:[\rightarrow] mode parasite (spurious mode)
+--
+
+== Espaces d'approximation
+
+[.left.x-small]
+--
+* 3) Choix du maillage (généralement affine)
+* 4) Choix des espaces d'approximation stem:[X_{h}, M_{h}]
+stem:[X_{h}=\left\{v_{h} \in(C(\bar{\Omega}))^{d}, \quad \forall K \in \mathcal{T}_{h}, v_{h} \circ T_{K} \in\left(\hat{P}_{u}\right)^{d}\right\} \subset\left(H^{1}(\Omega)\right)^{d}]
+stem:[M_{h}=\tilde{M}_{h} \cap L_{*}^{2}(\Omega)]
+avec stem:[\tilde{M}_{h}=\left\{v_{h} \in C(\bar{\Omega}), \quad \forall K \in \mathcal{T}_{h}, v_{h} \circ T_{K} \in \hat{P}_{p}\right\} \subset L^{2}(\Omega)]
+
+Choix de stem:[\hat{P}_{u}] et stem:[\hat{P}_{p}:]:: 
+* stem:[\mathbb{P}_{1} / \mathbb{P}_{0} \rightarrow] locking
+* stem:[\mathbb{P}_{1} / \mathbb{P}_{1} \rightarrow] mode parasite
+* stem:[\cdot \mathbb{P}_{1}] -bulle/P stem:[_{1}] (mini-element) stem:[\rightarrow] ok 
+* stem:[\mathbb{P}_{k} / \mathbb{P}_{k-1}(\text { Taylor-Hood }) \rightarrow] ok
+--
+
+=== stem:[\mathbb{P}_{1}] -bulle stem:[/ \mathbb{P}_1]
+
+[.left.x-small]
+--
+[stem]
+++++
+\hat{P}_{u}=\left(\mathbb{P}_{1}+\operatorname{vect}(\hat{b})\right)^{d} \quad \hat{P}_{p}=\mathbb{P}_{1}
+++++
+*Fonction bulle:* stem:[\hat{b} \in H_{0}^{1}(\hat{K})] telle que stem:[0 \leqslant \hat{b} \leqslant 1] et stem:[\hat{b}(\text { barycentre})=1]
+
+Exemple:: stem:[\hat{b}=3^{3} \lambda_{1} \lambda_{2} \lambda_{3}]
+
+Proposition::
+stem:[\Omega] polyédrique et stem:[\left(\mathcal{T}_{h}\right)] une famille régulière de triangulations. Alors la condition inf-sup discrète est satisfaite uniformément pour tout stem:[h] Soit stem:[f \in L^{2}(\Omega)] et stem:[u \in V] la solution du problème. Soit stem:[\left(u_{h}, p_{h}\right) \in X_{h} \times M_{h}] la solution approchée du problème de Stokes. Alors si stem:[u \in\left(H^{2}(\Omega) \cap H_{0}^{1}(\Omega)\right)^{d}] et
+stem:[p \in H^{1}(\Omega) \cap L_{*}^{2}(\Omega),] alors
+[stem]
+++++
+\left\|u-u_{h}\right\|_{\left(H^{1}\right)^{d}}+\left\|p-p_{h}\right\|_{L^{2}} \leqslant C h\left(\|u\|_{H^{2}}+\|p\|_{H^{1}}\right)
+++++
+--
+
+===  stem:[\mathbb{P}_{1}] -bulle stem:[/ \mathbb{P}_1]
+[.left.x-small]
+--
+Si de plus le problème est régularisant (toute solution du problème (adjoint) est régulière ), alors
+[stem]
+++++
+\left\|u-u_{h}\right\|_{\left(L^{2}\right)^{d}} \leqslant C h^{2}\left(\|u\|_{H^{2}}+\|p\|_{H^{1}}\right)
+++++
+* stem:[\rightarrow] pas de convergence en stem:[h^{2}] pour la pression stem:[\hat{P}_{p}=\mathbb{P}_{1}]
+* stem:[\rightarrow] pas de convergence en stem:[h^{3}] pour la vitesse alors que stem:[\hat{P}_{u}] contient strictement
+stem:[\mathbb{P}_{1}]
+--
+
+== stem:[\hat{P}_{u}=\mathbb{P}_{2} \quad \hat{P}_{p}=\mathbb{P}_{1} ]
+
+[.left.x-small]
+--
+Proposition:: 
+stem:[\Omega] polyédrique et stem:[\left(\mathcal{T}_{h}\right)] une famille régulière de triangulations. 
+
+Alors la condition inf-sup discrète est satisfaite uniformément pour tout stem:[h] en prenant stem:[X_{h}] 
+
+Soit stem:[f \in L^{2}(\Omega)] et stem:[u \in V] la solution du problème.  Soit stem:[\left(u_{h}, p_{h}\right) \in X_{h} \times M_{h}] la solution approchée du problème de Stokes. 
+
+Alors  si stem:[u \in\left(H^{3}(\Omega) \cap H_{0}^{1}(\Omega)\right)^{d}] et
+stem:[p \in H^{2}(\Omega) \cap L_{*}^{2}(\Omega),] alors
+[stem]
+++++
+\left\|u-u_{h}\right\|_{\left(H^{1}\right)^{d}}+\left\|p-p_{h}\right\|_{L^{2}} \leqslant C h^{2}\left(\|u\|_{\left(H^{3}\right)^{d}}+\|p\|_{H^{2}}\right)
+++++
+--
+
+=== stem:[\hat{P}_{u}=\mathbb{P}_{2} \quad \hat{P}_{p}=\mathbb{P}_{1} ]
+
+[.left.x-small]
+--
+Si de plus le problème est régularisant (toute solution du problème (adjoint) est régulière ), alors
+[stem]
+++++
+\left\|u-u_{h}\right\|_{\left(L^{2}\right)^{d}} \leqslant C h^{3}\left(\|u\|_{\left(H^{3}\right)^{d}}+\|p\|_{H^{2}}\right)
+++++
+stem:[\rightarrow] convergence en stem:[h^{2}] pour la pression stem:[\hat{P}_{p}=\mathbb{P}_{1}]
+stem:[\rightarrow] convergence en stem:[h^{3}] pour la vitesse avec que stem:[\hat{P}_{u}=\mathbb{P}_{2}]
+--
+
+== Résolution
+
+[.left.x-small]
+--
+Matrice symétrique mais non définie positive : les méthodes itératives classiques fonctionnent mal
+
+Deux méthodes::
+
+* Equation sur la pression:
+stem:[\rightarrow\left(B A^{-1} B^{T}\right)] sym. def. pos. : complément de Schur
+stem:[\rightarrow] Calcul de stem:[P] puis stem:[U]
+stem:[\rightarrow] méthode itérative d'Uzawa
+* Méthode de compressibilité artificielle : on considère la matrice 
+[stem]
+++++
+\begin{bmatrix}
+A & B^{T} \\ 
+B & \varepsilon M
+\end{bmatrix}
+++++
+avec stem:[\varepsilon>0,] qui est définie positive et stem:[M=\left(\int \psi_{i} \psi_{j}\right)]
+--
+
+=== En pratique
+
+[.left.x-small]
+--
+[stem]
+++++
+M_{h}=\tilde{M}_{h} \cap L_{*}^{2}(\Omega)
+++++
+avec 
+[stem]
+++++
+\tilde{M}_{h}=\left\{v_{h} \in C(\bar{\Omega}), \quad \forall K \in \mathcal{T}_{h}, v_{h} \circ T_{K} \in \hat{P}_{p}\right\} \subset L^{2}(\Omega)
+++++
+* stem:[\rightarrow] numériquement, on ne considère pas 
+stem:[M_{h}] mais stem:[\tilde{M}_{h}]
+* stem:[\rightarrow] le système linéaire a alors plusieurs solutions puisque la pression n'est définie qu'à une constante près
+
+Remèdes::
+. si les méthodes itératives convergent tout de même vers une des solutions,
+. il faut ensuite retrancher à la pression sa moyenne.
+la méthode de compressibilité artificielle sélectionne directement la pression à moyenne nulle.
+--
