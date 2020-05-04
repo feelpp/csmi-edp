@@ -398,7 +398,7 @@ stem:[\rightarrow] convergence en stem:[h^{3}] pour la vitesse avec que stem:[\h
 
 [.left.x-small]
 --
-Matrice symétrique mais non définie positive : les méthodes itératives classiques fonctionnent mal
+IMPORTANT: Matrice symétrique mais non définie positive : les méthodes itératives classiques fonctionnent mal
 
 Deux méthodes::
 

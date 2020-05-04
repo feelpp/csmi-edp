@@ -162,11 +162,10 @@ u(x,t)&amp;=g(x,t), \quad \mbox{ sur } \partial \Omega_{D} \times \mathbb{R}^{+}
 <div class="ulist"><ul><li><p>\(u: \Omega \times \mathbb{R}^{+} \rightarrow \mathbb{R}:\) densité</p></li><li><p>\(u_{°}: \Omega \rightarrow \mathbb{R}:\) donnée initiale</p></li><li><p>\(f: \Omega \times \mathbb{R}^{+} \rightarrow \mathbb{R}:\) terme source</p></li><li><p>\(g: \partial \Omega \rightarrow \mathbb{R}:\) valeur au bord</p></li></ul></div></div></section><section id="_formulation"><h2>Formulation</h2><div class="slide-content"><div class="openblock left"><div class="content"><div class="paragraph"><p>\(\rightarrow\) problème parabolique \(\rightarrow\) Bilan de conservation</p></div>
 <div class="stemblock"><div class="content">\[\frac{d}{d t} \int_{\Omega} u=\int_{\partial \Omega}(n \cdot \nabla u)+\int_{\Omega} f\]</div></div>
 <div class="paragraph"><p>\(\rightarrow\) Dissipation de la norme \(L^{2}\)</p></div>
-<div class="stemblock"><div class="content">\[\frac{d}{d t} \int_{\Omega} u^{2}=-\int_{\Omega}|\nabla u|^{2}+\int_{\partial_{\Omega}} u \partial_{n} u+\int_{\Omega} f u\]</div></div></div></div></div></section><section id="_approche"><h2>Approche</h2><div class="slide-content"><div class="openblock left"><div class="content"><div class="paragraph"><p>Une approche simple pour résoudre les EDP dépendant du temps par la
-La méthode des éléments finis consiste à discrétiser d&#8217;abord la dérivée du temps par un
-l&#8217;approximation des différences, qui donne un ensemble récursif de
-problèmes, puis transformer chaque problème stationnaire en un problème variationnel
-formulation.</p></div>
+<div class="stemblock"><div class="content">\[\frac{d}{d t} \int_{\Omega} u^{2}=-\int_{\Omega}|\nabla u|^{2}+\int_{\partial_{\Omega}} u \partial_{n} u+\int_{\Omega} f u\]</div></div></div></div></div></section><section id="_approche"><h2>Approche</h2><div class="slide-content"><div class="openblock left"><div class="content"><div class="paragraph"><p>Une approche simple pour résoudre les EDP dépendant du temps par
+La méthode des éléments finis consiste à discrétiser d&#8217;abord la dérivée en temps par les différences finies.
+Cela donne un ensemble récursif de
+problèmes stationnaires, puis on transforme chaque problème stationnaire en un problème variationnel.</p></div>
 <div class="paragraph"><p>Soit l&#8217;exposant \(k\) qui désigne une quantité au temps \(t^k\)
 où \(k\) est un nombre entier comptant les niveaux de temps.
 Par exemple, \(u^k\) signifie \(u\) au niveau du temps \(k\).</p></div></div></div></div></section><section id="_semi_discrétisation_en_temps"><h2>Semi-discrétisation en temps</h2><div class="slide-content"><div class="openblock left"><div class="content"><div class="paragraph"><p>Discrétisation en temps: \(\Delta t&gt;0, t_{n}=n \Delta t .\)

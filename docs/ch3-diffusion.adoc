@@ -75,11 +75,10 @@ stem:[\rightarrow] Dissipation de la norme stem:[L^{2}]
 
 [.left]
 --
-Une approche simple pour résoudre les EDP dépendant du temps par la
-La méthode des éléments finis consiste à discrétiser d'abord la dérivée du temps par un
-l'approximation des différences, qui donne un ensemble récursif de
-problèmes, puis transformer chaque problème stationnaire en un problème variationnel
-formulation.
+Une approche simple pour résoudre les EDP dépendant du temps par 
+La méthode des éléments finis consiste à discrétiser d'abord la dérivée en temps par les différences finies.
+Cela donne un ensemble récursif de
+problèmes stationnaires, puis on transforme chaque problème stationnaire en un problème variationnel.
 
 Soit l'exposant stem:[k] qui désigne une quantité au temps stem:[t^k]
 où stem:[k] est un nombre entier comptant les niveaux de temps. 
