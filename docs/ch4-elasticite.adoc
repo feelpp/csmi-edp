@@ -72,6 +72,14 @@ Version intégrale::
 \forall \omega \subset \Omega, \quad \int_{\partial \omega} \sigma(u) n=-\int_{\omega} f
 ++++
 
+=== Forces surfaciques
+
+stem:[\sigma(u) n]:: représente une densité de force surfacique (stem:[N/m^2]).
+
+stem:[\int_{\partial \Omega_N} \sigma(u) n]:: représente la force (stem:[N])  s'appliquant sur le bord stem:[\partial \Omega]. 
+
+
+
 === Matériau hyperélastique
 
 [.left.x-small]
