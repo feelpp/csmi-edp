@@ -74,7 +74,7 @@ Version intégrale::
 
 === Forces surfaciques
 
-stem:[\sigma(u) n]:: représente une densité de force surfacique (stem:[N/m^2]).
+stem:[\sigma(u) n]:: représente une densité de force surfacique (stem:[N/m^2]) dont la normale unitaire est stem:[n]
 
 stem:[\int_{\partial \Omega_N} \sigma(u) n]:: représente la force (stem:[N])  s'appliquant sur le bord stem:[\partial \Omega]. 
 
