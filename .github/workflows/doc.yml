@@ -18,6 +18,7 @@ jobs:
       run: |
         sudo apt install asciidoctor ruby2.7
         cd docs 
+        bundle install
         ./render
         mkdir build && mv *.html build
     - name: Deploy
