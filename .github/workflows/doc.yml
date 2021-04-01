@@ -20,7 +20,11 @@ jobs:
         cd docs 
         bundle install
         ./render
-        mkdir build && mv *.html build
+        mkdir build 
+        mv *.html build
+        cp -r css build
+        cp -r reveal.js build
+        cp -r fonts images build
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@4.1.0
       with:
