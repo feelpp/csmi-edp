@@ -145,3 +145,254 @@ Crank-Nicolson (ordre 2 en temps)
 
 video::3dUjvRbCcVc?list=PLigsLWCja8px9vDW6uTpLv9tB-ljSJLXr[youtube,equation de diffusion en tomographie optique,width=1000,height=562,start=67]
 
+== Advection Diffusion Reaction
+
+=== Problèmes type
+
+[.left.x-small]
+--
+Problème de convection-diffusion::
+
+[stem.small]
+++++
+\begin{array}{rlr}
+\partial_{t} u+\nabla \cdot(u \beta)-\varepsilon \Delta u+\mu u & =f & \text { sur } \mathbb{R}^{+} \times \Omega\\
+u & =0 & \text { sur } \mathbb{R}^{+} \times \partial \Omega
+\end{array}
+++++
+
+- stem:[u: \mathbb{R}^{+} \times \Omega \rightarrow \mathbb{R}^{d}:] température ou concentration 
+- stem:[\beta: \mathbb{R}^{+} \times \Omega \rightarrow \mathbb{R}^{d}:] vitesse d'advection
+--
+
+=== Problèmes type
+
+[.left.x-small]
+--
+Problème de Navier-Stokes::
+
+[stem.small]
+++++
+\begin{array}{rlr}
+\partial_{t} u+u \cdot \nabla u-\nu \Delta u+\nabla p & =f & & \text { sur } \mathbb{R}^{+} \times \Omega \\
+\nabla \cdot u & =0 & & \text { sur } \mathbb{R}^{+} \times \Omega \\
+u & =0 & & \text { sur } \mathbb{R}^{+} \times \partial \Omega
+\end{array}
+++++
+
+- stem:[u: \mathbb{R}^{+} \times \Omega \rightarrow \mathbb{R}^{d}:] champ de vitesse
+- stem:[p: \mathbb{R}^{+} \times \Omega \rightarrow \mathbb{R}:] pression
+
+NOTE: advection non-linéaire
+--
+
+=== Advection diffusion stationnaire
+
+[.left.x-small]
+--
+[stem.x-small]
+++++
+\begin{aligned}
+\nabla \cdot(u \beta)-\varepsilon \Delta u+\mu u &=f & & \text { sur } \mathbb{R}^{+} \times \Omega \\
+u &=0 & & \text { sur } \mathbb{R}^{+} \times \partial \Omega
+\end{aligned}
+++++
+Proposition::
+[stem.x-small]
+++++
+u \in H^{1}(\Omega) \text { et } \beta \in H^{1}(\Omega)^{d}\quad
+\nabla \cdot(u \beta)=u \nabla \cdot \beta+\beta \cdot \nabla u
+++++
+1) Formulation variationnelle::
+[stem.x-small]
+++++
+\text { Trouver } u \in V, \quad a(u, v)=\ell(v), \quad \forall v \in V\equiv H_{0}^{1}(\Omega)\\
+\begin{array}{l}
+a(u, v)=\int_{\Omega} \varepsilon \nabla u \cdot \nabla v-\int_{\Omega} u(\beta \cdot \nabla v)+\int_{\Omega} \mu u v \\
+\ell(v)=\int_{\Omega} f v
+\end{array}
+++++
+--
+
+
+===  Résolution
+
+[.left.x-small]
+--
+Proposition:: stem:[f \in L^{2}, \nabla \cdot \beta \in L^{2}] et stem:[\beta \in L^{\infty}, \varepsilon, \mu>0 .] On suppose de plus que
+stem:[\mu+\frac{1}{2} \nabla \cdot \beta \geqslant 0] alors
+stem:[a] est coercif : stem:[a(v, v) \geqslant \kappa\|v\|_{H^{1}}^{2},] avec stem:[\kappa=\varepsilon]
+stem:[a] est continu stem:[: a(u, v) \leqslant M\|u\|_{H^{1}}\|v\|_{H^{1}},] avec stem:[M=\left(\mu+\varepsilon+\|\beta\|_{\infty}\right)]
+On en déduit qu'il existe une unique solution u au problème variationnel.
+Definition ( Problème variationnel discret):: 
+[stem.x-small]
+++++
+\begin{array}{c}
+\text { Soit } V_{h} \subset V \text{, Trouver } u_{h} \in V_{h}, \quad a\left(u_{h}, v_{h}\right)=\ell\left(v_{h}\right), \quad \forall v_{h} \in V_{h} \\
+a\left(u_{h}, v_{h}\right)=\int_{\Omega} \varepsilon \nabla u_{h} \cdot \nabla v_{h}-\int_{\Omega} u_{h}\left(\beta \cdot \nabla v_{h}\right)+\int_{\Omega} \mu u_{h} v_{h} \\
+\ell\left(v_{h}\right)=\int_{\Omega} f v_{h}
+\end{array}
+++++
+2) Choix du maillage::
+
+3) Choix des éléments fins stem:[\left(P_{k}\right)]::
+--
+
+=== Problème
+
+[.left.x-small]
+--
+Convergence:: 
+Preuve de la convergence :
+[stem]
+++++
+\left\|u-u_{h}\right\| \leqslant \frac{M}{\kappa} \operatorname{dist}\left(u, V_{h}\right)=\frac{\left(\mu+\varepsilon+\|\beta\|_{\infty}\right)}{C \varepsilon} \operatorname{dist}\left(u, V_{h}\right)
+++++
+On a ensuite :
+[stem]
+++++
+\left\|u_{h}\right\| \leqslant \frac{1}{\varepsilon}\|f\|_{L^{2}}, \quad\left\|\nabla u_{h}\right\| \leqslant \frac{1}{\varepsilon}\|f\|_{L^{2}}
+++++
+
+CAUTION: Limite faible diffusion (convection dominante): stem:[\varepsilon \rightarrow 0] stem:[\rightarrow] solution et gradient très grands
+--
+
+=== Nombre de Péclet
+
+[.left.x-small]
+--
+Definition::
+ - Nombre de Péclet: stem:[\mathrm{Pe}=\frac{\|\beta\|_{\infty} L}{2 \varepsilon}(L=] longueur caractéristique du domaine) 
+ - Nombre de Péclet local à une maille: stem:[\mathrm{Pe}_{K}=\frac{\|\beta\|_{\infty} h_{K}}{2 \varepsilon}]
+
+Pour limiter les oscillations::
+ - réduire l'erreur en prenant un très petit paramètre de discrétisation stem:[h]
+ - méthodes de stabilisation :
+   * Diffusion artificielle
+   * Galerkin Least-Square (GLS)
+   * Streamline Upwind Petrov Galerkin (SUPG)
+   * Continuous Interior Penalty methods (CIP)
+   * ..
+--
+
+=== Méthode 1: Galerkin Least Square (GaLS)
+
+[.left.x-small]
+--
+Problème : stem:[L u=f] avec
+[stem.x-small]
+++++
+L u=\nabla \cdot(u \beta)-\varepsilon \Delta u+\mu u
+++++
+Formulation moindre carré :
+[stem.x-small]
+++++
+\text { Trouver } u \in V, \quad(L u, L v)=(f, L v), \quad \forall v \in V
+++++
+Cela revient à résoudre stem:[L^{T} L u=L^{T} f .] L'unique solution de ce problème est le minimum de la fonction
+[stem.x-small]
+++++
+J(u)=\frac{1}{2}(L u, L u)-(f, L u)=\frac{1}{2}\|L u-f\|^{2}-\frac{1}{2}\|f\|^{2}
+++++
+
+CAUTION: Problème mal posé : pour stem:[v \in H^{1}], stem:[L v \notin L^{2}(\Omega)]
+--
+
+=== Galerkin Least Square (GaLS)
+
+[.left.x-small]
+--
+... mais pour tout stem:[v_{h} \in V_{h}] et tout stem:[K \in \mathcal{T}_{h}, L v_{h \mid K} \in L^{2}].
+Formulation variationnelle GLS:
+Trouver stem:[u \in V_{h},]
+[stem.x-small]
+++++
+a(u, v)+\underbrace{\sum_{K \in \mathcal{T}_{h}}\left(L u_{\mid K}, \delta_{K} L v_{\mid K}\right)}_{a_{h}(u, v)}=\ell(v)+\underbrace{\sum_{K \in \mathcal{T}_{h}}\left(f, \delta_{K} L v_{\mid K}\right)}_{\ell_{h}(v)}, \quad \forall v \in V_{h}
+++++
+
+.Remarques
+[NOTE]
+====
+- stem:[\rightarrow] combinaison entre méthode de Galerkin standard et méthode de moindre carré
+- stem:[\rightarrow] méthode fortement consistante : la solution stem:[u] vérifie la formulation variationnelle
+- stem:[\rightarrow \delta_{K}:] paramètre tel que stem:[\delta_{K}=O\left(h_{K} /\|\beta\|\right)] pour stem:[\mathrm{Pe}_{K} \geqslant 1]
+- stem:[\delta_{K}=O\left(h_{K}^{2} / \varepsilon\right)] pour stem:[\mathrm{Pe}_{K} \leqslant 1]
+- stem:[\rightarrow a_{h}] et stem:[\ell_{h}] dépendent de stem:[\left(h_{K}\right)]
+====
+--
+
+=== Convergence
+
+[.left.x-small]
+--
+Norme::
+[stem.x-small]
+++++
+\|u\|_{\mathrm{GLS}}^{2}=\varepsilon\|\nabla u\|_{L^{2}}^{2}+\|\sqrt{\tilde{\mu}} u\|_{L^{2}}^{2}+\sum_{K \in \mathcal{T}_{h}}\left(L u_{\mid K}, \delta_{K} L u_{\mid K}\right), \quad \tilde{\mu}=\mu+\frac{1}{2} \nabla \cdot \beta \geqslant \mu_{0}>0
+++++
+
+Proposition:: 
+Soit stem:[f \in L^{2}(\Omega)] et stem:[u \in V] la solution du problème. Soit stem:[u_{h} \in V_{h}] la solution approchée du problème d'advection-diffusion. Si stem:[u \in H^{k+1}(\Omega),] alors avec stem:[\delta_{K}=\delta h_{K} /\|\beta\|] pour stem:[P e_{K} \geqslant 1] et stem:[\delta] suffisamment petit,
+[stem.x-small]
+++++
+\left\|u-u_{h}\right\|_{G L S} \leqslant C h^{k+\frac{1}{2}}\|u\|_{H^{k+1}}
+++++
+--
+
+=== Convergence
+
+[.left]
+--
+En prenant stem:[\delta_{K}=\left(\|\beta\|_{\infty} / h_{K}+\varepsilon / h_{K}^{2}\right)^{-1},] on obtient la convergence:
+[stem]
+++++
+\left\|u-u_{h}\right\|_{L^{2}} \leqslant C h^{k+\frac{1}{2}}\|u\|_{H^{k+1}}
+++++
+NOTE: stem:[\rightarrow] convergence sous-optimale d'un facteur stem:[1 / 2]
+--
+
+=== Méthode 2: Méthode SUPG
+
+[.left.x-small]
+--
+SUPG:: Streamline upwind Petrov-Galerkin
+Definition:: (Partie symétrique et antisymétrique)
+[stem.x-small]
+++++
+\begin{array}{c}
+L u=-\varepsilon \Delta u+\nabla \cdot(\beta u)+\mu u \qquad=\underbrace{-\varepsilon \Delta u+\left[\mu+\frac{1}{2} \nabla \cdot \beta\right] u}_{=L_{S} u} \quad+\underbrace{\frac{1}{2}[\nabla \cdot(\beta u)+\beta \cdot \nabla u]}_{L_{S S} u} \\
+L_{S}=\left(L+L^{T}\right) / 2: \text { symmetric part } \quad
+L_{S S}=\left(L-L^{T}\right) / 2: \text { skew-symmetric part }
+\end{array}
+++++
+
+.Remarques
+[NOTE]
+====
+- stem:[\rightarrow \tilde{\mu}=\mu+\frac{1}{2} \nabla \cdot \beta] intervient dans la partie symétrique de stem:[L] 
+- stem:[\rightarrow L_{S S} u=\beta \cdot \nabla u+\frac{1}{2} u \nabla \cdot \beta:] si stem:[\beta] est à divergence nulle, stem:[L_{S S}] est réduit à la dérivée suivant stem:[\beta].
+====
+--
+
+=== Formulation variationnelle SUPG:
+
+[.left.x-small]
+--
+Trouver stem:[u \in V_{h},]
+[stem.x-small]
+++++
+a(u, v)+\underbrace{\sum_{K \in \mathcal{T}_{h}}\left(L u_{\mid K}, \delta_{K} L_{S S} v_{\mid K}\right)}_{a_{h}(u, v)}=\ell(v)+\underbrace{\sum_{K \in \mathcal{T}_{h}}\left(f, \delta_{K} L_{S S} v_{\mid K}\right)}_{\ell_{h}(v)}, \quad \forall v \in V_{h}
+++++
+.Remarques
+[NOTE]
+====
+- stem:[\rightarrow] peut s'obtenir à partir de
++
+[stem.x-small]
+++++
+\left(L u, v+\delta L_{S S} v\right)=\left(f, v+\delta L_{S S} v\right)
+++++
+- stem:[\rightarrow L_{S S} v] contient la dérivée suivant stem:[\beta \cdot \nabla v=\partial_{\beta} v] d'où le nom streamline upwind
+- stem:[\rightarrow] Petrov-Galerkin: les fonctions tests sont les stem:[v+\delta L_{S S} v] avec stem:[v \in V_{h}] au lieu de stem:[v \in V_{h}]
+====
+--
