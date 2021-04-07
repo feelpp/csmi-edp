@@ -1,43 +1,36 @@
 {
     "Name": "Square2d",
     "ShortName": "Square2d",
-    "Models":
-    {
-        "equations":[
+    "Models": {
+        "equations": [
             {
-                "name":"equation1",
-                "unknown":
-                {
-                    "basis":"Pch1",
-                    "name":"solution",
-                    "symbol":"u"
+                "name": "equation1",
+                "unknown": {
+                    "basis": "Pch1",
+                    "name": "solution",
+                    "symbol": "u"
                 }
             }
         ]
     },
-    "Parameters":
-    {
-        "m":"1"
-    }
-    "Materials":
-    {
-        "mymat1":
-        {
-            "markers":"Omega",
-            "equation1_k":"-(1+u)^m:m:equation1_u", // diffusion
-            "equation1_f":"0"
+    "Parameters": {
+        "m": 1
+    },
+    "Materials": {
+        "mymat1": {
+            "markers": "Omega",
+            "equation1_c": "(1+equation1_u)^m:m:equation1_u", // diffusion
+            "equation1_f": "0"
         }
     },
-    "BoundaryConditions":
-    {
-        "equation1":
-        {
-            "Dirichlet":
-            {
-                "left":
-                {
-                    "markers":["Left"],
-                    "expr":"0"
+    "BoundaryConditions": {
+        "equation1": {
+            "Dirichlet": {
+                "left": {
+                    "markers": [
+                        "Left"
+                    ],
+                    "expr": "0"
                 },
                 "right": {
                     "markers": [
@@ -48,14 +41,25 @@
             }
         }
     },
-    "PostProcess":
-    {
-        "use-model-name":1,
-        "cfpdes":
-        {
-            "Exports":
-            {
-                "fields":["all"]
+    "PostProcess": {
+        "use-model-name": 1,
+        "cfpdes": {
+            "Exports": {
+                "fields": [
+                    "all"
+                ]
+            }
+        },
+        "equation1": {
+            "Measures": {
+                "Norm": {
+                    "myerror": {
+                        "type": "L2-error",
+                        "field": "solution",
+                        "solution": "((2^(m+1)-1)*x+1)^(1./(m+1))-1:m:x:y",
+                        "markers": "Omega"
+                    }
+                }
             }
         }
     }
