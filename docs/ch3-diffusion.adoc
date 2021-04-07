@@ -37,9 +37,323 @@
 :iconfont-remote!:
 :iconfont-name: fonts/fontawesome/css/all
 
-== Problème de diffusion 
+== Problème de diffusion non linéaire
 
-=== Equation de diffusion
+=== Equation de Poisson non-linéaire
+
+[stem]
+++++
+-\nabla \cdot(q(u) \nabla u)=f
+++++
+
+[.left]
+--
+IMPORTANT: Le coefficient stem:[q(u)] rend l'équation *non linéaire* (sauf si stem:[q(u)] est constant en stem:[u] ). 
+--
+
+=== Verification
+
+[.left.x-small]
+--
+Pour pouvoir vérifier facilement notre implémentation, nous choisissons le domaine, stem:[q(u), f,] et les conditions aux limites de telle sorte que nous ayons une solution simple et exacte stem:[u]. 
+
+Soit stem:[\Omega] l'hypercube unitaire stem:[[0,1\]^{d}] en stem:[d] dimensions, stem:[q(u)=(1+u)^{m}, f=0, u=0] pour stem:[x_{0}=0, u=1] pour stem:[x_{0}=1,] et stem:[\partial u / \partial n=0] à toutes les autres frontières stem:[x_{i}=0] et stem:[x_{i}=1, i=1, \ldots, d-1]. 
+
+Les coordonnées sont maintenant représentées par les symboles stem:[x_{0}, \ldots, x_{d-1} .] 
+
+La solution exacte est alors
+[stem.x-small]
+++++
+u\left(x_{0}, \ldots, x_{d}\right)=\left(\left(2^{m+1}-1\right) x_{0}+1\right)^{1 /(m+1)}-1
+++++
+--
+
+=== Formulation variationelle 
+
+[.left.x-small]
+--
+La formulation variationnelle de notre problème modèle est la suivante : trouver stem:[u \in V] tel que
+[stem]
+++++
+F(u ; v)=0 \quad \forall  v \in \hat{V}
+++++
+où
+[stem]
+++++
+F(u ; v)=\int_{\Omega} q(u) \nabla u \cdot \nabla v \mathrm{~d} x
+++++
+et
+[stem]
+++++
+\begin{array}{l}
+\hat{V}=\left\{v \in H^{1}(\Omega) : v=0 \text{ sur } x_{0}=0 \text{ et } x_{0}=1\right\} \\
+V=\left\{v \in H^{1}(\Omega) : v=0 \text{ sur } x_{0}=0 \text{ et } v=1 \text{ sur } x_{0}=1\right\}
+\end{array}
+++++
+--
+
+=== Discrete Problem
+
+[.left.x-small]
+--
+Le problème discret se pose comme d'habitude en restreignant stem:[V] et stem:[\hat{V}] à une paire d'espaces discrets. 
+Comme souvent, nous omettons tout indice sur les espaces discrets et disons simplement que stem:[V] et stem:[\hat{V}] sont choisis en dimension finie selon un certain type de maille et d'élément. 
+Le problème non linéaire est alors le suivant : trouver stem:[u \in V] tel que
+
+[[nl-discrete]]
+[stem]
+++++
+F(u ; v)=0 \quad \forall v \in \hat{V}
+++++
+avec stem:[u=\sum_{j=1}^{N} U_{j}] Puisque stem:[F] est une fonction non linéaire de stem:[u] donne lieu à un système d'équations algébriques non linéaires. 
+--
+
+=== Stratégies de résolution
+
+[.left]
+--
+3 Stratégies::
+. Picard
+. Newton au niveau algébrique
+. Newton au niveau EDP
+--
+
+=== Picard
+
+[.left.x-small]
+--
+L'*itération de Picard* est un moyen facile de traiter les EDP non linéaires : 
+nous utilisons simplement une solution antérieure connue dans les termes non linéaires de sorte que ces termes deviennent linéaires dans l'inconnue stem:[u]. 
+
+Cette stratégie est également connue comme la *méthode des substitutions successives*. 
+Pour notre problème particulier, nous utilisons une solution antérieure connue dans le coefficient stem:[q(u)]. 
+Plus précisément, étant donné une solution stem:[u^{k}] de l'itération stem:[k], nous cherchons une nouvelle solution (que nous espérons améliorée) stem:[u^{k+1}] dans l'itération stem:[k+1] telle que stem:[u^{k+1}] résout le problème linéaire
+[stem]
+++++
+\nabla \cdot\left(q\left(u^{k}\right) \nabla u^{k+1}\right)=0, \quad k=0,1, \ldots
+++++
+
+IMPORTANT: Les itérations nécessitent une estimation initiale stem:[u^{0}.] On espère que stem:[u^{k} \rightarrow u] comme stem:[k \rightarrow \infty,] et que stem:[u^{k+1}] soit suffisamment proche de la solution exacte stem:[u] du problème discret après seulement quelques itérations.
+--
+
+=== Picard (2)
+
+[.left.x-small]
+--
+Nous pouvons facilement formuler un problème variationnel pour stem:[u^{k+1}] à partir de l'équation (1.64). 
+De manière équivalente, nous pouvons approximer stem:[q(u)] par stem:[q\left(u^{k}\right)] dans (1.61) pour obtenir le même problème variationnel linéaire. Dans les deux cas, le problème consiste à chercher stem:[u^{k+1} \in V] tel que
+[stem.x-small]
+++++
+\tilde{F}\left(u^{k+1} ; v\right)=0 \quad \forall v \in \hat{V}, \quad k=0,1, \ldots
+++++
+
+[stem.x-small]
+++++
+\mbox{avec } \tilde{F}\left(u^{k+1} ; v\right)=\int_{\Omega} q\left(u^{k}\right) \nabla u^{k+1} \cdot \nabla v \mathrm{~d} x
+++++
+Puisqu'il s'agit d'un problème linéaire dans l'inconnue stem:[u^{k+1}], ou de manière équivalente
+[stem.x-small]
+++++
+a\left(u^{k+1}, v\right)=L(v)\\
+\mbox{avec } a(u, v) =\int_{\Omega} q\left(u^{k}\right) \nabla u \cdot \nabla v \mathrm{~d} x \quad L(v) =0
+++++
+--
+
+=== Picard (Iterations)
+
+[.left]
+--
+Les itérations peuvent être arrêtées lorsque 
+
+. stem:[\epsilon \equiv \| u^{k+1}-u^{k}||<\texttt{tol}], où stem:[\texttt{tol}] est petit, disons stem:[10^{-5}], 
+. le nombre d'itérations dépasse une certaine limite critique. 
+
+NOTE: Dans ce dernier cas, on constatera une divergence de la méthode ou une convergence lente inacceptable.
+--
+
+=== Newton algébrique 1
+
+[.left]
+--
+Après avoir discrétisé notre problème d'EDP non linéaire, nous pouvons utiliser la méthode de Newton pour résoudre le système d'équations algébriques non linéaires. 
+
+A partir du problème variationnel continu, la version discrète résulte en un système d'équations pour les paramètres inconnus stem:[U_{1}, \ldots, U_{N}] (en insérant stem:[u=\sum_{j=1}^{N} U_{j} \phi_{j}] et stem:[v=\hat{\phi}_{i}] dans <<nl-discrete>>):
+[stem]
+++++
+F_{i}\left(U_{1}, \ldots, U_{N}\right) \equiv \sum_{j=1}^{N} \int_{\Omega}\left(q\left(\sum_{\ell=1}^{N} U_{\ell} \phi_{\ell}\right) \nabla \phi_{j} U_{j}\right) \cdot \nabla \hat{\phi}_{i} \mathrm{~d} x=0, \quad i=1, \ldots, N
+++++
+--
+
+=== Newton algébrique 2
+
+[.left.x-small]
+--
+La méthode de Newton pour le système stem:[F_{i}\left(U_{1}, \ldots, U_{j}\right)=0, i=1, \ldots, N] peut être formulée comme suit
+[stem]
+++++
+\begin{aligned}
+\sum_{j=1}^{N} \frac{\partial}{\partial U_{j}} F_{i}\left(U_{1}^{k}, \ldots, U_{N}^{k}\right) \delta U_{j} &=-F_{i}\left(U_{1}^{k}, \ldots, U_{N}^{k}\right), \quad i=1, \ldots, N \\\\N
+U_{j}^{k+1} &=U_{j}^{k}+\omega \delta U_{j}, \quad j=1, \ldots, N
+\end{aligned}
+++++
+où stem:[\omega \in[0,1]] est un paramètre de relaxation, et stem:[k] est un indice d'itération. 
+
+.Remarques
+[NOTE] 
+====
+. Une estimation initiale stem:[u^{0}] doit être fournie pour démarrer l'algorithme. 
+. La méthode originale de Newton a stem:[\omega=1], mais dans les problèmes où il est difficile d'obtenir la convergence, ce qu'on appelle la *sous-relaxation* avec stem:[\omega<1] peut aider.
+====
+--
+
+=== Newton algébrique 3
+
+[.left.x-small]
+--
+Nous avons besoin, dans un programme, de calculer la matrice jacobienne stem:[\partial F_{i} / \partial U_{j}] et le vecteur du côté droit stem:[-F_{i}]. Dans notre problème actuel, stem:[F_{i}] est donné par (1.70) . La dérivée stem:[\partial F_{i} / \partial U_{j}] devient
+
+[[nl-newton-alg]]
+[stem]
+++++
+\int_{\Omega}\left[q^{\prime}\left(\sum_{\ell=1}^{N} U_{\ell}^{k} \phi_{\ell}\right) \phi_{j} \nabla\left(\sum_{j=1}^{N} U_{j}^{k} \phi_{j}\right) \cdot \nabla \hat{\phi}_{i}+q\left(\sum_{\ell=1}^{N} U_{\ell}^{k} \phi_{\ell}\right) \nabla \phi_{j} \cdot \nabla \hat{\phi}_{i}\right] \mathrm{d} x
+++++
+Les résultats suivants ont été utilisés pour obtenir l'équation ci-dessus:
+[stem]
+++++
+\frac{\partial u}{\partial U_{j}}=\frac{\partial}{\partial U_{j}} \sum_{j=1}^{N} U_{j} \phi_{j}=\phi_{j}, \quad \frac{\partial}{\partial U_{j}} \nabla u=\nabla \phi_{j}, \quad \frac{\partial}{\partial U_{j}} q(u)=q^{\prime}(u) \phi_{j}
+++++  
+--
+
+=== Newton algébrique 4
+
+[.left.x-small]
+--
+Nous pouvons reformuler la matrice jacobienne dans (1.73) en introduisant la notation courte stem:[u^{k}=\sum_{j=1}^{N} U_{j}^{k} \phi_{j}] ;
+[stem.x-small]
+++++
+\frac{\partial F_{i}}{\partial U_{j}}=\int_{\Omega}\left[q^{\prime}\left(u^{k}\right) \phi_{j} \nabla u^{k} \cdot \nabla \hat{\phi}_{i}+q\left(u^{k}\right) \nabla \phi_{j} \cdot \nabla \hat{\phi}_{i}\right] \mathrm{d} x
+++++
+Afin de faire calculer cette matrice, nous devons formuler un problème variationnel correspondant. 
+En regardant le système d'équations linéaires de la méthode de Newton,
+[stem.x-small]
+++++
+\sum_{j=1}^{N} \frac{\partial F_{i}}{\partial U_{j}} \delta U_{j}=-F_{i}, \quad i=1, \ldots, N
+++++
+nous pouvons introduire stem:[v] comme fonction de test générale remplaçant stem:[\hat{\phi}_{i}], et nous pouvons identifier l'inconnue stem:[\delta u=\sum_{j=1}^{N} \delta U_{j}].
+--
+
+=== Newton algébrique 5
+
+[.left.x-small]
+--
+À partir du système linéaire, nous pouvons maintenant "revenir en arrière" pour construire la forme faible discrète correspondante.
+[stem.x-small]
+++++
+\int_{\Omega}\left[q^{\prime}\left(u^{k}\right) \delta u \nabla u^{k} \cdot \nabla v+q\left(u^{k}\right) \nabla \delta u \cdot \nabla v\right] \mathrm{d} x=-\int_{\Omega} q\left(u^{k}\right) \nabla u^{k} \cdot \nabla v \mathrm{~d} x
+++++
+
+L'équation s'adapte à la forme standard stem:[a(\delta u, v)=L(v)] avec
+[stem.x-small]
+++++
+\begin{aligned}
+a(\delta u, v) =\int_{\Omega}\left[q^{\prime}\left(u^{k}\right) \delta u \nabla u^{k} \cdot \nabla v+q\left(u^{k}\right) \nabla \delta u \cdot \nabla v\right] \mathrm{d} x, \quad
+L(v) =-\int_{\Omega} q\left(u^{k}\right) \nabla u^{k} \cdot \nabla v \mathrm{~d} x
+\end{aligned}
+++++
+.Remarques
+[IMPORTANT]
+====
+. La solution précédente stem:[u^{k}] remplace stem:[u] dans les formules lors du calcul de la matrice stem:[\partial F_{i} / \partial U_{j}] et le vecteur stem:[F_{i}] pour le système linéaire à chaque itération de Newton.
+. Afin d'obtenir une bonne estimation initiale stem:[u^{0}], nous pouvons résoudre un problème linéaire simplifié, typiquement avec stem:[q(u)=1,] qui donne l'équation de Laplace standard stem:[\Delta u^{0}=0.]
+====
+--
+
+=== Newton EDP (1)
+
+[.left.x-small]
+--
+Bien que la méthode de Newton dans les problèmes d'EDP soit normalement formulée au niveau de l'algèbre linéaire, c'est-à-dire comme une méthode de résolution de systèmes d'équations algébriques non linéaires, nous pouvons également *formuler la méthode au niveau des EDP.* 
+
+Cette _approche permet de linéariser les EDP avant de les discrétiser._
+
+Étant donné une approximation du champ de solution, stem:[u^{k}], nous recherchons une perturbation stem:[\delta u] telle que
+[stem]
+++++
+u^{k+1}=u^{k}+\delta u
+++++
+satisfasse l'EDP non linéaire. Cependant, le problème pour stem:[\delta u] est toujours non linéaire et on ne gagne rien. 
+--
+
+=== Newton EDP (2)
+
+[.left.x-small]
+--
+IMPORTANT: L'idée est donc de supposer que stem:[\delta u] est suffisamment petit pour que l'on puisse linéariser le problème par rapport à stem:[\delta u]. 
+
+En insérant stem:[u^{k+1}] dans l'EDP, on linéarise le terme stem:[q] comme suit
+[stem.x-small]
+++++
+q\left(u^{k+1}\right)=q\left(u^{k}\right)+q^{\prime}\left(u^{k}\right) \delta u+\mathcal{O}\left((\delta u)^{2}\right) \approx q\left(u^{k}\right)+q^{\prime}\left(u^{k}\right) \delta u
+++++
+et en abandonnant les autres termes non linéaires dans stem:[\delta u,] on obtient
+[stem.x-small]
+++++
+\nabla \cdot\left(q\left(u^{k}\right) \nabla u^{k}\right)+\nabla \cdot\left(q\left(u^{k}\right) \nabla \delta u\right)+\nabla \cdot\left(q^{\prime}\left(u^{k}\right) \delta u \nabla u^{k}\right)=0
+++++
+Nous pouvons rassembler les termes avec l'inconnue stem:[\delta u] sur le côté gauche,
+[stem.x-small]
+++++
+\nabla \cdot\left(q\left(u^{k}\right) \nabla \delta u\right)+\nabla \cdot\left(q^{\prime}\left(u^{k}\right) \delta u \nabla u^{k}\right)=-\nabla \cdot\left(q\left(u^{k}\right) \nabla u^{k}\right)
+++++
+--
+
+=== Newton EDP (3)
+
+[.left.x-small]
+--
+La forme faible de cette EDP est dérivée en la multipliant par une fonction test stem:[v] et en l'intégrant sur stem:[\Omega], en intégrant les dérivées du second ordre par parties :
+[stem]
+++++
+\int_{\Omega}\left(q\left(u^{k}\right) \nabla \delta u \cdot \nabla v+q^{\prime}\left(u^{k}\right) \delta u \nabla u^{k} \cdot \nabla v\right) \mathrm{d} x=-\int_{\Omega} q\left(u^{k}\right) \nabla u^{k} \cdot \nabla v \mathrm{~d} x
+++++
+Le problème variationnel est le suivant : trouver stem:[\delta u \in V] tel que stem:[a(\delta u, v)=L(v)] pour tout stem:[v \in \hat{V},] où
+[stem]
+++++
+\begin{aligned}
+a(\delta u, v) &=\int_{\Omega}\left(q\left(u^{k}\right) \nabla \delta u \cdot \nabla v+q^{\prime}\left(u^{k}\right) \delta u \nabla u^{k} \cdot \nabla v\right) \mathrm{d} x \\
+L(v) &=-\int_{\Omega} q\left(u^{k}\right) \nabla u^{k} \cdot \nabla v \mathrm{~d} x
+\end{aligned}
+++++
+
+NOTE: Les espaces de fonctions stem:[V] et stem:[\hat{V}], étant continus ou discrets, sont comme dans le problème de Poisson linéaire.
+--
+
+=== Newton EDP (4)
+
+[.left.x-small]
+--
+Nous devons fournir une estimation initiale, par exemple, la solution de l'EDP avec stem:[q(u)=1].
+
+La forme faible correspondante stem:[a_{0}\left(u^{0}, v\right)=L_{0}(v)] possède
+[stem]
+++++
+a_{0}(u, v)=\int_{\Omega} \nabla u \cdot \nabla v \mathrm{~d} x, \quad L(v)=0
+++++
+
+Ensuite, nous entrons dans une boucle et résolvons stem:[a(\delta u, v)=L(v)] pour stem:[\delta u] et calculons une nouvelle approximation stem:[u^{k+1}=u^{k}+\delta u]. 
+
+.Remarques
+[IMPORTANT]
+====
+. stem:[\delta u] est une correction, donc si stem:[u^{0}] satisfait les conditions de Dirichlet prescrites sur une partie stem:[\Gamma_{\mathrm{D}}] de la frontière, nous devons exiger stem:[\delta u=0] sur stem:[\Gamma_{\mathrm{D}}].
+. Le critère d'arrêt de la boucle se fait sur l'incrément stem:[\|\delta u\|] 
+. L'algorithme (et le problème linéaire à résoudre) est le même que dans le cas algébrique
+====
+--
+
+== Equation de diffusion dépendant du temps
+
+=== Equation de diffusion dépendant du temps
 [stem]
 ++++
 \begin{split}
