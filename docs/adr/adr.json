@@ -1,6 +1,6 @@
 {
-    "Name": "Diffusion non-lineaire",
-    "ShortName": "diffusion-nl",
+    "Name": "ADR",
+    "ShortName": "adr",
     "Models": {
         "equations": [
             {
@@ -14,13 +14,18 @@
         ]
     },
     "Parameters": {
-        "m": 1
+        "eps": 5e-3,
+        "beta_0": 1,
+        "beta_1": 0,
+        "mu": 0
     },
     "Materials": {
         "mymat1": {
             "markers": "Omega",
-            "equation1_c": "(1+equation1_u)^m:m:equation1_u"//, // diffusion
-            //"equation1_f": "0"
+            "equation1_c": "eps:eps", // diffusion
+            "equation1_beta": "{beta_0,beta_1}:beta_0:beta_1",// advection
+            "equation1_a":"mu:mu",
+            "equation1_f": "1"
         }
     },
     "BoundaryConditions": {
@@ -28,15 +33,9 @@
             "Dirichlet": {
                 "left": {
                     "markers": [
-                        "Left"
+                        "Left","Bottom","Top","Right"
                     ],
                     "expr": "0"
-                },
-                "right": {
-                    "markers": [
-                        "Right"
-                    ],
-                    "expr": "1"
                 }
             }
         }
@@ -48,18 +47,6 @@
                 "fields": [
                     "all"
                 ]
-            }
-        },
-        "equation1": {
-            "Measures": {
-                "Norm": {
-                    "myerror": {
-                        "type": "L2-error",
-                        "field": "solution",
-                        "solution": "((2^(m+1)-1)*x+1)^(1./(m+1))-1:m:x:y",
-                        "markers": "Omega"
-                    }
-                }
             }
         }
     }
