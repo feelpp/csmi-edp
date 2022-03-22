@@ -277,9 +277,9 @@ Le problème de Poisson (avec condition de Dirichlet) admet une unique solution 
 --
 Régularité:: Si de plus stem:[\left.\Omega \text { est de classe } C^{2} \text { (ou polyédrique convexe en } 2 \mathrm{d}\right),] alors stem:[u \in H^{2}(\Omega)]
 
-* *Formulation avec condition de Dirichlet*: link:http://docs.feelpp.org/math/current/fem/laplacian/#sec:cadre-mathematique[Pour en savoir plus]
-* *Formulation avec condition de Neuman*: link:http://docs.feelpp.org/math/current/fem/laplacian/#sec:cond-aux-limit-2[Pour en savoir plus]
-* *Formulation avec condition de Robin/Fourier*: link:http://docs.feelpp.org/math/current/fem/laplacian/#sec:cond-aux-limit-robin[Pour en savoir plus]
+* *Formulation avec condition de Dirichlet*: link:https://docs.feelpp.org/math/fem/laplacian/index.html#sec:cadre-mathematique[Pour en savoir plus, condition homogène] link:https://docs.feelpp.org/math/fem/laplacian/index.html#sec:cond-aux-limit-1[Pour en savoir plus, condition non homogène]
+* *Formulation avec condition de Neuman*: link:https://docs.feelpp.org/math/fem/laplacian/index.html#sec:cond-aux-limit-2[Pour en savoir plus]
+* *Formulation avec condition de Robin/Fourier*: link:https://docs.feelpp.org/math/fem/laplacian/index.html#sec:cond-aux-limit-robin[Pour en savoir plus]
 
 === Méthode de Galerkin
 
