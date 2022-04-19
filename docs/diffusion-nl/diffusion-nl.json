@@ -2,16 +2,30 @@
     "Name": "Square2d",
     "ShortName": "Square2d",
     "Models": {
-        "equations": [
-            {
-                "name": "equation1",
+        "cfpdes": {
+            "equations": "equation1"
+        },
+        "equation1": {
+            "setup": {
                 "unknown": {
                     "basis": "Pch1",
                     "name": "solution",
                     "symbol": "u"
+                },
+                "coefficients": {
+                    "c": "(1+equation1_u)^m:m:equation1_u",
+                    "f": "0"
                 }
             }
-        ]
+        }
+    },
+    "Meshes": {
+        "cfpdes": {
+            "Import": {
+                "filename": "$cfgdir/square.geo",
+                "hsize": 0.02
+            }
+        }
     },
     "Parameters": {
         "m": 1
@@ -19,34 +33,26 @@
     "Materials": {
         "mymat1": {
             "markers": "Omega",
-            "equation1_c": "(1+equation1_u)^m:m:equation1_u", // diffusion
-            "equation1_f": "0"
         }
     },
     "BoundaryConditions": {
         "equation1": {
             "Dirichlet": {
-                "left": {
+                "Border": {
                     "markers": [
-                        "Left"
-                    ],
-                    "expr": "0"
-                },
-                "right": {
-                    "markers": [
+                        "Left",
                         "Right"
                     ],
-                    "expr": "1"
+                    "expr": "x:x:y"
                 }
             }
         }
     },
     "PostProcess": {
-        "use-model-name": 1,
         "cfpdes": {
             "Exports": {
                 "fields": [
-                    "all"
+                    "equation1.solution"
                 ]
             }
         },
