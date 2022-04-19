@@ -28,11 +28,11 @@
         }
     },
     "Parameters": {
-        "m": 1
+        "m": 2
     },
     "Materials": {
         "mymat1": {
-            "markers": "Omega",
+            "markers": "Omega"
         }
     },
     "BoundaryConditions": {
