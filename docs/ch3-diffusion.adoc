@@ -618,6 +618,7 @@ CAUTION: Problème mal posé : pour stem:[v \in H^{1}], stem:[L v \notin L^{2}(\
 [.left.x-small]
 --
 ... mais pour tout stem:[v_{h} \in V_{h}] et tout stem:[K \in \mathcal{T}_{h}, L v_{h \mid K} \in L^{2}].
+
 Formulation variationnelle GLS:
 Trouver stem:[u \in V_{h},]
 [stem.x-small]
